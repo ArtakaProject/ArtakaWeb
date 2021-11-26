@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
-import { BookOpenIcon, ClockIcon, HomeIcon, MenuAlt1Icon, ViewListIcon, XIcon } from '@heroicons/react/outline'
+import { BookOpenIcon, ClockIcon, DocumentReportIcon, HomeIcon, MenuAlt1Icon, UserIcon, ViewListIcon, XIcon } from '@heroicons/react/outline'
 import {
     ClipboardListIcon,
     SearchIcon,
@@ -23,6 +23,8 @@ const navigation = [
     { name: 'Dashboard', href: '/artaka/seller/dashboard', icon: HomeIcon, current: true },
     { name: 'Kategori', href: '/artaka/seller/category', icon: ClipboardListIcon, current: false },
     { name: 'Produk', href: '/artaka/seller/product', icon: ViewGridAddIcon, current: false },
+    { name: 'Laporan', href: '/report/shopperformance', icon: DocumentReportIcon, current: false },
+    { name: 'Customer', href: '/customer', icon: UserIcon, current: false },
     { name: 'Pesanan', href: '/artaka/seller/order', icon: CollectionIcon, current: false },
     { name: 'Manual', href: '/', icon: BookOpenIcon, current: false },
     { name: 'Akun Bayar', href: '/artaka/seller/account', icon: CreditCardIcon, current: false },

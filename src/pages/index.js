@@ -6,3 +6,7 @@ export {default as users} from './users/Users';
 export {default as Home} from './home/Home';
 export {default as Dashboard} from './dashboard/Dashboard';
 export {default as PageNotFound} from './home/PageNotFound';
+export {default as Customer} from './customer/Customer'
+export {default as AddCust} from './customer/AddCust'
+export {default as EditCust} from './customer/EditCust'
+export {default as ShopPerformance} from './report/ShopPerformance'
