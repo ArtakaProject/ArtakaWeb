@@ -14,14 +14,22 @@
 }
 
 .App-header {
+<<<<<<< HEAD
   background-color: #210b27;
+=======
+  background-color: #282c34;
+>>>>>>> origin/chalid
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+<<<<<<< HEAD
   color: #751E8B;
+=======
+  color: white;
+>>>>>>> origin/chalid
 }
 
 .App-link {

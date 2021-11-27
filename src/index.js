@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
 import './index.css';
@@ -34,6 +35,16 @@ ReactDOM.render(
       <Routes />
     </Router>
   </Provider>,
+=======
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+>>>>>>> origin/chalid
   document.getElementById('root')
 );
 
