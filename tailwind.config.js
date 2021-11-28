@@ -1,5 +1,5 @@
 module.exports = {
-<<<<<<< HEAD
+
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -25,19 +25,4 @@ module.exports = {
     require('@tailwindcss/aspect-ratio')
   ],
 }
-=======
-    purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-    darkMode: false, // or 'media' or 'class'
-    theme: {
-      extend: {},
-    },
-    variants: {
-      extend: {},
-    },
-    plugins: [
-      require('@tailwindcss/aspect-ratio'),
-      require('@tailwindcss/forms')
-    ],
-  }
-  
->>>>>>> origin/chalid
+

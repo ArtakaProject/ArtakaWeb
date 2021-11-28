@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 import React, { Fragment, useState, useEffect } from 'react'
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react'
 import { MenuIcon, SearchIcon, ShoppingBagIcon, XIcon } from '@heroicons/react/outline';
@@ -225,9 +223,3 @@ export default function MainLayout(props) {
 
     )
 }
-
-
-
-=======
-
->>>>>>> origin/chalid
