@@ -1,7 +1,9 @@
 import { takeEvery, all } from 'redux-saga/effects';
 import * as ActionType from '../constants/Category';
 import * as ActionTypeUser from '../constants/User';
-import *  as ActionTypeProduct from '../constants/Product'
+import *  as ActionTypeProduct from '../constants/Product';
+import * as ActionTypeCustomer from '../constants/Customer'
+
 import { 
   handleGetCategory,
   handleCreateCategory,
@@ -14,6 +16,7 @@ import {
 } from '../sagas/ProductSaga';
 
 import {handleSignup,handleSignin,handleSignout} from '../sagas/UserSaga'
+import {handleGetCustomer} from '../sagas/CustomerSaga'
 
 function *watchAll() {
   yield all([
@@ -27,6 +30,7 @@ function *watchAll() {
     takeEvery(ActionTypeProduct.ADD_PRODUCT_REQUEST, handleAddProduct),
     takeEvery(ActionTypeProduct.UPDATE_PRODUCT_REQUEST, handleUpdateProduct),
     takeEvery(ActionTypeUser.GET_SIGNOUT_REQUEST, handleSignout)
+    takeEvery(ActionTypeCustomer.GET_CUSTOMER_REQUEST, handleGetCustomer)
   ])
 }
 

@@ -1,5 +1,8 @@
 import React, { useEffect,Fragment,useState } from 'react'
-import Axios from 'axios'
+
+import { useDispatch, useSelector } from 'react-redux';
+
+import { doGetCustomerRequest } from '../../redux/actions/Customer';
 import PageHeading from '../../components/PageHeading';
 import {
     PencilAltIcon,
@@ -26,32 +29,25 @@ function classNames(...classes) {
 
 export default function Customer() {
     let history = useHistory();
+    const dispatch = useDispatch();
+    const customer = useSelector((state) => state.customerState.customer);
 
-    const [customer, setCustomer] = useState([]);
+    // const [customer, setCustomer] = useState([]);
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    let payload = {
-        user_id: '+6281282187515',
-        outlet_id: 'OTL-001'
+    async function fetchData() {
+        const payload = {
+            user_id: '+6281282187515',
+            outlet_id: 'OTL-001'
+        }
+        dispatch(doGetCustomerRequest(payload));
     }
 
-    useEffect(() => {
-        let config = {
-            method: 'POST',
-            url: 'https://artaka-api.com/api/customers/show',
-            data: payload
-        }
-
-        Axios(config).then(response => {
-            setCustomer(response.data)  
-        }).catch(err => {
-            console.log(err)
-        })
-
-        return () => {
-            setCustomer("")
-        }
-    }, [])
-
+    const onDelete = async (id) => {
+     
+    }
 
     return (
         <>

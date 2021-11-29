@@ -1,0 +1,11 @@
+import { Axios } from "axios";
+import config from "../config/config";
+
+const findAll = async(payload)=>{
+    try {
+        const result = await Axios.post(`${config.domain}/customers/show`,payload);
+        return result;    
+    } catch (error) {
+        return error;
+    }
+}
