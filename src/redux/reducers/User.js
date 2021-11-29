@@ -2,23 +2,22 @@ import * as ActionType from '../constants/User';
 
 
 const INIT_STATE = {
-    username: "",
-    user_firstname: "",
-    user_lastname: "",
-    email: "",
-    user_password: "",
-    user_phone: "",
-    role_type: '',
-    status: false,
-    authUser: "JSON.parse(localStorage.getItem('@profile'))",
-    profile: {
-        userId: undefined,
-        username: "",
-        email: "",
-        roleType: ""
-    },
-    token: localStorage.getItem('@token'),
-    isLogout : false
+    business_category: "",
+    clockin: "",
+    employee_id: "",
+    employee_name: "",
+    fcm_token: "",
+    images: [],
+    is_online_store_active: "",
+    message: "",
+    mini_website_url: "",
+    outlet_address: "",
+    outlet_id: "",
+    outlet_name: "",
+    outlet_phone: "",
+    position: "",
+    user_id: "",
+    isLoading: true
 }
 
 const userReducer = (state = INIT_STATE, action) => {
@@ -77,18 +76,23 @@ const applyAddSignupSucceed = (state, action) => {
 
 const applyGetSigninSucceed = (state, action) => {
     const { payload } = action;
-    const { profile } = payload
     return {
         ...state,
-        profile: {
-            userId: profile.userId,
-            username: profile.username,
-            email: profile.email,
-            roleType: profile.roleType
-        },
-        isLoading: false,
-        status: true,
-        isLogout : false
+        business_category: payload.business_category,
+        clockin: payload.clockin,
+        employee_id: payload.employee_id,
+        employee_name: payload.employee_name,
+        fcm_token: payload.fcm_token,
+        images: [...state.images, payload.images],
+        is_online_store_active: payload.is_online_store_active,
+        message: payload.message,
+        mini_website_url: payload.mini_website_url,
+        outlet_address: payload.outlet_address,
+        outlet_id: payload.outlet_id,
+        outlet_name: payload.outlet_name,
+        outlet_phone: payload.outlet_phone,
+        position: payload.position,
+        user_id: payload.user_id
     }
 }
 

@@ -1,5 +1,5 @@
 const config = {
-    domain : 'http://localhost:3001/artaka/api',
+    domain : 'https://artaka-api.com',
     urlImage : 'http://localhost:3001/artaka/api/product/images',
     domainAuth : 'http://localhost:3001/artaka/auth/',
     env: process.env.NODE_ENV || 'development',
