@@ -9,3 +9,8 @@ const findAll = async(payload)=>{
         return error;
     }
 }
+
+export default {
+    findAll
+}
+

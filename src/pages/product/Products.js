@@ -1,4 +1,4 @@
-import React, { useEffect,Fragment } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { doGetProductRequest } from '../../redux/actions/Product';
@@ -19,6 +19,7 @@ const columns = [
     { column: 'Kategori' },
     { column: 'Terjual' },
     { column: 'Stock' },
+    { column: 'Grosir' },
     { column: '' },
 ];
 
@@ -45,7 +46,7 @@ export default function Products() {
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/artaka/seller/product/add')}/>
+            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/artaka/seller/product/add')} />
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
@@ -93,6 +94,12 @@ export default function Products() {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category.category_name}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_stock}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_stock - prod.minimum_stock}</td>
+                                            <td>
+                                                <label class="switch">
+                                                    <input type="checkbox" />
+                                                    <span class="slider round"></span>
+                                                </label>
+                                            </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                                                 <Menu as="div" className="relative flex justify-end items-center ">
                                                     {({ open }) => (
@@ -161,10 +168,10 @@ export default function Products() {
                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                         'group flex items-center px-4 py-2 text-sm'
                                                                                     )}
-                                                                                    /* onClick={() => {
-                                                                                        if (window.confirm('Anda yakin menghapus produk ini ?'))
-                                                                                            onDelete(prod.prod_id)
-                                                                                    }} */
+                                                                                /* onClick={() => {
+                                                                                    if (window.confirm('Anda yakin menghapus produk ini ?'))
+                                                                                        onDelete(prod.prod_id)
+                                                                                }} */
                                                                                 >
                                                                                     <TrashIcon
                                                                                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"

@@ -17,6 +17,7 @@ const INIT_STATE = {
         product_varian: "",
         sub_varian: "",
         bundling: "",
+        grocery_price: false,
         product_desc: "",
         outlet_sell: ""
     },

@@ -2,7 +2,7 @@ import {
     all, call, fork, put, takeEvery, takeLatest,
   } from 'redux-saga/effects';
 
-import apiCustomer from '../../api/api-customer'
+import apiCustomer from '../../api/api-customer';
 import {  
     doGetCustomerRequest,doGetCustomerSucceed,
     doGetCustomerFailed

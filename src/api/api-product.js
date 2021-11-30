@@ -12,7 +12,7 @@ const findAll = async(payload)=>{
 
 const addProduct = async(payload)=>{
     try {
-        const result = await axios.post(`${config.domain}/product/`,payload);
+        const result = await axios.post(`${config.domain}/product/show`,payload);
         return result;    
     } catch (error) {
         return error;
