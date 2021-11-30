@@ -143,7 +143,7 @@ export default function MainLayout(props) {
                             {/* Logo */}
                             <div className="ml-4 flex lg:ml-0">
                                 <span className="flex min-w-0 items-center justify-between space-x-3">
-                                    <img alt="icon" className="h-8 w-auto" src="http://localhost:3000/icon.png" />
+                                    <img alt="icon" className="h-8 w-auto" src="https://artaka-api.com/icon.png" />
                                     {/* <span className="flex-1 flex flex-col min-w-0">
                                         <span className="text-gray-900 text-xl font-medium truncate">.</span>
                                     </span> */}

@@ -1,3 +1,4 @@
+import icon from "../../src/assets/ArtakaClear.png";
 import React, { Fragment, useRef, useState, useEffect } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { Link } from 'react-router-dom'
@@ -44,7 +45,7 @@ export default function SignIn(props) {
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
-                            src="/icon.png"
+                            src="icon"
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign in to your account</h2>

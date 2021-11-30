@@ -71,7 +71,7 @@ export default function LandingLayout(props) {
                 </div>
                 <div className="hidden md:flex">
                   <Link
-                    to="/eshopay/signup"
+                    to="/artaka/signup"
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
                   >
                     Sign Up

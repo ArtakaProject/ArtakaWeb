@@ -23,17 +23,17 @@ import Register from './components/Register';
 export default function Routes() {
   return (
     <Switch>
-      <Redirect exact from="/" to="/eshopay/signin" />
+      <Redirect exact from="/" to="/artaka/signin" />
       
-     {/*  <Route path="/eshopay/signup" component={SignUp} />
-      <Route path="/eshopay/signin" component={Login} /> */}
+     {/*  <Route path="/artaka/signup" component={SignUp} />
+      <Route path="/artaka/signin" component={Login} /> */}
 
       <RouteWithLayout
         component={Register}
         exact
         layout={LandingLayout}
         pageTitle=""
-        path="/eshopay/signup"
+        path="/artaka/signup"
       />
 
       <RouteWithLayout
@@ -41,7 +41,7 @@ export default function Routes() {
         exact
         layout={LandingLayout}
         pageTitle=""
-        path="/eshopay/signin"
+        path="/artaka/signin"
       />
       {/* 
       <RouteWithLayout
@@ -49,7 +49,7 @@ export default function Routes() {
         exact
         layout={MainLayout}
         pageTitle=""
-        path="/eshopay/home"
+        path="/artaka/home"
       /> */}
 
       <RouteWithLayout

@@ -76,23 +76,23 @@ export default function Products() {
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0 h-10 w-10">
                                                         <img className="h-10 w-10 rounded-full"
-                                                            src={`${config.urlImage}/${prod.prod_urlimage}`}
+                                                            src={`${config.urlImage}/${prod.product_url_image}`}
                                                             alt="" />
 
                                                     </div>
                                                     <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900">{prod.prod_name}</div>
-                                                        <div className="text-sm text-gray-500">Stock :{new Intl.NumberFormat('ID').format(prod.prod_stock)}</div>
+                                                        <div className="text-sm font-medium text-gray-900">{prod.product_name}</div>
+                                                        <div className="text-sm text-gray-500">Stock :{new Intl.NumberFormat('ID').format(prod.product_stock)}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.prod_price)}</div>
+                                                <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.price_sell)}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.prod_desc}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category.cate_name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.prod_view_count}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.prod_view_count}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_desc}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category.category_name}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_stock}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_stock - prod.minimum_stock}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                                                 <Menu as="div" className="relative flex justify-end items-center ">
                                                     {({ open }) => (

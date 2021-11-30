@@ -81,7 +81,7 @@ export default function Register(props) {
                                     </button>
                                     <p className="mt-2 text-center text-sm text-gray-600">
                                         Or{' '}
-                                        <Link to="/eshopay/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <Link to="/artaka/signin" className="font-medium text-indigo-600 hover:text-indigo-500">
                                             already have account ?
                                         </Link>
                                     </p>
