@@ -76,7 +76,7 @@ export default function Customer() {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {customer.map((cust) => (
+                                    {customer && customer.map((cust) =>(
                                         <tr key={cust.id}>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="flex items-center">
