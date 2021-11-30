@@ -144,12 +144,12 @@ export default function Login(props) {
                   </div>
 
                   <div className="text-sm">
-                    <a
-                      href="#"
+                    <Link
+                      to="/eshopay/signup"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                         Daftar Sekarang
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </form>

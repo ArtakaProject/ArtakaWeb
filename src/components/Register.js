@@ -52,9 +52,9 @@ export default function Register(props) {
   return (
     <>
       <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-        <div className="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-          <div className="px-4 py-10 sm:px-10">
-            <p className=" text-2xl font-semibold text-gray-700 text-center">
+        <div className="bg-white -mt-14 sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+          <div className="px-4 py-2 sm:px-10">
+            <p className=" text-2xl mt-1 font-semibold text-gray-700 text-center">
               Daftar Akun Artaka
             </p>
             <div className="mt-6">
@@ -105,7 +105,6 @@ export default function Register(props) {
                     placeholder="Email (Tidak Wajib)"
                   //  value={values.user_id}
                   //  onChange={handleChange("user_id")}
-                    required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -154,7 +153,6 @@ export default function Register(props) {
                     id="referral"
                     autoComplete="name"
                     placeholder="Kode Referral (Tidak Wajib)"
-                    required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>

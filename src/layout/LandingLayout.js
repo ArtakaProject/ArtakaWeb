@@ -44,7 +44,7 @@ export default function LandingLayout(props) {
                       </Popover.Button>
                     </div>
                   </div>
-                  <div className="hidden space-x-10 md:flex md:ml-10">
+                  <div className=" hidden space-x-10 md:flex md:ml-10">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
@@ -58,10 +58,10 @@ export default function LandingLayout(props) {
                 </div>
                 <div className="hidden md:flex">
                   <Link
-                    to="/eshopay/signup"
+                    to="/eshopay/signin"
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
                   >
-                    Sign Up
+                    Sign In
                   </Link>
                 </div>
               </nav>
