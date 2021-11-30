@@ -37,7 +37,7 @@ export default function AddProduct() {
         weight: 0,
         product_stock: 0,
         minimum_stock: 0,
-        product_decr_stock: false,
+        product_decr_stock: undefined,
         product_varian: undefined,
         sub_varian: undefined,
         bundling: undefined,
@@ -89,7 +89,13 @@ export default function AddProduct() {
         payload.append('product_name', values.product_name);
         payload.append('category_name', values.category_name);
         payload.append('product_satuan', values.product_satuan);
+        payload.append('price_sell', values.price_sell); 
         payload.append('product_code', values.product_code);
+        payload.append('price_modal', values.price_modal);
+        payload.append('weight', values.weight);
+        payload.append('product_stock', values.product_stock);
+        payload.append('minimum_stock', values.minimum_stock);
+        payload.append('product_decr_stock', values.product_decr_stock);
         payload.append('product_varian', values.product_varian);
         payload.append('sub_varian', values.sub_varian);
         payload.append('bundling', values.bundling);
