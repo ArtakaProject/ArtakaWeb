@@ -3,7 +3,7 @@ import config from '../config/config';
 
 const signup = async(data)=>{
     try {
-        const result = await axios.post(`${config.domainAuth}/signup`,data);
+        const result = await axios.post(`${config.domain}/signup`,data);
         return result;    
     } catch (error) {
         return error;
@@ -12,7 +12,7 @@ const signup = async(data)=>{
 
 const signin = async(data)=>{
     try {
-        const result = await axios.post(`${config.domainAuth}/signin`,data);
+        const result = await axios.post(`${config.domain}/signin`,data);
         return result;    
     } catch (error) {
         return error;

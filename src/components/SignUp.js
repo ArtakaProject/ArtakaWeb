@@ -1,4 +1,3 @@
-import icon from "../../src/assets/ArtakaSignUp.png";
 import React, { Fragment, useRef, useState, useEffect } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from 'react-redux';
