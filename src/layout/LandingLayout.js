@@ -7,14 +7,14 @@ import ArtakaClear from "../assets/ArtakaClear.png";
 import ArtakaSignUp from "../assets/ArtakaSignUp.png";
 
 const navigation = [
-  { name: "Product", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "UMKM", href: "#" },
+  { name: "About Us", href: "https://artaka.id/home-2/" },
+  { name: "Contact Us", href: "https://artaka.id/kontak/" },
+  { name: "Youtube Channel", href: "https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA"}
 ];
 
 export default function LandingLayout(props) {
   return (
-    <div className=" max-h-screen bg-gray-400 overflow-hidden">
+    <div className=" max-h-screen bg-gray-300 overflow-hidden">
       <div
         className="hidden sm:block sm:absolute sm:inset-0"
         aria-hidden="true"
@@ -49,7 +49,7 @@ export default function LandingLayout(props) {
                       <a
                         key={item.name}
                         href={item.href}
-                        className="font-medium text-white hover:text-gray-300"
+                        className="font-medium text-black hover:text-purple-700"
                       >
                         {item.name}
                       </a>
@@ -59,7 +59,7 @@ export default function LandingLayout(props) {
                 <div className="hidden md:flex">
                   <Link
                     to="/eshopay/signin"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
+                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-blue-700"
                   >
                     Sign In
                   </Link>
@@ -104,12 +104,12 @@ export default function LandingLayout(props) {
                         </a>
                       ))}
                     </div>
-                    <a
-                      href="#"
+                    <Link
+                      to="/eshopay/signin"
                       className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
                     >
-                      Log in
-                    </a>
+                      Sign in
+                    </Link>
                   </div>
                 </Popover.Panel>
               </Transition>
