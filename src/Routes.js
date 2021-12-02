@@ -19,6 +19,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Login from './components/Login';
 import LandingLayout from './layout/LandingLayout';
+import LoginLayout from './layout/LoginLayout';
 import Register from './components/Register';
 
 export default function Routes() {
@@ -32,7 +33,7 @@ export default function Routes() {
       <RouteWithLayout
         component={Register}
         exact
-        layout={LandingLayout}
+        layout={LoginLayout}
         pageTitle=""
         path="/eshopay/signup"
       />
@@ -40,7 +41,7 @@ export default function Routes() {
       <RouteWithLayout
         component={Login}
         exact
-        layout={LandingLayout}
+        layout={LoginLayout}
         pageTitle=""
         path="/eshopay/signin"
       />

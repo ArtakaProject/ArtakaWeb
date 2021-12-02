@@ -3,7 +3,7 @@ import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import ArtakaClear from "../assets/ArtakaClear.png";
-import ArtakaLanding from "../assets/ArtakaLanding.png"
+import ArtakaSignUp from "../assets/ArtakaSignUp.png";
 
 const navigation = [
   { name: "About Us", href: "https://artaka.id/home-2/" },
@@ -14,9 +14,9 @@ const navigation = [
   },
 ];
 
-export default function LandingLayout(props) {
+export default function LoginLayout(props) {
   return (
-    <div className=" max-h-full bg-gray-200 overflow-hidden">
+    <div className=" max-h-screen bg-gray-200 overflow-hidden">
       <div
         className="hidden sm:block sm:absolute sm:inset-0"
         aria-hidden="true"
@@ -121,11 +121,11 @@ export default function LandingLayout(props) {
         <main className="mt-16 sm:mt-24">
           <div className="mx-auto max-w-7xl">
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-              <div className="px-4 pt-6 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
+              <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <img
-                    className="mx-auto h-96 w-full pl-10"
-                    src={ArtakaLanding}
+                    className="mx-auto h-full pl-10 w-auto"
+                    src={ArtakaSignUp}
                     alt="Workflow"
                   />
                 </div>
