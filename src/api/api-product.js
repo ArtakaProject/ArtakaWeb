@@ -3,7 +3,7 @@ import config from '../config/config';
 
 const findAll = async(payload)=>{
     try {
-        const result = await axios.get(`${config.domain}/product/`,payload);
+        const result = await axios.get(`${config.domain}/product/show`,payload);
         return result;    
     } catch (error) {
         return error;
@@ -12,16 +12,16 @@ const findAll = async(payload)=>{
 
 const addProduct = async(payload)=>{
     try {
-        const result = await axios.post(`${config.domain}/product/show`,payload);
+        const result = await axios.post(`${config.domain}/product/add`,payload);
         return result;    
     } catch (error) {
         return error;
     }
 }
 
-const editProduct = async(payload)=>{
+const editProduct = async(id, payload)=>{
     try {
-        const result = await axios.put(`${config.domain}/product/`,payload);
+        const result = await axios.put(`${config.domain}/product/${id}`,payload);
         return result;    
     } catch (error) {
         return error;
