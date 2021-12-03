@@ -9,7 +9,7 @@ import ArtakaClear from "../assets/ArtakaClear.png";
 
 export default function Login(props) {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.userState.status);
+  const userId = useSelector((state) => state.userState.user_id);
 
   const [values, setValues] = useState({
     user_id: "",
@@ -30,8 +30,8 @@ export default function Login(props) {
     dispatch(doSigninRequest(payload));
   };
 
-  if (status) {
-    return <Redirect to={"/"} />;
+  if (userId) {
+    return <Redirect to={"/artaka/seller/dashboard"} />;
   }
   return (
     <>
@@ -145,7 +145,7 @@ export default function Login(props) {
 
                   <div className="text-sm">
                     <Link
-                      to="/eshopay/signup"
+                      to="/artaka/signup"
                       className="font-medium text-indigo-600 hover:text-indigo-500"
                     >
                         Daftar Sekarang

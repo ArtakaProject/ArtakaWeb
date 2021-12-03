@@ -27,15 +27,15 @@ export default function Routes() {
     <Switch>
       <Redirect exact from="/" to="/artaka/landing" />
       
-     {/*  <Route path="/eshopay/signup" component={SignUp} />
-      <Route path="/eshopay/signin" component={Login} /> */}
+     {/*  <Route path="/artaka/signup" component={SignUp} />
+      <Route path="/artaka/signin" component={Login} /> */}
 
       <RouteWithLayout
         component={Register}
         exact
         layout={LoginLayout}
         pageTitle=""
-        path="/eshopay/signup"
+        path="/artaka/signup"
       />
 
       <RouteWithLayout
@@ -43,7 +43,7 @@ export default function Routes() {
         exact
         layout={LoginLayout}
         pageTitle=""
-        path="/eshopay/signin"
+        path="/artaka/signin"
       />
       {/* 
       <RouteWithLayout
@@ -51,7 +51,7 @@ export default function Routes() {
         exact
         layout={MainLayout}
         pageTitle=""
-        path="/eshopay/home"
+        path="/artaka/home"
       /> */}
 
         <RouteWithLayout
