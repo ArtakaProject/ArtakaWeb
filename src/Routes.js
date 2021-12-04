@@ -12,18 +12,20 @@ import {
   ShopPerformance as ReportPage,
   AddCust,EditCust,
   AddProduct, EditProduct,
-  PageNotFound
+  PageNotFound,
+  LandingPage
 } from './pages';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Login from './components/Login';
 import LandingLayout from './layout/LandingLayout';
+import LoginLayout from './layout/LoginLayout';
 import Register from './components/Register';
 
 export default function Routes() {
   return (
     <Switch>
-      <Redirect exact from="/" to="/artaka/signin" />
+      <Redirect exact from="/" to="/artaka/landing" />
       
      {/*  <Route path="/artaka/signup" component={SignUp} />
       <Route path="/artaka/signin" component={Login} /> */}
@@ -31,7 +33,7 @@ export default function Routes() {
       <RouteWithLayout
         component={Register}
         exact
-        layout={LandingLayout}
+        layout={LoginLayout}
         pageTitle=""
         path="/artaka/signup"
       />
@@ -39,7 +41,7 @@ export default function Routes() {
       <RouteWithLayout
         component={Login}
         exact
-        layout={LandingLayout}
+        layout={LoginLayout}
         pageTitle=""
         path="/artaka/signin"
       />
@@ -51,6 +53,14 @@ export default function Routes() {
         pageTitle=""
         path="/artaka/home"
       /> */}
+
+        <RouteWithLayout
+        component={LandingPage}
+        exact
+        layout={LandingLayout}
+        pageTitle="Landing"
+        path="/artaka/landing"
+      />
 
       <RouteWithLayout
         component={DashboardPage}
