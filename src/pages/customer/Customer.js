@@ -31,35 +31,6 @@ export default function Customer() {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customerState.customer.data);
   const isLoading = useSelector((state) => state.customerState.isLoading);
-
-  /*const [customer, setCustomer] = useState([]);
-  let payload = {
-    user_id: "+6281282187515",
-    outlet_id: "OTL-001",
-  };
-
-  useEffect(() => {
-    let config = {
-      method: "POST",
-      url: "https://artaka-api.com/api/customers/show",
-      data: payload,
-    };
-
-    Axios(config)
-      .then((response) => {
-        setCustomer(response.data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-      });
-
-    return () => {
-      setCustomer("");
-    };
-  }, []); */
-
   useEffect(() => {
     const payload = {
       user_id: "+6281282187515",
