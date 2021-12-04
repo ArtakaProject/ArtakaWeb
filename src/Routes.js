@@ -18,6 +18,7 @@ import {
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Login from './components/Login';
+import AdminLayout from './layout/AdminLayout.js'
 import LandingLayout from './layout/LandingLayout';
 import LoginLayout from './layout/LoginLayout';
 import Register from './components/Register';
@@ -62,10 +63,10 @@ export default function Routes() {
         path="/artaka/landing"
       />
 
-      <RouteWithLayout
+       <RouteWithLayout
         component={DashboardPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Dashboard"
         path="/artaka/seller/dashboard"
       />
@@ -73,7 +74,7 @@ export default function Routes() {
       <RouteWithLayout
         component={PageNotFound}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="404"
         path="/artaka/not-found"
       />
@@ -81,59 +82,60 @@ export default function Routes() {
       <RouteWithLayout
         component={CategoryPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Category"
         path="/artaka/seller/category"
       />
       <RouteWithLayout
         component={ProductPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Products"
         path="/artaka/seller/product"
       />
       <RouteWithLayout
         component={AddProduct}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Products"
         path="/artaka/seller/product/add"
       />
       <RouteWithLayout
         component={EditProduct}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Products"
         path="/artaka/seller/product/edit"
       />
       <RouteWithLayout
         component={customerPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Daftar Pelanggan"
-        path="/customer"
+        path="/artaka/seller/customer"
       />
       <RouteWithLayout
         component={AddCust}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Tambahkan Pelanggan"
-        path="/customer/add"
+        path="/artaka/seller/customer/add"
       />
       <RouteWithLayout
         component={EditCust}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Info Pelanggan"
-        path="/customer/edit"
+        path="/artaka/seller/customer/edit"
       />
       <RouteWithLayout
         component={ReportPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Performansi Toko"
-        path="/report/shopperformance"
+        path="/artaka/seller/report"
       />
+
       <Redirect to="/artaka/not-found" status="404" />
     </Switch>
   );
