@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { RouteWithLayout } from './layout/common';
-import { MainLayout, MainLayoutSidebar } from './layout';
+import { MainLayout, MainLayoutSidebar, AdminLayout } from './layout';
 
 import {
   Home as HomePage,
@@ -55,7 +55,7 @@ export default function Routes() {
       <RouteWithLayout
         component={DashboardPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Dashboard"
         path="/artaka/seller/dashboard"
       />
@@ -63,7 +63,7 @@ export default function Routes() {
       <RouteWithLayout
         component={PageNotFound}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="404"
         path="/artaka/not-found"
       />
@@ -71,56 +71,56 @@ export default function Routes() {
       <RouteWithLayout
         component={CategoryPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Category"
         path="/artaka/seller/category"
       />
       <RouteWithLayout
         component={ProductPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Products"
         path="/artaka/seller/product"
       />
       <RouteWithLayout
         component={AddProduct}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Products"
         path="/artaka/seller/product/add"
       />
       <RouteWithLayout
         component={EditProduct}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Products"
         path="/artaka/seller/product/edit"
       />
       <RouteWithLayout
         component={customerPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Daftar Pelanggan"
-        path="/customer"
+        path="/artaka/seller/customer"
       />
       <RouteWithLayout
         component={AddCust}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Tambahkan Pelanggan"
         path="/customer/add"
       />
       <RouteWithLayout
         component={EditCust}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Info Pelanggan"
         path="/customer/edit"
       />
       <RouteWithLayout
         component={ReportPage}
         exact
-        layout={MainLayoutSidebar}
+        layout={AdminLayout}
         pageTitle="Performansi Toko"
         path="/report/shopperformance"
       />
