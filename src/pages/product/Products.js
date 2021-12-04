@@ -19,8 +19,7 @@ const columns = [
     { column: 'Kategori' },
     { column: 'Terjual' },
     { column: 'Stock' },
-    { column: 'Grosir' },
-    { column: '' },
+    { column: 'Grosir' }
 ];
 
 function classNames(...classes) {
@@ -37,7 +36,9 @@ export default function Products() {
     }, []);
 
     async function fetchData() {
-        const payload = {}
+        const payload = {
+            user_id: '+6281282187515', outlet_id: 'OTL-001'
+        }
         dispatch(doGetProductRequest(payload));
     }
 
@@ -46,7 +47,7 @@ export default function Products() {
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/artaka/seller/product/add')} />
+            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} />
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
@@ -142,8 +143,7 @@ export default function Products() {
 
                                                                         <Menu.Item>
                                                                             {({ active }) => (
-                                                                                < Link to={`/hr/employee/upload/`}
-
+                                                                                < Link to='#'
                                                                                     className={classNames(
                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                         'group flex items-center px-4 py-2 text-sm'

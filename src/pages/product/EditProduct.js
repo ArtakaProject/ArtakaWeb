@@ -1,29 +1,44 @@
-
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { doCategoryStarted } from '../../redux/actions/Category';
 import { doEditProductRequest } from '../../redux/actions/Product';
+import { Axios } from 'axios';
 
 export default function EditProduct() {
     let history = useHistory();
 
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.categoryState.categories);
-    const { redirect } = useSelector(state => state.productState);
-    const { authUser } = useSelector(state => state.userState);
+    //const categories = useSelector(state => state.categoryState.categories);
+    //const { redirect } = useSelector(state => state.productState);
+    //const { authUser } = useSelector(state => state.userState);
 
     const [uploaded, setUploaded] = useState(false);
+    const [product, setProduct] = useState(false);
 
-    async function fetchData() {
-        const payload = {}
-        dispatch(doCategoryStarted(payload));
+    let payload = {
+        user_id: '+6281282187515',
+        outlet_id: 'OTL-001'
     }
 
     // load data category only once when page render
     useEffect(() => {
-        fetchData();
-    }, []);
+        let config = {
+            method: 'POST',
+            url: 'https://artaka-api.com/api/products/show',
+            data: payload
+        }
+
+        Axios(config).then(response => {
+            setProduct(response.data[0])
+        }).catch(err => {
+            console.log(err);
+        })
+
+        return () => {
+            setProduct("")
+        }
+    },[]);
 
     const [values, setValues] = useState({
         prod_id: undefined,
@@ -108,9 +123,9 @@ export default function EditProduct() {
 
     }
 
-    if (redirect) {
+    /* if (redirect) {
         return (<Redirect to={'/artaka/seller/product'} />)
-    }
+    } */
 
     return (
         <div class="mt-10 sm:mt-0">
@@ -125,9 +140,9 @@ export default function EditProduct() {
                                         <label /* class="block text-sm font-medium text-gray-700" */><b>Edit Produk</b></label>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2"></div>
+                                    <div class="col-span-6 sm:col-span-3"></div>
 
-                                    <div className="col-span-6 sm:col-span-2 lg:col-span-3 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    <div className="col-span-6 sm:col-span-3 lg:col-span-3 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                         <div className="space-y-2 text-center">
                                             <div className="mx-auto h-48 w-24 text-gray-400">
                                                 {uploaded === false ?
@@ -161,9 +176,9 @@ export default function EditProduct() {
                                         </div>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2"></div>
+                                    <div class="col-span-6 sm:col-span-3"></div>
 
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <input type="text"
                                             onChange={handleOnChange('prod_id')}
                                             class="hidden"
@@ -177,7 +192,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2 lg:col-span-3">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="department" class="block text-sm font-medium text-gray-700">Kategori (Wajib)</label>
                                         <select id="department" type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                             value={values.category_name}
@@ -202,7 +217,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" /> */}
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="product_satuan" class="block text-sm font-medium text-gray-700">Satuan (Wajib)</label>
                                         <input type="text" name="product_satuan"
                                             value={values.product_satuan}
@@ -211,7 +226,7 @@ export default function EditProduct() {
                                     </div>
 
 
-                                    <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="price_sell" class="block text-sm font-medium text-gray-700">Harga Jual (Rp) (Wajib)</label>
                                         <input type="text" name="price_sell"
                                             value={values.price_sell}
@@ -219,7 +234,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="product_code" class="block text-sm font-medium text-gray-700">SKU / Kode Barang</label>
                                         <input type="text"
                                             value={values.product_code}
@@ -235,7 +250,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="weight" class="block text-sm font-medium text-gray-700">Berat (gram) (Opsional)</label>
                                         <input type="text"
                                             value={values.weight}
@@ -251,7 +266,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="prod_stock" class="block text-sm font-medium text-gray-700">Minimum Stok (Opsional)</label>
                                         <input type="number"
                                             value={values.prod_stock}
@@ -268,7 +283,7 @@ export default function EditProduct() {
                                         </label>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="product_varian" class="block text-sm font-medium text-gray-700">Varian Produk (Opsional)</label>
                                         <input type="text"
                                             value={values.product_varian}
@@ -284,7 +299,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="bundling" class="block text-sm font-medium text-gray-700"><i>Bundling</i> / Bahan Baku (Opsional)</label>
                                         <input type="text"
                                             value={values.bundling}
@@ -292,7 +307,7 @@ export default function EditProduct() {
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="prod_stock" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
                                         <label class="switch">
                                         <input type="checkbox" value={values.grocery_price}/>
@@ -300,7 +315,7 @@ export default function EditProduct() {
                                         </label>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-3">
+                                    <div class="col-span-6 sm:col-span-6">
                                         <label for="product_desc" class="block text-sm font-medium text-gray-700">Deskripsi (Opsional)</label>
                                         <input type="text"
                                             value={values.product_desc}
@@ -310,7 +325,7 @@ export default function EditProduct() {
 
                                     <div></div>
 
-                                    <div class="col-span-6 sm:col-span-2">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <label for="outlet_sell" class="block text-sm font-medium text-gray-700">Jual di Outlet</label>
                                         <input type="text"
                                             value={values.outlet_sell}
