@@ -12,7 +12,7 @@ const findAll = async(payload)=>{
 
 const addProduct = async(payload)=>{
     try {
-        const result = await axios.post(`${config.domain}/product/add`,payload);
+        const result = await axios.post(`${config.domain}/product/show`,payload);
         return result;    
     } catch (error) {
         return error;
@@ -21,7 +21,7 @@ const addProduct = async(payload)=>{
 
 const editProduct = async(id, payload)=>{
     try {
-        const result = await axios.put(`${config.domain}/product/${id}`,payload);
+        const result = await axios.put(`${config.domain}/product/show/${id}`,payload);
         return result;    
     } catch (error) {
         return error;

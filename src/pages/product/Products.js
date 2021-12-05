@@ -48,7 +48,7 @@ export default function Products() {
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} />
+            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/artaka/seller/product/add')} />
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
@@ -124,7 +124,7 @@ export default function Products() {
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {({ active }) => (
-                                                                                <Link to={`/seller/product/edit/${prod.id}`}
+                                                                                <Link to={`/artaka/seller/product/edit/`}
                                                                                     className={classNames(
                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                         'group flex items-center px-4 py-2 text-sm'

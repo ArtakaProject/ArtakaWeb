@@ -90,21 +90,21 @@ export default function Routes() {
         component={ProductPage}
         exact
         layout={AdminLayout}
-        pageTitle="Products"
+        pageTitle="Produk"
         path="/artaka/seller/product"
       />
       <RouteWithLayout
         component={AddProduct}
         exact
         layout={AdminLayout}
-        pageTitle="Products"
+        pageTitle="Tambah Produk"
         path="/artaka/seller/product/add"
       />
       <RouteWithLayout
         component={EditProduct}
         exact
         layout={AdminLayout}
-        pageTitle="Products"
+        pageTitle="Edit Produk"
         path="/artaka/seller/product/edit"
       />
       <RouteWithLayout

@@ -309,7 +309,7 @@ export default function AddProduct() {
 
                                 <button type="submit"
                                     onClick={() => {
-                                        history.push("/seller/product");
+                                        history.push("/artaka/seller/product");
                                     }}
                                     class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Batal
