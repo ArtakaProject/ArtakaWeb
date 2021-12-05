@@ -4,13 +4,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doGetProductRequest } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
 import {
-    PencilAltIcon, TrashIcon,
-    DotsVerticalIcon, PhotographIcon
+    PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
 import config from '../../config/config';
 
 import { useHistory, Link } from "react-router-dom";
+
+//import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import Pagination from 'react-js-pagination';
+
+
 
 const columns = [
     { column: 'Nama' },
@@ -25,6 +29,19 @@ const columns = [
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+
+function constructor(props) {
+    super(props);
+    this.state = {
+        activePage: 15
+    };
+}
+
+function handlePageChange(pageNumber) {
+    console.log(`active page is ${pageNumber}`);
+    this.setState({ activePage: pageNumber });
+}
+
 
 export default function Products() {
     let history = useHistory();
@@ -189,6 +206,15 @@ export default function Products() {
                                         </tr>
                                     ))}
                                 </tbody>
+                                <div>
+                                    <Pagination
+                                        activePage={this.state.activePage}
+                                        itemsCountPerPage={10}
+                                        totalItemsCount={450}
+                                        pageRangeDisplayed={5}
+                                        onChange={this.handlePageChange.bind(this)}
+                                    />
+                                </div>
                             </table>
                         </div>
                     </div>

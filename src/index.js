@@ -9,6 +9,10 @@ import { Provider } from 'react-redux';
 import store from './redux/stores'
 
 import Routes from './Routes';
+import Pagination from 'react-js-pagination';
+
+
+
 
 const browserHistory = createBrowserHistory();
 

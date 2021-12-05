@@ -19,9 +19,9 @@ export default function ProductList() {
         dispatch(doGetProductRequest(payload));
     }
 
-    const addToCart=(id)=>{
-        const payload ={}
-       dispatch(doAddToCart(payload))
+    const addToCart = (id) => {
+        const payload = {}
+        dispatch(doAddToCart(payload))
     }
 
     return (
@@ -31,35 +31,34 @@ export default function ProductList() {
                     {products && products.map(prod => (
                         <div class="group relative">
                             <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                                <img src={`${config.urlImage}/${prod.product_url_image}`} alt="Front of men&#039;s Basic Tee in black." class="w-full h-full object-center object-cover lg:w-full lg:h-full" />
+                                <img src={`${config.urlImage}/${prod.images}`} alt="Coptadentis" class="w-full h-full object-center object-cover lg:w-full lg:h-full" />
                             </div>
                             <div class="mt-4 flex justify-between">
                                 <div>
                                     <h3 class="text-sm text-gray-700">
                                         <Link to="/artaka/">
                                             <span aria-hidden="true" class="absolute"></span>
-                                            {prod.product_name}    
+                                            {prod.name}
                                         </Link>
                                     </h3>
-                                    <p class="mt-1 text-sm text-gray-500">{prod.product_desc}</p>
+                                    <p class="mt-1 text-sm text-gray-500">{prod.description}</p>
                                 </div>
-                                <p class="text-xs font-medium text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.price_sell)}</p>
+                                <p class="text-xs font-medium text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</p>
                             </div>
-                            <div className="flex">  
+                            <div className="flex">
                                 <button
                                     type="button"
                                     className="flex-1 mt-3 ml-3 bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-grey-500"
                                     onClick={() => {
-                                        addToCart(prod.prod_id)
+                                        addToCart(prod.id)
                                     }}
                                 >
                                     Tambah ke Keranjang
                                 </button>
-                                
+
                             </div>
                         </div>
                     ))}
-
 
                 </div>
             </div>
