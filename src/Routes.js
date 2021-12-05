@@ -122,7 +122,7 @@ export default function Routes() {
         exact
         layout={AdminLayout}
         pageTitle="Performansi Toko"
-        path="/report/shopperformance"
+        path="/artaka/seller/report"
       />
       <Redirect to="/artaka/not-found" status="404" />
     </Switch>

@@ -1,5 +1,4 @@
 import React, { useEffect, Fragment, useState } from "react";
-import Axios from "axios";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { doGetCustomerRequest } from "../../redux/actions/Customer";
 import PageHeading from "../../components/PageHeading";
@@ -13,6 +12,9 @@ import { Menu, Transition } from "@headlessui/react";
 import config from "../../config/config";
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import ReactPaginate from 'react-paginate';
+import Axios from 'axios'
+
 
 const columns = [
   { column: "Nama" },
@@ -29,28 +31,80 @@ function classNames(...classes) {
 export default function Customer() {
   let history = useHistory();
   const dispatch = useDispatch();
-  const customer = useSelector((state) => state.customerState.customer.data);
-  const isLoading = useSelector((state) => state.customerState.isLoading);
+  // const customer = useSelector((state) => state.customerState.customer.data);
+  const [currentItems, setCurrentItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  let data = []
+  const [customer, setCustomer] = useState([]);
+
+  let payload = {
+    user_id: '+6281282187515',
+    outlet_id: 'OTL-001'
+  }
+  // const columns = useMemo(() => [
+  //   {
+  //     Header: 'Nama',
+  //     accessor: 'name'
+  //   },
+  //   {
+  //     Header: 'Kontak',
+  //     accessor: 'phone'
+  //   },
+  //   {
+  //     Header: 'Tanggal Bergabung',
+  //     accessor: 'create_dtm'
+  //   }
+  // ])
+
   useEffect(() => {
+    const endOffset = itemOffset + 5;
+    let config = {
+      method: 'POST',
+      url: 'https://artaka-api.com/api/customers/show',
+      data: payload
+    }
+
+    Axios(config).then(response => {
+      setCustomer(response.data)
+      setCurrentItems(response.data.slice(itemOffset, endOffset));
+      console.log(currentItems);
+      setPageCount(Math.ceil(response.data.length / 5));
+    }).catch(err => {
+      console.log(err)
+    })
+
+    return () => {
+      setCustomer("")
+    }
+
+    // fetchData();
+    // if (customer != null) {
+    //   data = customer
+    //   setCurrentItems(data.slice(itemOffset, endOffset));
+    //   console.log(currentItems);
+    //   setPageCount(Math.ceil(data.length / 5));
+    // }
+  }, [itemOffset, 5]);
+
+
+  async function fetchData() {
     const payload = {
       user_id: "+6281282187515",
       outlet_id: "OTL-001"
-  }
-  dispatch(doGetCustomerRequest(payload));
-    // fetchData();
-  }, []);
-
-  
-
-  async function fetchData() {
-      const payload = {
-          user_id: "+6281282187515",
-          outlet_id: "OTL-001"
-      }
-      dispatch(doGetCustomerRequest(payload));
+    }
+    dispatch(doGetCustomerRequest(payload));
   }
 
-  const onDelete = async (id) => {};
+  const handlePageClick = (event) => {
+    const newOffset = (event.selected * 5) % customer.length;
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${newOffset}`
+    );
+    setItemOffset(newOffset);
+  };
+
+  // const onDelete = async (id) => { };
 
   return (
     <>
@@ -62,27 +116,28 @@ export default function Customer() {
         <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-               {isLoading && (
+              {currentItems == null && (
                 <div className="flex items-center h-screen">
                   <CircularProgress className="mx-auto" />
                 </div>
-              )} 
-               {!isLoading && ( 
-                <table className="min-w-full h-auto divide-gray-200">
-                  <thead className="bg-gray-200">
-                    <tr>
-                      {columns.map((col) => (
-                        <th
-                          scope="col"
-                          className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          {col.column}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {customer && customer.map((cust) => (
+              )}
+              {currentItems != null && (
+                <>
+                  <table className="min-w-full h-auto divide-gray-200">
+                    <thead className="bg-gray-200">
+                      <tr>
+                        {columns.map((col) => (
+                          <th
+                            scope="col"
+                            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                          >
+                            {col.column}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {currentItems && currentItems.map((cust) => (
                         <tr key={cust.id}>
                           <td>
                             <div className="flex items-center">
@@ -193,9 +248,20 @@ export default function Customer() {
                           </td>
                         </tr>
                       ))}
-                  </tbody>
-                </table>
-               )} 
+                    </tbody>
+                  </table>
+                    <ReactPaginate
+                      className="grid grid-rows-1 grid-flow-col"
+                      breakLabel="..."
+                      nextLabel="next >"
+                      onPageChange={handlePageClick}
+                      pageRangeDisplayed={1}
+                      pageCount={pageCount}
+                      previousLabel="< previous"
+                      renderOnZeroPageCount={null}
+                    />
+                </>
+              )}
             </div>
           </div>
         </div>

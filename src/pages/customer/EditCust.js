@@ -1,165 +1,237 @@
-import React, { useEffect, useState, useMemo } from 'react'
-import { useHistory } from 'react-router-dom'
-import Axios from 'axios'
+import React, { useEffect, useState, useMemo } from "react";
+import { useHistory } from "react-router-dom";
+import Axios from "axios";
 
 export default function EditCust() {
-    let history = useHistory();
+  let history = useHistory();
 
-    const [uploaded, setUploaded] = useState(false);
-    const [customer, setCustomer] = useState([]);
+  const [uploaded, setUploaded] = useState(false);
+  const [customer, setCustomer] = useState([]);
 
-    const [files, setFiles] = useState({
-        file: undefined,
-        imagePreviewUrl: undefined
-    })
+  const [files, setFiles] = useState({
+    file: undefined,
+    imagePreviewUrl: undefined,
+  });
 
-    const uploadOnChange = name => event => {
-        let reader = new FileReader();
-        let file = event.target.files[0];
+  const uploadOnChange = (name) => (event) => {
+    let reader = new FileReader();
+    let file = event.target.files[0];
 
-        reader.onloadend = () => {
-            setFiles({
-                ...files,
-                file: file,
-                imagePreviewUrl: reader.result
-            });
-        }
+    reader.onloadend = () => {
+      setFiles({
+        ...files,
+        file: file,
+        imagePreviewUrl: reader.result,
+      });
+    };
 
-        reader.readAsDataURL(file);
-        setUploaded(true);
-    }
+    reader.readAsDataURL(file);
+    setUploaded(true);
+  };
 
-    const onClearImage = event => {
-        event.preventDefault();
-        setUploaded(false);
-        setFiles({
-            file: undefined,
-            imagePreviewUrl: undefined
-        })
-    }
+  const onClearImage = (event) => {
+    event.preventDefault();
+    setUploaded(false);
+    setFiles({
+      file: undefined,
+      imagePreviewUrl: undefined,
+    });
+  };
 
-    let payload = {
-        user_id: '+6281282187515',
-        outlet_id: 'OTL-001'
-    }
+  let payload = {
+    user_id: "+6281282187515",
+    outlet_id: "OTL-001",
+  };
 
-    useEffect(() => {
-        let config = {
-            method: 'POST',
-            url: 'https://artaka-api.com/api/customers/show',
-            data: payload
-        }
+  useEffect(() => {
+    let config = {
+      method: "POST",
+      url: "https://artaka-api.com/api/customers/show",
+      data: payload,
+    };
 
-        Axios(config).then(response => {
-            setCustomer(response.data[0])  
-        }).catch(err => {
-            console.log(err)
-        })
+    Axios(config)
+      .then((response) => {
+        setCustomer(response.data[0]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
-        return () => {
-            setCustomer("")
-        }
-    }, [])
+    return () => {
+      setCustomer("");
+    };
+  }, []);
 
-    return (
-        <div class="mt-10 sm:mt-0">
-            <div class="md:grid md:grid-cols-3 md:gap-6  items-center">
+  return (
+    <div class="mt-10 sm:mt-0">
+      <div class="md:grid md:grid-cols-3 md:gap-6  items-center">
+        <div class="mt-5 md:mt-0 md:col-span-6">
+          <form action="#" method="POST">
+            <div class="shadow overflow-hidden sm:rounded-md">
+              <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+                  <div className="col-span-6 sm:col-span-1 flex justify-center rounded-md">
+                    <div className="space-y-2 text-center">
+                      <div className="text-gray-400">
+                        <img
+                          alt=""
+                          src={customer.images}
+                          width="100"
+                          height="100"
+                          className="shadow rounded-full max-w-full h-auto align-middle border-none"
+                        />
+                      </div>
+                      <div className="flex text-sm text-gray-600 justify-center ">
+                        <label
+                          for="image"
+                          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Upload a file</span>
+                          <input
+                            id="image"
+                            accept="image/*"
+                            name="image"
+                            onChange={uploadOnChange("file")}
+                            type="file"
+                            className="sr-only"
+                          ></input>
+                        </label>
+                      </div>
+                      <div className="flex text-sm text-gray-600 justify-center ">
+                        <label
+                          for="image"
+                          className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                        >
+                          <span>Remove</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-span-6 sm:col-span-5">
+                    <input type="text" class="hidden" />
 
-                <div class="mt-5 md:mt-0 md:col-span-6">
-                    <form action="#" method="POST">
-                        <div class="shadow overflow-hidden sm:rounded-md">
-                            <div class="px-4 py-5 bg-white sm:p-6">
-                                <div class="grid grid-cols-6 gap-6">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Nama Pelanggan(Wajib)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="given-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.name}
+                    ></input>
+                  </div>
 
-                                    <div className="col-span-6 sm:col-span-1 flex justify-center rounded-md">
-                                        <div className="space-y-2 text-center">
-                                            <div className="text-gray-400">
-                                                <img
-                                                    alt=""
-                                                    src={customer.images}
-                                                    width="100"
-                                                    height="100"
-                                                    className="shadow rounded-full max-w-full h-auto align-middle border-none" />
-                                            </div>
-                                            <div className="flex text-sm text-gray-600 justify-center ">
-                                                <label for="image" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                    <span>Upload a file</span>
-                                                    <input id="image" accept="image/*" name="image" onChange={uploadOnChange('file')} type="file" className="sr-only" ></input>
-                                                </label>
-                                            </div>
-                                            <div className="flex text-sm text-gray-600 justify-center ">
-                                                <label for="image" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                                                    <span >Remove</span>
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-5">
-                                        <input type="text"
-                                            class="hidden" />
-
-                                        <label class="block text-sm font-medium text-gray-700">Nama Pelanggan(Wajib)</label>
-                                        <input type="text"
-                                            autocomplete="given-name"
-                                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.name}></input>
-                                    </div>
-
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label class="block text-sm font-medium text-gray-700">Email(Opsional)</label>
-                                        <input type="text"
-                                            autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.email}></input>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label class="block text-sm font-medium text-gray-700">Nomor Telpon(Wajib)</label>
-                                        <input type="text"
-                                            autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.phone}></input> 
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label class="block text-sm font-medium text-gray-700">Tanggal lahir(Opsional)</label>
-                                        <input type="text" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.datebirth}></input>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label for="gender" class="block text-sm font-medium text-gray-700">Jenis Kelamin</label>
-                                        {/* <select id="gender" type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Email(Opsional)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.email}
+                    ></input>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Nomor Telpon(Wajib)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.phone}
+                    ></input>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Tanggal lahir(Opsional)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.datebirth}
+                    ></input>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <label
+                      for="gender"
+                      class="block text-sm font-medium text-gray-700"
+                    >
+                      Jenis Kelamin
+                    </label>
+                    {/* <select id="gender" type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         >
                                             <option>Pilih jenis kelamin</option>
                                             <option value="Perempuan">Perempuan</option>
                                             <option value="Laki-laki">Laki-laki</option>
 
                                         </select> */}
-                                        <input type="text" autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.gender}></input>
-
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-6">
-                                        <label class="block text-sm font-medium text-gray-700">Alamat(Opsional)</label>
-                                        <input type="text"
-                                            autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.address}></input>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label class="block text-sm font-medium text-gray-700">Kota(Opsional)</label>
-                                        <input type="text"
-                                            autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.city}></input>
-                                    </div>
-                                    <div class="col-span-6 sm:col-span-3">
-                                        <label class="block text-sm font-medium text-gray-700">Provinsi(Opsional)</label>
-                                        <input type="text"
-                                            autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" value={customer.province}></input>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-
-                                <button type="submit"
-                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.gender}
+                    ></input>
+                  </div>
+                  <div class="col-span-6 sm:col-span-6">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Alamat(Opsional)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.address}
+                    ></input>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Kota(Opsional)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.city}
+                    ></input>
+                  </div>
+                  <div class="col-span-6 sm:col-span-3">
+                    <label class="block text-sm font-medium text-gray-700">
+                      Provinsi(Opsional)
+                    </label>
+                    <input
+                      type="text"
+                      autocomplete="family-name"
+                      class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      value={customer.province}
+                    ></input>
+                  </div>
                 </div>
+              </div>
+              <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button
+                  type="submit"
+                  onClick={() => {
+                    history.push("/artaka/seller/customer");
+                  }}
+                  class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Back
+                </button>
+                <button
+                  type="submit"
+                  class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Save
+                </button>
+              </div>
             </div>
+          </form>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
