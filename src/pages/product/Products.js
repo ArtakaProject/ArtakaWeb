@@ -18,8 +18,8 @@ const columns = [
     { column: 'Deskripsi' },
     { column: 'Kategori' },
     { column: 'Terjual' },
-    { column: 'Stock' },
-    { column: 'Grosir' }
+    { column: 'Stok' },
+    { column: 'Tersedia' }
 ];
 
 function classNames(...classes) {
@@ -57,17 +57,14 @@ export default function Products() {
                                     <tr>
                                         {
                                             columns.map(col => (
-
                                                 <th
                                                     scope="col"
                                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                                 >
                                                     {col.column}
                                                 </th>
-
                                             ))
                                         }
-
 
                                     </tr>
                                 </thead>
@@ -78,13 +75,13 @@ export default function Products() {
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0 h-10 w-10">
                                                         <img className="h-10 w-10 rounded-full"
-                                                            src={`${config.urlImage}/${prod.product_url_image}`}
+                                                            src={`${config.urlImage}/${prod.images}`}
                                                             alt="" />
 
                                                     </div>
                                                     <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900">{prod.product_name}</div>
-                                                        <div className="text-sm text-gray-500">Stock :{new Intl.NumberFormat('ID').format(prod.product_stock)}</div>
+                                                        <div className="text-sm font-medium text-gray-900">{prod.name}</div>
+                                                        <div className="text-sm text-gray-500">Stok :{new Intl.NumberFormat('ID').format(prod.product_stock)}</div>
                                                     </div>
                                                 </div>
                                             </td>

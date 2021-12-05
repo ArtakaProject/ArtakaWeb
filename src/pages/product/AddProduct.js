@@ -9,9 +9,7 @@ export default function AddProduct() {
     let history = useHistory();
 
     const dispatch = useDispatch();
-    //const categories = useSelector(state => state.categoryState.categories);
     const { redirect } = useSelector(state => state.productState);
-    //const { authUser } = useSelector(state => state.userState);
 
     const [uploaded, setUploaded] = useState(false);
 

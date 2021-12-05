@@ -28,7 +28,7 @@ const editProduct = async(id, payload)=>{
     }
 }
 
-const deleteProduct = async(id)=>{
+/* const deleteProduct = async(id)=>{
     try {
         const result = await axios.delete(`${config.domain}/product/${id}`);
         return  result;
@@ -36,8 +36,7 @@ const deleteProduct = async(id)=>{
         return error;
         
     }
-}
-
+} */
 
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -45,5 +44,5 @@ export default {
     findAll,
     addProduct,
     editProduct,
-    deleteProduct
+    //deleteProduct
 }
