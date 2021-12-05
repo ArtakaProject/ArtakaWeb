@@ -30,24 +30,22 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-function constructor(props) {
-    super(props);
-    this.state = {
-        activePage: 15
-    };
-}
-
-function handlePageChange(pageNumber) {
-    console.log(`active page is ${pageNumber}`);
-    this.setState({ activePage: pageNumber });
-}
-
 
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const remain_stock = useSelector((state) => state.productState.remain_stock);
+
+    const page = {
+        activePage: 10
+    };
+    
+    function handlePageChange(pageNumber) {
+        console.log(`active page is ${pageNumber}`);
+        this.setState({ activePage: pageNumber });
+    }
+    
 
     useEffect(() => {
         fetchData();
@@ -208,11 +206,11 @@ export default function Products() {
                                 </tbody>
                                 <div>
                                     <Pagination
-                                        activePage={this.state.activePage}
+                                        activePage={page.activePage}
                                         itemsCountPerPage={10}
-                                        totalItemsCount={450}
+                                        totalItemsCount={300}
                                         pageRangeDisplayed={5}
-                                        onChange={this.handlePageChange.bind(this)}
+                                        onChange={handlePageChange.bind(this)}
                                     />
                                 </div>
                             </table>
