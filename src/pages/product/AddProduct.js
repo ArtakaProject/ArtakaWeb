@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { doCategoryStarted } from '../../redux/actions/Category';
-import { doAddProductRequest } from '../../redux/actions/Product';
+import { doAddProductRequest, doAddProductSucceed, doGetProductRequest } from '../../redux/actions/Product';
+import { handleAddProduct } from '../../redux/sagas/ProductSaga';
 
 export default function AddProduct() {
     let history = useHistory();
@@ -15,7 +15,7 @@ export default function AddProduct() {
 
     async function fetchData() {
         const payload = {}
-        dispatch(doCategoryStarted(payload));
+        dispatch(doGetProductRequest(payload));
     }
 
     // load data category only once when page render
@@ -134,7 +134,7 @@ export default function AddProduct() {
                                             <div className="mx-auto h-48 w-24 text-gray-400">
                                                 {uploaded === false ?
                                                     <svg
-                                                        className="mx-auto h-12 w-12 text-gray-400"
+                                                        className="mx-auto h-40 w-40 text-gray-400"
                                                         stroke="currentColor"
                                                         fill="none"
                                                         viewBox="0 0 48 48"
@@ -165,7 +165,7 @@ export default function AddProduct() {
 
                                     <div class="col-span-6 sm:col-span-2"></div>
 
-                                    <div class="col-span-6 sm:col-span-5">
+                                    <div class="col-span-6 sm:col-span-3">
                                         <input type="text"
                                             onChange={handleOnChange('id')}
                                             class="hidden"
@@ -247,10 +247,11 @@ export default function AddProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_stock_tracked" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok (Opsional)</label>
-                                        <label class="switch">
-                                            <input type="checkbox" value={values.is_stock_tracked} />
-                                            <span class="slider round"></span>
+                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_stock_tracked} />
+                                        <label class="switch toggle">
+                                            {/* <span class="slider round"></span> */}
                                         </label>
+
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
@@ -279,8 +280,8 @@ export default function AddProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
-                                        <label class="switch">
-                                            <input type="checkbox" value={values.is_active} />
+                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_active} />
+                                        <label class="switch toggle">
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -293,7 +294,6 @@ export default function AddProduct() {
                                             autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
-                                    <div></div>
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="outlets" class="block text-sm font-medium text-gray-700">Jual di Outlet</label>
@@ -311,7 +311,7 @@ export default function AddProduct() {
                                     onClick={() => {
                                         history.push("/artaka/seller/product");
                                     }}
-                                    class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Batal
                                 </button>
                                 <button type="submit"

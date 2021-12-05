@@ -85,11 +85,11 @@ export default function Products() {
                                                         <img className="h-10 w-10 rounded-full"
                                                             src={`${config.urlImage}/${prod.images}`}
                                                             alt="" />
-
                                                     </div>
+
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-gray-900">{prod.name}</div>
-                                                        <div className="text-sm text-gray-500">Stok :{new Intl.NumberFormat('ID').format(prod.quantity)}</div>
+                                                        
                                                     </div>
                                                 </div>
                                             </td>
@@ -101,8 +101,8 @@ export default function Products() {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.quantity}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{remain_stock}</td>
                                             <td>
-                                                <label class="switch">
-                                                    <input type="checkbox" />
+                                                <input type="checkbox" />
+                                                <label class="switch toggle">
                                                     <span class="slider round"></span>
                                                 </label>
                                             </td>

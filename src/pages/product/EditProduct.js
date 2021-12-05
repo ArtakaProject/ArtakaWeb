@@ -17,7 +17,7 @@ export default function EditProduct() {
     let payload = {
         user_id: '+6281282187515',
         outlet_id: 'OTL-001',
-        category: "Semua", 
+        category: "Semua",
         is_active: "All"
     }
 
@@ -182,7 +182,7 @@ export default function EditProduct() {
 
                                     <div class="col-span-6 sm:col-span-3"></div>
 
-                                    <div class="col-span-6 sm:col-span-3">
+                                    <div class="col-span-6 sm:col-span-5">
                                         <input type="text"
                                             onChange={handleOnChange('id')}
                                             class="hidden"
@@ -198,7 +198,7 @@ export default function EditProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="category" class="block text-sm font-medium text-gray-700">Kategori (Wajib)</label>
-                                        <input type="text" name = "category"
+                                        <input type="text" name="category"
                                             onChange={handleOnChange('category')}
                                             value={values.category}
                                             autocomplete="given-name"
@@ -265,10 +265,11 @@ export default function EditProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_stock_tracked" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok</label>
-                                        <label class="switch">
-                                            <input type="checkbox" value={values.is_stock_tracked} />
+                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_stock_tracked} />
+                                        <label class="switch toggle">
                                             <span class="slider round"></span>
                                         </label>
+
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
@@ -297,8 +298,8 @@ export default function EditProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
-                                        <label class="switch">
-                                            <input type="checkbox" value={values.is_active} />
+                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_active} />
+                                        <label class="switch toggle">
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
@@ -310,8 +311,6 @@ export default function EditProduct() {
                                             onChange={handleOnChange('description')}
                                             autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
-
-                                    <div></div>
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="outlets" class="block text-sm font-medium text-gray-700">Jual di Outlet</label>
@@ -329,7 +328,7 @@ export default function EditProduct() {
                                     onClick={() => {
                                         history.push("/artaka/seller/product");
                                     }}
-                                    class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Batal
                                 </button>
                                 <button type="submit"
