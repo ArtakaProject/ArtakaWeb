@@ -36,7 +36,7 @@ export default function EditProduct() {
         return () => {
             setProduct("")
         }
-    },[]);
+    }, []);
 
     const [values, setValues] = useState({
         prod_id: undefined,
@@ -63,8 +63,6 @@ export default function EditProduct() {
         file: undefined,
         imagePreviewUrl: undefined
     })
-
-
 
     const handleOnChange = name => event => {
         setValues({ ...values, [name]: event.target.value })
@@ -276,8 +274,8 @@ export default function EditProduct() {
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="product_decr_stock" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok</label>
                                         <label class="switch">
-                                        <input type="checkbox" value={values.product_decr_stock}/>
-                                        <span class= "slider round"></span>
+                                            <input type="checkbox" value={values.product_decr_stock} />
+                                            <span class="slider round"></span>
                                         </label>
                                     </div>
 
@@ -308,8 +306,8 @@ export default function EditProduct() {
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="prod_stock" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
                                         <label class="switch">
-                                        <input type="checkbox" value={values.grocery_price}/>
-                                        <span class= "slider round"></span>
+                                            <input type="checkbox" value={values.grocery_price} />
+                                            <span class="slider round"></span>
                                         </label>
                                     </div>
 

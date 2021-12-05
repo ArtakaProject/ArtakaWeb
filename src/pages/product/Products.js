@@ -30,6 +30,7 @@ export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
+    const remain_stock = useSelector((state) => state.productState.remain_stock);
 
     useEffect(() => {
         fetchData();
@@ -61,7 +62,7 @@ export default function Products() {
                                                     scope="col"
                                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                                 >
-                                                    {col.column}
+                                                    <b>{col.column}</b>
                                                 </th>
                                             ))
                                         }
@@ -81,17 +82,17 @@ export default function Products() {
                                                     </div>
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-gray-900">{prod.name}</div>
-                                                        <div className="text-sm text-gray-500">Stok :{new Intl.NumberFormat('ID').format(prod.product_stock)}</div>
+                                                        <div className="text-sm text-gray-500">Stok :{new Intl.NumberFormat('ID').format(prod.quantity)}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.price_sell)}</div>
+                                                <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_desc}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category.category_name}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_stock}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.product_stock - prod.minimum_stock}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.quantity}</td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{remain_stock}</td>
                                             <td>
                                                 <label class="switch">
                                                     <input type="checkbox" />
@@ -123,7 +124,7 @@ export default function Products() {
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {({ active }) => (
-                                                                                <Link to={`/hr/employee/edit/${prod.prod_id}`}
+                                                                                <Link to={`/seller/product/edit/${prod.id}`}
                                                                                     className={classNames(
                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                         'group flex items-center px-4 py-2 text-sm'
@@ -154,8 +155,8 @@ export default function Products() {
                                                                                 </Link>
                                                                             )}
                                                                         </Menu.Item>
-
                                                                     </div>
+
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {({ active }) => (
