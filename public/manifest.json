@@ -20,11 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-<<<<<<< HEAD
-  "theme_color": "#751E8B",
-  "background_color": "#c28ccf"
-=======
   "theme_color": "#000000",
   "background_color": "#ffffff"
->>>>>>> origin/chalid
 }
