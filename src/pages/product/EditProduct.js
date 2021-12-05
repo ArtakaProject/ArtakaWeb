@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { doCategoryStarted } from '../../redux/actions/Category';
+//import { doCategoryStarted } from '../../redux/actions/Category';
 import { doEditProductRequest } from '../../redux/actions/Product';
 import { Axios } from 'axios';
 
@@ -9,14 +9,16 @@ export default function EditProduct() {
     let history = useHistory();
 
     const dispatch = useDispatch();
-    //const { redirect } = useSelector(state => state.productState);
+    const { redirect } = useSelector(state => state.productState);
 
     const [uploaded, setUploaded] = useState(false);
     const [product, setProduct] = useState(false);
 
     let payload = {
         user_id: '+6281282187515',
-        outlet_id: 'OTL-001'
+        outlet_id: 'OTL-001',
+        category: "Semua", 
+        is_active: "All"
     }
 
     // load data category only once when page render
@@ -39,24 +41,31 @@ export default function EditProduct() {
     }, []);
 
     const [values, setValues] = useState({
-        prod_id: undefined,
-        product_url_image: undefined,
-        product_name: undefined,
-        category_name: undefined,
-        product_satuan: undefined,
-        price_sell: 0,
-        product_code: undefined,
-        price_modal: 0,
+        id: undefined,
+        create_dtm: undefined,
+        sku_id: undefined,
+        user_id: undefined,
+        outlet_id: undefined,
+        name: undefined,
+        category: undefined,
+        variant: undefined,
+        units: undefined,
         weight: 0,
-        product_stock: 0,
-        minimum_stock: 0,
-        product_decr_stock: undefined,
-        product_varian: undefined,
-        sub_varian: undefined,
-        bundling: undefined,
-        product_desc: undefined,
-        outlet_sell: undefined,
-        error: ""
+        quantity: 0,
+        minimum_quantity: 0,
+        description: undefined,
+        buy_cost: 0,
+        sell_cost: 0,
+        modifiers_id: undefined,
+        images: [],
+        rawmaterial: [],
+        is_stock_tracked: undefined,
+        number_sold: 0,
+        outlets: [],
+        buy_cost_discounted: 0,
+        is_active: undefined,
+        wholesaler_cost: []
+        //,error: ""
     });
 
     const [files, setFiles] = useState({
@@ -96,22 +105,21 @@ export default function EditProduct() {
     const onSubmit = (e) => {
         e.preventDefault();
         let payload = new FormData();
-        payload.append('product_url_image', values.product_url_image);
-        payload.append('product_name', values.product_name);
-        payload.append('category_name', values.category_name);
-        payload.append('product_satuan', values.product_satuan);
-        payload.append('price_sell', values.price_sell);
-        payload.append('product_code', values.product_code);
-        payload.append('price_modal', values.price_modal);
+        payload.append('id', values.id);
+        payload.append('images', values.images);
+        payload.append('name', values.name);
+        payload.append('category', values.category);
+        payload.append('units', values.units);
+        payload.append('sell_cost', values.sell_cost);
+        payload.append('sku_id', values.sku_id);
+        payload.append('buy_cost', values.buy_cost);
+        payload.append('quantity', values.quantity);
+        payload.append('minimum_quantity', values.minimum_quantity);
         payload.append('weight', values.weight);
-        payload.append('product_stock', values.product_stock);
-        payload.append('minimum_stock', values.minimum_stock);
-        payload.append('product_decr_stock', values.product_decr_stock);
-        payload.append('product_varian', values.product_varian);
-        payload.append('sub_varian', values.sub_varian);
-        payload.append('bundling', values.bundling);
-        payload.append('product_desc', values.product_desc);
-        payload.append('outlet_sell', values.outlet_sell);
+        payload.append('variant', values.variant);
+        payload.append('rawmaterial', values.rawmaterial);
+        payload.append('description', values.description);
+        payload.append('outlets', values.outlets);
         const prodFile = files.file;
         prodFile && payload.append('uploadFile', prodFile);
         // add product via redux-saga
@@ -119,9 +127,9 @@ export default function EditProduct() {
 
     }
 
-    /* if (redirect) {
+    if (redirect) {
         return (<Redirect to={'/artaka/seller/product'} />)
-    } */
+    }
 
     return (
         <div class="mt-10 sm:mt-0">
@@ -176,73 +184,57 @@ export default function EditProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <input type="text"
-                                            onChange={handleOnChange('prod_id')}
+                                            onChange={handleOnChange('id')}
                                             class="hidden"
-                                            value={values.prod_id} />
+                                            value={values.id} />
 
-                                        <label for="product_name" class="block text-sm font-medium text-gray-700">Nama Produk (Wajib)</label>
+                                        <label for="name" class="block text-sm font-medium text-gray-700">Nama Produk (Wajib)</label>
                                         <input type="text"
-                                            onChange={handleOnChange('product_name')}
-                                            value={values.product_name}
+                                            onChange={handleOnChange('name')}
+                                            value={values.name}
                                             autocomplete="given-name"
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="department" class="block text-sm font-medium text-gray-700">Kategori (Wajib)</label>
-                                        <select id="department" type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            value={values.category_name}
+                                        <label for="category" class="block text-sm font-medium text-gray-700">Kategori (Wajib)</label>
+                                        <input type="text" name = "category"
                                             onChange={handleOnChange('category')}
-                                        >
-                                            <option>Pilih Kategori...</option>
-                                            <option>Elektronik</option>
-                                            <option>Sabun Mandi</option>
-                                            <option>Pasta Gigi</option>
-                                            <option>Alat Masak</option>
-                                            {
-                                                /* categories &&
-                                               categories.map(row => {
-                                                   return (<option value={row.cate_id}>{row.cate_name}</option>)
-                                               }) */
-                                            }
-                                        </select>
-                                        {/* <input type="text"
-                                            onChange={handleOnChange('category_name')}
-                                            value={values.category_name}
+                                            value={values.category}
                                             autocomplete="given-name"
-                                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" /> */}
+                                            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="product_satuan" class="block text-sm font-medium text-gray-700">Satuan (Wajib)</label>
-                                        <input type="text" name="product_satuan"
-                                            value={values.product_satuan}
-                                            onChange={handleOnChange('product_satuan')}
+                                        <label for="units" class="block text-sm font-medium text-gray-700">Satuan (Wajib)</label>
+                                        <input type="text" name="units"
+                                            value={values.units}
+                                            onChange={handleOnChange('units')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="price_sell" class="block text-sm font-medium text-gray-700">Harga Jual (Rp) (Wajib)</label>
-                                        <input type="text" name="price_sell"
-                                            value={values.price_sell}
-                                            onChange={handleOnChange('price_sell')}
+                                        <label for="sell_cost" class="block text-sm font-medium text-gray-700">Harga Jual (Rp) (Wajib)</label>
+                                        <input type="text" name="sell_cost"
+                                            value={values.sell_cost}
+                                            onChange={handleOnChange('sell_cost')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="product_code" class="block text-sm font-medium text-gray-700">SKU / Kode Barang</label>
+                                        <label for="sku_id" class="block text-sm font-medium text-gray-700">SKU / Kode Barang</label>
                                         <input type="text"
-                                            value={values.product_code}
-                                            onChange={handleOnChange('product_code')}
+                                            value={values.sku_id}
+                                            onChange={handleOnChange('sku_id')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="price_modal" class="block text-sm font-medium text-gray-700">Harga Modal (Rp) (Opsional)</label>
-                                        <input type="number" name="price_modal"
-                                            value={values.price_modal}
-                                            onChange={handleOnChange('price_modal')}
+                                        <label for="buy_cost" class="block text-sm font-medium text-gray-700">Harga Modal (Rp) (Opsional)</label>
+                                        <input type="number" name="buy_cost"
+                                            value={values.buy_cost}
+                                            onChange={handleOnChange('buy_cost')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
@@ -255,35 +247,35 @@ export default function EditProduct() {
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="prod_stock" class="block text-sm font-medium text-gray-700">Stok (Opsional)</label>
+                                        <label for="quantity" class="block text-sm font-medium text-gray-700">Stok (Opsional)</label>
                                         <input type="number"
-                                            value={values.prod_stock}
-                                            onChange={handleOnChange('prod_stock')}
+                                            value={values.quantity}
+                                            onChange={handleOnChange('quantity')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="prod_stock" class="block text-sm font-medium text-gray-700">Minimum Stok (Opsional)</label>
+                                        <label for="minimum_quantity" class="block text-sm font-medium text-gray-700">Minimum Stok (Opsional)</label>
                                         <input type="number"
-                                            value={values.prod_stock}
-                                            onChange={handleOnChange('prod_stock')}
+                                            value={values.minimum_quantity}
+                                            onChange={handleOnChange('minimum_quantity')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="product_decr_stock" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok</label>
+                                        <label for="is_stock_tracked" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok</label>
                                         <label class="switch">
-                                            <input type="checkbox" value={values.product_decr_stock} />
+                                            <input type="checkbox" value={values.is_stock_tracked} />
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="product_varian" class="block text-sm font-medium text-gray-700">Varian Produk (Opsional)</label>
+                                        <label for="variant" class="block text-sm font-medium text-gray-700">Varian Produk (Opsional)</label>
                                         <input type="text"
-                                            value={values.product_varian}
-                                            onChange={handleOnChange('product_varian')}
+                                            value={values.variant}
+                                            onChange={handleOnChange('variant')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
@@ -296,41 +288,38 @@ export default function EditProduct() {
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="bundling" class="block text-sm font-medium text-gray-700"><i>Bundling</i> / Bahan Baku (Opsional)</label>
+                                        <label for="rawmaterial" class="block text-sm font-medium text-gray-700"><i>Bundling</i> / Bahan Baku (Opsional)</label>
                                         <input type="text"
-                                            value={values.bundling}
-                                            onChange={handleOnChange('bundling')}
+                                            value={values.rawmaterial}
+                                            onChange={handleOnChange('rawmaterial')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="prod_stock" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
+                                        <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
                                         <label class="switch">
-                                            <input type="checkbox" value={values.grocery_price} />
+                                            <input type="checkbox" value={values.is_active} />
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-6">
-                                        <label for="product_desc" class="block text-sm font-medium text-gray-700">Deskripsi (Opsional)</label>
+                                        <label for="description" class="block text-sm font-medium text-gray-700">Deskripsi (Opsional)</label>
                                         <input type="text"
-                                            value={values.product_desc}
-                                            onChange={handleOnChange('product_desc')}
+                                            value={values.description}
+                                            onChange={handleOnChange('description')}
                                             autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
 
                                     <div></div>
 
                                     <div class="col-span-6 sm:col-span-3">
-                                        <label for="outlet_sell" class="block text-sm font-medium text-gray-700">Jual di Outlet</label>
+                                        <label for="outlets" class="block text-sm font-medium text-gray-700">Jual di Outlet</label>
                                         <input type="text"
-                                            value={values.outlet_sell}
-                                            onChange={handleOnChange('outlet_sell')}
+                                            value={values.outlets}
+                                            onChange={handleOnChange('outlets')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
-
-
-
 
                                 </div>
                             </div>
@@ -338,7 +327,7 @@ export default function EditProduct() {
 
                                 <button type="submit"
                                     onClick={() => {
-                                        history.push("#");
+                                        history.push("/seller/product");
                                     }}
                                     class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-500 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                     Batal
