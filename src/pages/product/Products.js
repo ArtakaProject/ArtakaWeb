@@ -39,7 +39,10 @@ export default function Products() {
 
     async function fetchData() {
         const payload = {
-            user_id: '+6281282187515', outlet_id: 'OTL-001'
+            user_id: "+6287813841133",
+            outlet_id: "OTL-001",
+            category: "Semua", 
+            is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
     }
