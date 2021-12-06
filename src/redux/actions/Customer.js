@@ -5,9 +5,9 @@ export const doGetCustomerRequest = (payload) => ({
     payload,
 });
 
-export const doGetCustomerSucceed = (payload) => ({
+export const doGetCustomerSucceed = (cos) => ({
     type: ActionType.GET_CUSTOMER_SUCCEED,
-    payload,
+    payload: cos,
 });
 
 export const doGetCustomerFailed = (payload) => ({
