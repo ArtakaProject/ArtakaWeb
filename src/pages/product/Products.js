@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 
 import { doGetProductRequest } from '../../redux/actions/Product';
@@ -12,15 +12,13 @@ import config from '../../config/config';
 import { useHistory, Link } from "react-router-dom";
 
 
-
 const columns = [
     { column: 'Nama' },
     { column: 'Harga' },
     { column: 'Deskripsi' },
-    { column: 'Terjual' },
     { column: 'Stok' },
-    { column: 'Tersedia' },
-    { column: 'Opsi/Edit'}
+    { column: 'Grosir' },
+    { column: 'Pilihan' }
 ];
 
 function classNames(...classes) {
@@ -32,10 +30,9 @@ export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
-    const remain_stock = useSelector((state) => state.productState.remain_stock);
 
 
-
+    // const [products, setProducts] = useState([]);
     useEffect(() => {
         fetchData();
     }, []);
@@ -47,12 +44,12 @@ export default function Products() {
         dispatch(doGetProductRequest(payload));
     }
 
-    /* const onDelete = async (id) => {
-    } */
+    const onDelete = async (id) => {
+    }
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/artaka/seller/product/add')} />
+            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} />
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
@@ -75,12 +72,13 @@ export default function Products() {
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
                                     {products && products.map((prod) => (
-                                        <tr key={prod.prod_id}>
+                                        <tr key={prod.id}>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0 h-10 w-10">
                                                         <img className="h-10 w-10 rounded-full"
-                                                            src={prod.images} /* `${config.urlImage}/${prod.images}` */ alt="" />
+                                                            src={prod.images}
+                                                            alt="" />
                                                     </div>
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-gray-900">{prod.name}</div>
@@ -91,8 +89,10 @@ export default function Products() {
                                                 <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.quantity}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{remain_stock}</td>
+                                            <td>
+                                                <div className="text-sm text-gray-900">Terjual : {prod.quantity}</div><br />
+                                                <div className="text-sm text-gray-900">Sisa    : {prod.minimum_quantity}</div>
+                                            </td>
                                             <td>
                                                 <input type="checkbox" />
                                                 <label class="switch toggle">
@@ -190,7 +190,7 @@ export default function Products() {
                                     ))}
                                 </tbody>
                             </table>
-                            
+
                         </div>
                     </div>
                 </div>
