@@ -32,7 +32,7 @@ const MainSidebar = props => {
                     <Menu as="div" className="relative inline-block text-left">
                         <div>
                             <Menu.Button className="group inline-flex justify-center text-sm font-extrabold text-white hover:text-gray-900">
-                                Test{props.user}
+                                Ken Shop{props.user}
                                 <ChevronDownIcon
                                     className="flex-shrink-0 -mr-1 ml-1 h-5 w-5 text-gray-400 group-hover:text-gray-500"
                                     aria-hidden="true"

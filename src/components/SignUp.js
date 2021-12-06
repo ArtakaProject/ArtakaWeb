@@ -60,7 +60,7 @@ export default function SignUp(props) {
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
-                            src="/icon.png"
+                            src="icon"
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Sign up</h2>
@@ -182,3 +182,4 @@ export default function SignUp(props) {
         </>
     )
 }
+

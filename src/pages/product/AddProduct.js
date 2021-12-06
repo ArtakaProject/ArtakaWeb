@@ -27,15 +27,22 @@ export default function AddProduct() {
 
     const [values, setValues] = useState({
         prod_id: undefined,
-        prod_name: undefined,
-        prod_stock: undefined,
-        prod_price: undefined,
-        prod_desc: undefined,
-        prod_urlimage: undefined,
-        category: undefined,
-        prod_rating: 0,
-        prod_view_count: 0,
-        prod_user_id: 44,
+        product_url_image: undefined,
+        product_name: undefined,
+        category_name: undefined,
+        product_satuan: undefined,
+        price_sell: 0,
+        product_code: undefined,
+        price_modal: 0,
+        weight: 0,
+        product_stock: 0,
+        minimum_stock: 0,
+        product_decr_stock: undefined,
+        product_varian: undefined,
+        sub_varian: undefined,
+        bundling: undefined,
+        product_desc: undefined,
+        outlet_sell: undefined,
         error: ""
     });
 
@@ -78,14 +85,23 @@ export default function AddProduct() {
     const onSubmit = (e) => {
         e.preventDefault();
         let payload = new FormData();
-        payload.append('prod_name', values.prod_name);
-        payload.append('prod_stock', values.prod_stock);
-        payload.append('prod_price', values.prod_price);
-        payload.append('prod_desc', values.prod_desc);
-        payload.append('prod_cate_id', values.category);
-        payload.append('prod_rating', values.prod_rating);
-        payload.append('prod_view_count', values.prod_view_count);
-        payload.append('prod_user_id', authUser.userId);
+        payload.append('product_url_image', values.product_url_image);
+        payload.append('product_name', values.product_name);
+        payload.append('category_name', values.category_name);
+        payload.append('product_satuan', values.product_satuan);
+        payload.append('price_sell', values.price_sell); 
+        payload.append('product_code', values.product_code);
+        payload.append('price_modal', values.price_modal);
+        payload.append('weight', values.weight);
+        payload.append('product_stock', values.product_stock);
+        payload.append('minimum_stock', values.minimum_stock);
+        payload.append('product_decr_stock', values.product_decr_stock);
+        payload.append('product_varian', values.product_varian);
+        payload.append('sub_varian', values.sub_varian);
+        payload.append('bundling', values.bundling);
+        payload.append('product_desc', values.product_desc);
+        payload.append('outlet_sell', values.outlet_sell);
+        payload.append('price_modal', values.price_modal);
         const prodFile = files.file;
         prodFile && payload.append('uploadFile', prodFile);
         // add product via redux-saga
@@ -154,10 +170,10 @@ export default function AddProduct() {
                                             class="hidden"
                                             value={values.prod_id} />
 
-                                        <label for="prod_name" class="block text-sm font-medium text-gray-700">Nama Produk (Wajib)</label>
+                                        <label for="product_name" class="block text-sm font-medium text-gray-700">Nama Produk (Wajib)</label>
                                         <input type="text"
-                                            onChange={handleOnChange('prod_name')}
-                                            value={values.prod_name}
+                                            onChange={handleOnChange('product_name')}
+                                            value={values.product_name}
                                             autocomplete="given-name"
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>
@@ -165,7 +181,7 @@ export default function AddProduct() {
                                     <div class="col-span-6 sm:col-span-4">
                                         <label for="department" class="block text-sm font-medium text-gray-700">Kategori (Wajib)</label>
                                         <select id="department" type="text" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                            value={values.category}
+                                            value={values.category_name}
                                             onChange={handleOnChange('category')}
                                         >
                                             <option>Pilih Kategori...</option>
@@ -188,7 +204,7 @@ export default function AddProduct() {
                                     <div class="col-span-6 sm:col-span-6 lg:col-span-2">
                                         <label for="prod_price" class="block text-sm font-medium text-gray-700">Harga Jual (Rp)</label>
                                         <input type="text" name="prod_price"
-                                            value={values.prod_price}
+                                            value={values.price_sell}
                                             onChange={handleOnChange('prod_price')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                     </div>

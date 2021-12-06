@@ -11,7 +11,7 @@ function* handleGetCustomer(action) {
     const {payload} = action;
     try {
         const result = yield call(apiCustomer.findAll,payload);
-        yield put(doGetCustomerSucceed(result.data));
+        yield put(doGetCustomerSucceed(result));
     } catch (error) {
         yield put(doGetCustomerFailed(error));
     }

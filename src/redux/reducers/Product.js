@@ -1,7 +1,25 @@
 import * as ActionType from '../constants/Product';
 
 const INIT_STATE = {
-    products: [],
+    products: {
+        prod_id: "",
+        product_url_image: '',
+        product_name: "",
+        category_name: "",
+        product_satuan: "",
+        price_sell: 0,
+        product_code: "",
+        price_modal: 0,
+        weight: 0,
+        product_stock: 0,
+        minimum_stock: 0,
+        product_decr_stock: false,
+        product_varian: "",
+        sub_varian: "",
+        bundling: "",
+        product_desc: "",
+        outlet_sell: ""
+    },
     isLoading: false,
     status: false,
     error: null,

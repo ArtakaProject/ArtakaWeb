@@ -110,7 +110,7 @@ export default function MainLayoutSidebar(props) {
                                 <Link to="/artaka/">
                                     <img
                                         className="h-8 w-auto"
-                                        src="http://localhost:3000/icon.png"
+                                        src="https://artaka-api.com/icon.png"
                                         alt="artaka"
                                     />
                                 </Link>
