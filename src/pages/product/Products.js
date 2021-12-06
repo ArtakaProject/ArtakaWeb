@@ -17,7 +17,6 @@ const columns = [
     { column: 'Nama' },
     { column: 'Harga' },
     { column: 'Deskripsi' },
-    /* { column: 'Kategori' }, */
     { column: 'Terjual' },
     { column: 'Stok' },
     { column: 'Tersedia' },
@@ -92,7 +91,6 @@ export default function Products() {
                                                 <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
-                                            {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category}</td> */}
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.quantity}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{remain_stock}</td>
                                             <td>
@@ -100,9 +98,6 @@ export default function Products() {
                                                 <label class="switch toggle">
                                                     <span class="slider round"></span>
                                                 </label>
-                                            </td>
-                                            <td>
-                                                <span className="sr-only">...</span>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                                                 <Menu as="div" className="relative flex justify-end items-center ">
