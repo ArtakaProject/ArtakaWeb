@@ -39,9 +39,9 @@ const navigation = [
     { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
 ]
 const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '/artaka/signin' },
+    { name: 'Your Profile', href: "" },
+    { name: 'Settings', href: "" },
+    { name: 'Sign out', href: "/artaka/signin" },
 ]
 
 function classNames(...classes) {
@@ -57,7 +57,7 @@ export default function AdminLayout(props) {
                 className={({ open }) =>
                     classNames(
                         open ? 'fixed inset-0 z-40 overflow-y-auto' : '',
-                        'bg-white shadow-sm lg:static lg:overflow-y-visible'
+                        'bg-white shadow-md lg:static lg:overflow-y-visible'
                     )
                 }
             >
@@ -67,13 +67,11 @@ export default function AdminLayout(props) {
                             <div className="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
                                 <div className="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
                                     <div className="flex-shrink-0 flex items-center">
-                                        <a href="#">
                                             <img
                                                 className="block h-8 w-auto"
                                                 src={ArtakaClear}
                                                 alt="artaka"
                                             />
-                                        </a>
                                     </div>
                                 </div>
                                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
@@ -217,11 +215,14 @@ export default function AdminLayout(props) {
                 )}
             </Popover>
 
-            <div className="py-10 h-screen w-screen">
-                <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                    <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
+            <div className="py-2 h-screen w-screen">
+                <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:ml-0 lg:grid lg:grid-cols-12 lg:gap-4">
+                    <div className="hidden shadow-xl lg:block lg:col-span-3 xl:col-span-2">
                         <nav aria-label="Sidebar" className="sticky top-4 divide-y divide-gray-300">
-                            <div className="pb-8 space-y-1">
+                            <div className="flex-initial">
+                                <p className="text-black text-xl">Artaka</p>
+                            </div>
+                            <div className="pb-3 space-y-1">
                                 {navigation.map((item) => (
                                     <Link
                                         key={item.name}

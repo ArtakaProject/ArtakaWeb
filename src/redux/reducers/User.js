@@ -17,7 +17,7 @@ const INIT_STATE = {
     outlet_phone: "",
     position: "",
     user_id: "",
-    isLoading: true
+    isLoading: false
 }
 
 const userReducer = (state = INIT_STATE, action) => {
@@ -92,7 +92,8 @@ const applyGetSigninSucceed = (state, action) => {
         outlet_name: payload.outlet_name,
         outlet_phone: payload.outlet_phone,
         position: payload.position,
-        user_id: payload.user_id
+        user_id: payload.user_id,
+        isLoading : true
     }
 }
 

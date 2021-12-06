@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { RouteWithLayout } from './layout/common';
-import { MainLayout, MainLayoutSidebar } from './layout';
+import { MainLayout, MainLayoutSidebar, AdminLayout } from './layout';
 
 import {
   Home as HomePage,
