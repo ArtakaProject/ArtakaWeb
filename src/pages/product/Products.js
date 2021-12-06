@@ -85,13 +85,13 @@ export default function Products() {
                                                     </div>
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-gray-900">{prod.name}</div>
-                                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
                                             </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
                                             {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category}</td> */}
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.quantity}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{remain_stock}</td>
