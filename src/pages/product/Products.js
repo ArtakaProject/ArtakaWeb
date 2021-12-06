@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-
 import { doGetProductRequest } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
 import {
@@ -8,8 +7,11 @@ import {
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
 import config from '../../config/config';
-
 import { useHistory, Link } from "react-router-dom";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import ReactPaginate from 'react-paginate';
+import axios from 'axios';
+
 
 
 const columns = [
@@ -29,26 +31,62 @@ function classNames(...classes) {
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
-    const products = useSelector((state) => state.productState.products);
+    //const products = useSelector((state) => state.productState.products);
+    const [currentItems, setCurrentItems] = useState(null);
+    const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    let data = []
+    const [products, setProducts] = useState([]);
 
+    let payload = {
+        user_id: "+6287813841133",
+        outlet_id: "OTL-001",
+        category: "Semua",
+        is_active: "All"
+    }
 
-    // const [products, setProducts] = useState([]);
     useEffect(() => {
-        fetchData();
-    }, []);
+        const endOffset = itemOffset + 5;
+        let config = {
+            method: 'POST',
+            url: 'https://artaka-api.com/api/products/show',
+            data: payload
+        }
+
+        axios(config).then(response => {
+            setProducts(response.data);
+            setCurrentItems(response.data.slice(itemOffset, endOffset));
+            console.log(currentItems);
+            setPageCount(Math.ceil(response.data.length / 5));
+        }).catch(err => {
+            console.log(err);
+        })
+
+        return () => {
+            setProducts("")
+        }
+
+    }, [itemOffset, 5]);
 
     async function fetchData() {
         const payload = {
             user_id: "+6287813841133",
             outlet_id: "OTL-001",
-            category: "Semua", 
+            category: "Semua",
             is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
-    }
+    };
 
-    const onDelete = async (id) => {
-    }
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * 5) % products.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+    /* const onDelete = async (id) => {} */
 
     return (
         <>
@@ -57,26 +95,32 @@ export default function Products() {
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                            {currentItems == null && (
+                                <div className="flex items-center h-screen">
+                                    <CircularProgress className="mx-auto" />
+                                </div>
+                            )}
+                            {currentItems != null && (
+                                <>
+                                </>
+                            )}
                             <table className="min-w-full h-auto divide-gray-200">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        {
-                                            columns.map(col => (
-                                                <th
-                                                    scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                                >
-                                                    <b>{col.column}</b>
-                                                </th>
-                                            ))
-                                        }
-
+                                        {columns.map(col => (
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                            >
+                                                <b>{col.column}</b>
+                                            </th>
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {products && products.map((prod) => (
+                                    {currentItems && currentItems.map((prod) => (
                                         <tr key={prod.id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td>
                                                 <div className="flex items-center">
                                                     <div className="flex-shrink-0 h-10 w-10">
                                                         <img className="h-10 w-10 rounded-full"
@@ -84,7 +128,9 @@ export default function Products() {
                                                             alt="" />
                                                     </div>
                                                     <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900">{prod.name}</div>
+                                                        <div className="text-sm font-medium text-gray-900">
+                                                            {prod.name}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -127,7 +173,7 @@ export default function Products() {
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {({ active }) => (
-                                                                                <Link to={`/artaka/seller/product/edit/`}
+                                                                                <Link to={`/seller/product/edit/`}
                                                                                     className={classNames(
                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                         'group flex items-center px-4 py-2 text-sm'
@@ -193,7 +239,16 @@ export default function Products() {
                                     ))}
                                 </tbody>
                             </table>
-
+                            <ReactPaginate
+                                className="grid grid-rows-1 grid-flow-col"
+                                breakLabel="..."
+                                nextLabel="next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={1}
+                                pageCount={pageCount}
+                                previousLabel="< previous"
+                                renderOnZeroPageCount={null}
+                            />
                         </div>
                     </div>
                 </div>

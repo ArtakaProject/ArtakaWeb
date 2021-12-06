@@ -10,6 +10,11 @@ export const doGetProductSucceed = (payload) => ({
     payload,
 });
 
+export const doProductFailed = (payload) => ({
+    type: ActionType.GET_PRODUCT_FAILED ,
+    payload,
+});
+
 
 export const doAddProductRequest = (payload) => ({
     type: ActionType.ADD_PRODUCT_REQUEST,
@@ -29,11 +34,5 @@ export const doEditProductRequest = (payload) => ({
 
 export const doEditProductSucceed = (payload) => ({
     type: ActionType.UPDATE_PRODUCT_SUCCEED ,
-    payload,
-});
-//
-
-export const doProductFailed = (payload) => ({
-    type: ActionType.GET_PRODUCT_FAILED ,
     payload,
 });

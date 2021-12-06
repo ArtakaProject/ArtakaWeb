@@ -18,7 +18,6 @@ import {
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import Login from './components/Login';
-import AdminLayout from './layout/AdminLayout.js'
 import LandingLayout from './layout/LandingLayout';
 import LoginLayout from './layout/LoginLayout';
 import Register from './components/Register';
