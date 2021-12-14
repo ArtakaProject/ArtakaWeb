@@ -12,6 +12,7 @@ import {
     ShareIcon,
     StarIcon,
     ThumbUpIcon,
+    ChevronDownIcon
 } from '@heroicons/react/solid'
 import {
     BellIcon, FireIcon, HomeIcon, MenuIcon,
@@ -83,7 +84,7 @@ export default function AdminLayout(props) {
                                             </label>
                                             <div className="relative">
                                                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                                    <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                    <SearchIcon className="h-5 w-5 text-purple-700" aria-hidden="true" />
                                                 </div>
                                                 <input
                                                     id="search"
@@ -111,7 +112,7 @@ export default function AdminLayout(props) {
 
                                     <Link
                                         to="#"
-                                        className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+                                        className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-purple-700 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
                                     >
                                         <span className="sr-only">View notifications</span>
                                         <BellIcon className="h-6 w-6" aria-hidden="true" />
@@ -121,12 +122,12 @@ export default function AdminLayout(props) {
                                     <Menu as="div" className="flex-shrink-0 relative ml-5">
                                         {({ open }) => (
                                             <>
-                                                <div>
-                                                    <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
-                                                        <span className="sr-only">Open user menu</span>
-                                                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-                                                    </Menu.Button>
-                                                </div>
+                                                  <div>
+                                                        <Menu.Button className="inline-flex justify-center w-full shadow-sm px-4 py-2 bg-white text-sm font-medium text-purple-700 hover:text-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                                                        Ken Shop
+                                                        <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5 text-purple-700 hover:text-blue-700" aria-hidden="true" />
+                                                        </Menu.Button>
+                                                    </div>
                                                 <Transition
                                                     show={open}
                                                     as={Fragment}
@@ -221,7 +222,7 @@ export default function AdminLayout(props) {
                     <div className="hidden shadow-xl lg:block lg:col-span-3 xl:col-span-2">
                         <nav aria-label="Sidebar" className="sticky top-4 divide-y divide-gray-300">
                             <div className="flex-initial">
-                                <p className="text-black text-xl">Artaka</p>
+                                <p className="text-black text-xl">Ken Shop</p>
                             </div>
                             <div className="pb-3 space-y-1">
                                 {navigation.map((item) => (
