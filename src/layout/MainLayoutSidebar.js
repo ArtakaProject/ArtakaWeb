@@ -124,15 +124,15 @@ export default function MainLayoutSidebar(props) {
                                                 to={item.href}
                                                 className={classNames(
                                                     item.current
-                                                        ? 'bg-gray-100 text-gray-900'
-                                                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50',
+                                                        ? 'bg-gray-100 text-purple-900'
+                                                        : 'text-purple-600 hover:text-purple-900 hover:bg-gray-50',
                                                     'group flex items-center px-2 py-2 text-base leading-5 font-medium rounded-md'
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                 <item.icon
                                                     className={classNames(
-                                                        item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
+                                                        item.current ? 'text-purple-700' : 'text-purple-500 group-hover:text-purple-700',
                                                         'mr-3 flex-shrink-0 h-6 w-6'
                                                     )}
                                                     aria-hidden="true"
@@ -177,14 +177,14 @@ export default function MainLayoutSidebar(props) {
                                         key={item.name}
                                         to={item.href}
                                         className={classNames(
-                                            item.current ? 'hover:bg-gray-50 text-gray-900' : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50',
+                                            item.current ? 'hover:bg-gray-50 text-purple-900' : 'text-purple-500 hover:text-purple-700 hover:bg-gray-50',
                                             'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                                         )}
                                         aria-current={item.current ? 'page' : undefined}
                                     >
                                         <item.icon
                                             className={classNames(
-                                                item.current ? 'text-gray-900' : 'text-gray-900 group-hover:text-gray-900',
+                                                item.current ? 'text-purple-900' : 'text-purple-900 group-hover:text-purple-700',
                                                 'mr-3 flex-shrink-0 h-6 w-6'
                                             )}
                                             aria-hidden="true"
