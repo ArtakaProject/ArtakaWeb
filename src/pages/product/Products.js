@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from 'react'
+import React, { useEffect, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { doGetProductRequest } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
@@ -11,6 +11,8 @@ import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
+import { Posts } from '../../components/Posts';
+
 
 
 
@@ -37,6 +39,17 @@ export default function Products() {
     const [itemOffset, setItemOffset] = useState(0);
     let data = []
     const [products, setProducts] = useState([]);
+    
+    //
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+    //
 
     let payload = {
         user_id: "+6287813841133",
@@ -46,6 +59,16 @@ export default function Products() {
     }
 
     useEffect(() => {
+        //
+        const fetchPosts = async () => {
+            setLoading(true);
+            const res = await axios.get('https://artaka-api.com/api/products/show');
+            setPosts(res.data);
+            setLoading(false);
+        }
+        fetchPosts();
+        //
+
         const endOffset = itemOffset + 5;
         let config = {
             method: 'POST',
@@ -240,9 +263,12 @@ export default function Products() {
                                 </tbody>
                             </table>
                         </div>
+                        <></>
+                        <Posts posts={currentPosts} loading={loading}/>
+                        <></>
                         <ReactPaginate
                             className=
-                            "grid grid-rows-1 grid-flow-col px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
+                            "grid grid-rows-2 grid-flow-row px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
                             breakLabel="..."
                             previousLabel=" << "
                             nextLabel=" >> "
