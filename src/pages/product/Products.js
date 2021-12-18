@@ -12,6 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import { Posts } from '../../components/Posts';
+import Pagination from '../../components/Pagination';
 
 
 
@@ -44,11 +45,13 @@ export default function Products() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage, setPostsPerPage] = useState(10);
+    const [postsPerPage] = useState(10);
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
     //
 
     let payload = {
@@ -265,6 +268,7 @@ export default function Products() {
                         </div>
                         <></>
                         <Posts posts={currentPosts} loading={loading}/>
+                        <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate}/>
                         <></>
                         <ReactPaginate
                             className=
