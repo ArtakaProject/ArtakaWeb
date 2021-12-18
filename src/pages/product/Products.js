@@ -18,12 +18,11 @@ import Pagination from '../../components/Pagination';
 
 
 const columns = [
-    { column: 'Nama' },
-    { column: 'Harga' },
-    { column: 'Deskripsi' },
-    { column: 'Stok' },
-    { column: 'Grosir' },
-    { column: 'Pilihan' }
+    { column: 'NAMA PRODUK' },
+    { column: 'HARGA' },
+    { column: 'STOK BARANG' },
+    { column: 'STATUS' },
+    { column: 'EDIT' }
 ];
 
 function classNames(...classes) {
@@ -40,19 +39,6 @@ export default function Products() {
     const [itemOffset, setItemOffset] = useState(0);
     let data = []
     const [products, setProducts] = useState([]);
-    
-    //
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(10);
-
-    const indexOfLastPost = currentPage * postsPerPage;
-    const indexOfFirstPost = indexOfLastPost - postsPerPage;
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
-    //
 
     let payload = {
         user_id: "+6287813841133",
@@ -62,15 +48,8 @@ export default function Products() {
     }
 
     useEffect(() => {
-        //
-        const fetchPosts = async () => {
-            setLoading(true);
-            const res = await axios.get('https://artaka-api.com/api/products/show');
-            setPosts(res.data);
-            setLoading(false);
-        }
-        fetchPosts();
-        //
+
+        window.scrollTo({ behavior: 'smooth', top: '0px' });
 
         const endOffset = itemOffset + 5;
         let config = {
@@ -78,6 +57,7 @@ export default function Products() {
             url: 'https://artaka-api.com/api/products/show',
             data: payload
         }
+
 
         axios(config).then(response => {
             setProducts(response.data);
@@ -148,25 +128,23 @@ export default function Products() {
                                         <tr key={prod.id}>
                                             <td>
                                                 <div className="flex items-center">
-                                                    <div className="flex-shrink-0 h-10 w-10">
+                                                    <div className="flex-shrink-0 h-12 w-12">
                                                         <img className="h-10 w-10 rounded-full"
                                                             src={prod.images}
                                                             alt="" />
                                                     </div>
                                                     <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900">
-                                                            {prod.name}
-                                                        </div>
+                                                        <div className="text-sm font-medium text-black">{prod.name}</div>
+                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
+                                                <div className="text-sm text-black">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
                                             <td>
-                                                <div className="text-sm text-gray-900">Terjual : {prod.quantity}</div>
-                                                <div className="text-sm text-gray-900">Sisa    : {prod.minimum_quantity}</div>
+                                                <div className="text-sm text-black">Terjual : {prod.quantity}</div>
+                                                <div className="text-sm text-gray-700">Sisa    : {prod.minimum_quantity}</div>
                                             </td>
                                             <td>
                                                 <input type="checkbox" />
@@ -266,22 +244,25 @@ export default function Products() {
                                 </tbody>
                             </table>
                         </div>
-                        <></>
-                        <Posts posts={currentPosts} loading={loading}/>
-                        <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate}/>
-                        <></>
-                        <ReactPaginate
-                            className=
-                            "grid grid-rows-2 grid-flow-row px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
-                            breakLabel="..."
-                            previousLabel=" << "
-                            nextLabel=" >> "
-                            onPageChange={handlePageClick}
-                            pageRangeDisplayed={1}
-                            pageCount={pageCount}
-                            renderOnZeroPageCount={null}
-                            marginPagesDisplayed={4}
-                        />
+
+                        <div>
+                            <ReactPaginate
+                                className=
+                                "flex grid grid-rows-2 grid-flow-row px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
+                                breakClassName={"break-me"}
+                                breakLabel="..."
+                                previousLabel="< previous"
+                                nextLabel="next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={4}
+                                pageCount={pageCount}
+                                containerClassName={"pagination"}
+                                subContainerClassName={"pages pagination"}
+                                activeClassName={"active"}
+                                renderOnZeroPageCount={null}
+                            />
+                        </div>
+
                     </div>
                 </div>
             </div>
