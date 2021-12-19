@@ -318,20 +318,15 @@ export default function Products() {
 
                         <>
                         <ReactPaginate
-                            className=
-                            "grid grid-rows-2 grid-flow-row px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
-                            breakClassName={"break-me"}
-                            breakLabel="..."
-                            previousLabel="< previous"
-                            nextLabel="next >"
-                            onPageChange={handlePageClick}
-                            pageRangeDisplayed={4}
-                            pageCount={pageCount}
-                            containerClassName={"pagination"}
-                            subContainerClassName={"pages pagination"}
-                            activeClassName={"active"}
-                            renderOnZeroPageCount={null}
-                        />
+                                className="grid grid-rows-1 grid-flow-col"
+                                breakLabel="..."
+                                nextLabel="next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={1}
+                                pageCount={pageCount}
+                                previousLabel="< previous"
+                                renderOnZeroPageCount={null}
+                            />
                     </>
 
                     </div>
