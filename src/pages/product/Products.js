@@ -15,8 +15,6 @@ import { Posts } from '../../components/Posts';
 import Pagination from '../../components/Pagination';
 
 
-
-
 const columns = [
     { column: 'NAMA PRODUK' },
     { column: 'HARGA' },
@@ -48,6 +46,80 @@ export default function Products() {
     }
 
     useEffect(() => {
+        function Pagination({ data, RenderComponent, pageLimit, dataLimit }) {
+            const [pages] = useState(Math.round(data.length / dataLimit));
+            const [currentPage, setCurrentPage] = useState(1);
+
+            function goToNextPage() {
+                setCurrentPage((page) => page + 1);
+            }
+
+            function goToPreviousPage() {
+                setCurrentPage((page) => page - 1);
+            }
+
+            function changePage(event) {
+                const pageNumber = Number(event.target.textContent);
+                setCurrentPage(pageNumber);
+            }
+
+            const getPaginatedData = () => {
+                const startIndex = currentPage * dataLimit - dataLimit;
+                const endIndex = startIndex + dataLimit;
+                return data.slice(startIndex, endIndex);
+            };
+
+            const getPaginationGroup = () => {
+                let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
+                return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
+            };
+
+            return (
+                <div>
+
+                    {/* show the posts, 10 posts at a time */}
+                    <div className="dataContainer">
+                        {getPaginatedData().map((d, idx) => (
+                            <RenderComponent key={idx} data={d} />
+                        ))}
+                    </div>
+
+                    {/* show the pagiantion
+                      it consists of next and previous buttons
+                      along with page numbers, in our case, 5 page
+                      numbers at a time
+                  */}
+                    <div className="pagination">
+                        {/* previous button */}
+                        <button
+                            onClick={goToPreviousPage}
+                            className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
+                        >
+                            prev
+                        </button>
+
+                        {/* show page numbers */}
+                        {getPaginationGroup().map((item, index) => (
+                            <button
+                                key={index}
+                                onClick={changePage}
+                                className={`paginationItem ${currentPage === item ? 'active' : null}`}
+                            >
+                                <span>{item}</span>
+                            </button>
+                        ))}
+
+                        {/* next button */}
+                        <button
+                            onClick={goToNextPage}
+                            className={`next ${currentPage === pages ? 'disabled' : ''}`}
+                        >
+                            next
+                        </button>
+                    </div>
+                </div>
+            );
+        }
 
         window.scrollTo({ behavior: 'smooth', top: '0px' });
 
@@ -57,7 +129,6 @@ export default function Products() {
             url: 'https://artaka-api.com/api/products/show',
             data: payload
         }
-
 
         axios(config).then(response => {
             setProducts(response.data);
@@ -245,23 +316,23 @@ export default function Products() {
                             </table>
                         </div>
 
-                        <div>
-                            <ReactPaginate
-                                className=
-                                "flex grid grid-rows-2 grid-flow-row px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
-                                breakClassName={"break-me"}
-                                breakLabel="..."
-                                previousLabel="< previous"
-                                nextLabel="next >"
-                                onPageChange={handlePageClick}
-                                pageRangeDisplayed={4}
-                                pageCount={pageCount}
-                                containerClassName={"pagination"}
-                                subContainerClassName={"pages pagination"}
-                                activeClassName={"active"}
-                                renderOnZeroPageCount={null}
-                            />
-                        </div>
+                        <>
+                        <ReactPaginate
+                            className=
+                            "grid grid-rows-2 grid-flow-row px-4 py-2 text-gray-650 bg-gray-100 rounded-md hover:bg-indigo-500 hover:text-white"
+                            breakClassName={"break-me"}
+                            breakLabel="..."
+                            previousLabel="< previous"
+                            nextLabel="next >"
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={4}
+                            pageCount={pageCount}
+                            containerClassName={"pagination"}
+                            subContainerClassName={"pages pagination"}
+                            activeClassName={"active"}
+                            renderOnZeroPageCount={null}
+                        />
+                    </>
 
                     </div>
                 </div>
