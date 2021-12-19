@@ -12,7 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import ReactPaginate from 'react-paginate';
 import axios from 'axios';
 import { Posts } from '../../components/Posts';
-import Pagination from '../../components/Pagination';
+import Pagination from '../../components/navigation/Pagination';
 
 
 const columns = [
@@ -31,12 +31,13 @@ function classNames(...classes) {
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
-    //const products = useSelector((state) => state.productState.products);
-    const [currentItems, setCurrentItems] = useState(null);
-    const [pageCount, setPageCount] = useState(0);
+    const {products, isLoading} = useSelector((state) => state.productState);
+    //const [currentItems, setCurrentItems] = useState(null);
+    //const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
+    const [endOffset, setEndOffset] = useState(6);
     let data = []
-    const [products, setProducts] = useState([]);
+    const [productSlice, setProductSlice] = useState([]);
 
     let payload = {
         user_id: "+6287813841133",
@@ -46,104 +47,12 @@ export default function Products() {
     }
 
     useEffect(() => {
-        function Pagination({ data, RenderComponent, pageLimit, dataLimit }) {
-            const [pages] = useState(Math.round(data.length / dataLimit));
-            const [currentPage, setCurrentPage] = useState(1);
+        setProductSlice(products.slice(itemOffset, endOffset));
+    }, [itemOffset, endOffset]);
 
-            function goToNextPage() {
-                setCurrentPage((page) => page + 1);
-            }
-
-            function goToPreviousPage() {
-                setCurrentPage((page) => page - 1);
-            }
-
-            function changePage(event) {
-                const pageNumber = Number(event.target.textContent);
-                setCurrentPage(pageNumber);
-            }
-
-            const getPaginatedData = () => {
-                const startIndex = currentPage * dataLimit - dataLimit;
-                const endIndex = startIndex + dataLimit;
-                return data.slice(startIndex, endIndex);
-            };
-
-            const getPaginationGroup = () => {
-                let start = Math.floor((currentPage - 1) / pageLimit) * pageLimit;
-                return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
-            };
-
-            return (
-                <div>
-
-                    {/* show the posts, 10 posts at a time */}
-                    <div className="dataContainer">
-                        {getPaginatedData().map((d, idx) => (
-                            <RenderComponent key={idx} data={d} />
-                        ))}
-                    </div>
-
-                    {/* show the pagiantion
-                      it consists of next and previous buttons
-                      along with page numbers, in our case, 5 page
-                      numbers at a time
-                  */}
-                    <div className="pagination">
-                        {/* previous button */}
-                        <button
-                            onClick={goToPreviousPage}
-                            className={`prev ${currentPage === 1 ? 'disabled' : ''}`}
-                        >
-                            prev
-                        </button>
-
-                        {/* show page numbers */}
-                        {getPaginationGroup().map((item, index) => (
-                            <button
-                                key={index}
-                                onClick={changePage}
-                                className={`paginationItem ${currentPage === item ? 'active' : null}`}
-                            >
-                                <span>{item}</span>
-                            </button>
-                        ))}
-
-                        {/* next button */}
-                        <button
-                            onClick={goToNextPage}
-                            className={`next ${currentPage === pages ? 'disabled' : ''}`}
-                        >
-                            next
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        window.scrollTo({ behavior: 'smooth', top: '0px' });
-
-        const endOffset = itemOffset + 5;
-        let config = {
-            method: 'POST',
-            url: 'https://artaka-api.com/api/products/show',
-            data: payload
-        }
-
-        axios(config).then(response => {
-            setProducts(response.data);
-            setCurrentItems(response.data.slice(itemOffset, endOffset));
-            console.log(currentItems);
-            setPageCount(Math.ceil(response.data.length / 5));
-        }).catch(err => {
-            console.log(err);
-        })
-
-        return () => {
-            setProducts("")
-        }
-
-    }, [itemOffset, 5]);
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     async function fetchData() {
         const payload = {
@@ -153,6 +62,7 @@ export default function Products() {
             is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
+        setProductSlice(products.slice(0, 6));
     };
 
     const handlePageClick = (event) => {
@@ -172,12 +82,12 @@ export default function Products() {
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            {currentItems == null && (
+                            {isLoading && (
                                 <div className="flex items-center h-screen">
                                     <CircularProgress className="mx-auto" />
                                 </div>
                             )}
-                            {currentItems != null && (
+                            {isLoading && (
                                 <>
                                 </>
                             )}
@@ -195,7 +105,7 @@ export default function Products() {
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {currentItems && currentItems.map((prod) => (
+                                    {productSlice && productSlice.map((prod) => (
                                         <tr key={prod.id}>
                                             <td>
                                                 <div className="flex items-center">
@@ -317,7 +227,7 @@ export default function Products() {
                         </div>
 
                         <>
-                        <ReactPaginate
+                        {/* <ReactPaginate
                                 className="grid grid-rows-1 grid-flow-col"
                                 breakLabel="..."
                                 nextLabel="next >"
@@ -326,7 +236,9 @@ export default function Products() {
                                 pageCount={pageCount}
                                 previousLabel="< previous"
                                 renderOnZeroPageCount={null}
-                            />
+                            /> */}
+
+                            <Pagination/>
                     </>
 
                     </div>

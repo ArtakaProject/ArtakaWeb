@@ -12,7 +12,7 @@ function* handleGetProduct(action) {
     const { payload } = action;
     try {
         const result = yield call(apiProduct.findAll, payload);
-        yield put(doGetProductSucceed(result)); //.data
+        yield put(doGetProductSucceed(result.data)); //.data
     } catch (error) {
         yield put(doProductFailed(error));
     }

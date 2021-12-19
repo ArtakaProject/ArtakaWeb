@@ -1,5 +1,5 @@
 const config = {
-    domain : 'https://artaka-api.com',
+    domain : 'https://artaka-api.com/api',
     login :  'https://artaka-api.com/api/subscriber',
     urlImage : 'http://localhost:3001/artaka/api/product/images',
     domainAuth : 'http://localhost:3001/artaka/auth/',
@@ -8,4 +8,4 @@ const config = {
     jwtSecret: process.env.JWT_SECRET || "YOUR_secret_key"
   }
   
-  export default config
+  export default config;
