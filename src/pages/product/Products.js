@@ -10,8 +10,8 @@ import config from '../../config/config';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ReactPaginate from 'react-paginate';
-import axios from 'axios';
-import { Posts } from '../../components/Posts';
+/* import axios from 'axios';
+import { Posts } from '../../components/Posts'; */
 import Pagination from '../../components/navigation/Pagination';
 
 
@@ -35,16 +35,16 @@ export default function Products() {
     //const [currentItems, setCurrentItems] = useState(null);
     //const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
-    const [endOffset, setEndOffset] = useState(6);
+    const [endOffset, setEndOffset] = useState(5);
     let data = []
     const [productSlice, setProductSlice] = useState([]);
 
-    let payload = {
+    /* let payload = {
         user_id: "+6287813841133",
         outlet_id: "OTL-001",
         category: "Semua",
         is_active: "All"
-    }
+    } */
 
     useEffect(() => {
         setProductSlice(products.slice(itemOffset, endOffset));
@@ -62,7 +62,7 @@ export default function Products() {
             is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
-        setProductSlice(products.slice(0, 6));
+        setProductSlice(products.slice(itemOffset, endOffset));
     };
 
     const handlePageClick = (event) => {
