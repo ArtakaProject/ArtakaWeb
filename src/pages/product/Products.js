@@ -9,9 +9,6 @@ import { Menu, Transition } from '@headlessui/react';
 import config from '../../config/config';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import ReactPaginate from 'react-paginate';
-/* import axios from 'axios';
-import { Posts } from '../../components/Posts'; */
 import Pagination from '../../components/navigation/Pagination';
 
 
@@ -31,12 +28,12 @@ function classNames(...classes) {
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
-    const {products, isLoading} = useSelector((state) => state.productState);
+    const { products, isLoading } = useSelector((state) => state.productState);
     //const [currentItems, setCurrentItems] = useState(null);
     //const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
     const [endOffset, setEndOffset] = useState(5);
-    let data = []
+    //let data = []
     const [productSlice, setProductSlice] = useState([]);
 
     /* let payload = {
@@ -45,14 +42,6 @@ export default function Products() {
         category: "Semua",
         is_active: "All"
     } */
-
-    useEffect(() => {
-        setProductSlice(products.slice(itemOffset, endOffset));
-    }, [itemOffset, endOffset]);
-
-    useEffect(() => {
-        fetchData()
-    }, [])
 
     async function fetchData() {
         const payload = {
@@ -65,13 +54,23 @@ export default function Products() {
         setProductSlice(products.slice(itemOffset, endOffset));
     };
 
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * 5) % products.length;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
-        setItemOffset(newOffset);
-    };
+    /* useEffect(() => {
+        fetchData();
+        setProductSlice(products.slice(itemOffset, endOffset));
+
+    }, [itemOffset, endOffset]); */
+
+    useEffect(() => {
+        fetchData()
+    },  []);
+
+    /*const handlePageClick = (event) => {
+           const newOffset = (event.selected * 5) % products.length;
+           console.log(
+               `User requested page number ${event.selected}, which is offset ${newOffset}`
+           );
+           setItemOffset(newOffset);
+       }; */
 
     /* const onDelete = async (id) => {} */
 
@@ -128,10 +127,9 @@ export default function Products() {
                                                 <div className="text-sm text-gray-700">Sisa    : {prod.minimum_quantity}</div>
                                             </td>
                                             <td>
-                                                <input type="checkbox" />
-                                                <label class="switch toggle">
-                                                    <span class="slider round"></span>
-                                                </label>
+                                                <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
+                                                    <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                                                 <Menu as="div" className="relative flex justify-end items-center ">
@@ -227,23 +225,13 @@ export default function Products() {
                         </div>
 
                         <>
-                        {/* <ReactPaginate
-                                className="grid grid-rows-1 grid-flow-col"
-                                breakLabel="..."
-                                nextLabel="next >"
-                                onPageChange={handlePageClick}
-                                pageRangeDisplayed={1}
-                                pageCount={pageCount}
-                                previousLabel="< previous"
-                                renderOnZeroPageCount={null}
-                            /> */}
 
-                            <Pagination/>
-                    </>
+                            <Pagination />
+                        </>
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
 
     )
