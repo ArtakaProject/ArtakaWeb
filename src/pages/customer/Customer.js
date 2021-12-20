@@ -15,6 +15,7 @@ import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ReactPaginate from "react-paginate";
 import Axios from "axios";
+import { FilterIcon, PlusIcon } from "@heroicons/react/outline";
 
 const columns = [
   { column: "Nama" },
@@ -109,10 +110,34 @@ export default function Customer() {
 
   return (
     <>
-      <PageHeading
+      {/* <PageHeading
         actionTitle={"Add Customer"}
         onNewClick={() => history.push("/customer/add")}
-      ></PageHeading>
+      ></PageHeading> */}
+      <div className="flex w-full mb-5">
+        <label className="text-black text-xl text-purple-900s mr-5">DAFTAR PELANGGAN</label>
+        <div className="relative w-7/12">
+          <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+            <SearchIcon
+              className="h-5 w-5 text-gray-400"
+              aria-hidden="true"
+            />
+          </div>
+          <input
+            id="search"
+            name="search"
+            className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
+            placeholder="Search"
+            type="search"
+          />
+        </div>
+        <PlusIcon className="w-6 h-6">
+
+        </PlusIcon>
+        <FilterIcon className="w-6 h-6">
+
+        </FilterIcon>
+      </div>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">

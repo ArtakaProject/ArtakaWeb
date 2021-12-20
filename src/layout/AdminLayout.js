@@ -292,98 +292,100 @@ export default function AdminLayout(props) {
       </Popover>
 
       {/* {sidebar} */}
-          <div className="py-2 h-screen w-screen">
-            <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:ml-0 lg:grid lg:grid-cols-12 lg:gap-4">
-              {menuCollapse ? (
-                <div className="lg:block lg:col-span-3 xl:col-span-1 w-10">
-                  <nav
-                    aria-label="Sidebar"
-                    className="sticky top-4 divide-y divide-gray-300"
-                  >
-                    <div className="group flex items-center px-3 py-2 rounded-md">
-                      <MenuIcon
-                        className="block h-6 w-6 text-purple-900"
-                        aria-hidden="true"
-                        onClick={menuIconClick}
-                      />
-                    </div>
-                    <div className="pb-3 space-y-1">
-                      {navigation.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-200 text-purple-900"
-                              : "text-gray-600 hover:bg-gray-50",
-                            "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? "text-purple-500"
-                                : "text-purple-400 group-hover:text-purple-500",
-                              "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                            )}
-                            aria-hidden="true"
-                          />
-                        </Link>
-                      ))}
-                    </div>
-                  </nav>
+      <div className="py-2 h-screen w-screen">
+        <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:ml-0 lg:grid lg:grid-cols-12 lg:gap-4">
+          {menuCollapse ? (
+            <div className="lg:block lg:col-span-3 xl:col-span-1 w-10">
+              <nav
+                aria-label="Sidebar"
+                className="sticky top-4 divide-y divide-gray-300"
+              >
+                <div className="group flex items-center px-3 py-2 rounded-md">
+                  <MenuIcon
+                    className="block h-6 w-6 text-purple-900"
+                    aria-hidden="true"
+                    onClick={menuIconClick}
+                  />
                 </div>
-              ) : (
-                <div className="lg:block lg:col-span-3 xl:col-span-2">
-                  <nav
-                    aria-label="Sidebar"
-                    className="sticky top-4 divide-y divide-gray-300"
-                  >
-                    <div className="group flex items-center px-3 py-2 rounded-md">
-                      <p className="text-black text-xl w-40 text-purple-900">Ken Shop</p>
-                      <MenuIcon
-                        className="block h-6 w-6 text-purple-900"
+                <div className="pb-3 space-y-1">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={classNames(
+                        item.current
+                          ? "bg-gray-200 text-purple-900"
+                          : "text-gray-600 hover:bg-gray-50",
+                        "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+                      )}
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      <item.icon
+                        className={classNames(
+                          item.current
+                            ? "text-purple-500"
+                            : "text-purple-400 group-hover:text-purple-500",
+                          "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                        )}
                         aria-hidden="true"
-                        onClick={menuIconClick}
                       />
-                    </div>
-                    <div className="pb-3 space-y-1">
-                      {navigation.map((item) => (
-                        <Link
-                          key={item.name}
-                          to={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-200 text-purple-900"
-                              : "text-gray-600 hover:bg-gray-50",
-                            "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
-                          )}
-                          aria-current={item.current ? "page" : undefined}
-                        >
-                          <item.icon
-                            className={classNames(
-                              item.current
-                                ? "text-purple-500"
-                                : "text-purple-400 group-hover:text-purple-500",
-                              "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
-                            )}
-                            aria-hidden="true"
-                          />
-                          <span className="truncate text-purple-700">
-                            {item.name}
-                          </span>
-                        </Link>
-                      ))}
-                    </div>
-                  </nav>
+                    </Link>
+                  ))}
                 </div>
-              )}
-              <main className="lg:col-span-9 xl:col-span-9">
-                <div className="px-4 sm:px-0">{props.children}</div>
-              </main>
+              </nav>
             </div>
-          </div>
+          ) : (
+            <div className="lg:block lg:col-span-3 xl:col-span-2">
+              <nav
+                aria-label="Sidebar"
+                className="sticky top-4 divide-y divide-gray-300"
+              >
+                <div className="group flex items-center px-3 py-2 rounded-md">
+                  <p className="text-black text-xl w-40 text-purple-900">
+                    Ken Shop
+                  </p>
+                  <MenuIcon
+                    className="block h-6 w-6 text-purple-900"
+                    aria-hidden="true"
+                    onClick={menuIconClick}
+                  />
+                </div>
+                <div className="pb-3 space-y-1">
+                  {navigation.map((item) => (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className={classNames(
+                        item.current
+                          ? "bg-gray-200 text-purple-900"
+                          : "text-gray-600 hover:bg-gray-50",
+                        "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+                      )}
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      <item.icon
+                        className={classNames(
+                          item.current
+                            ? "text-purple-500"
+                            : "text-purple-400 group-hover:text-purple-500",
+                          "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                        )}
+                        aria-hidden="true"
+                      />
+                      <span className="truncate text-purple-700">
+                        {item.name}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </nav>
+            </div>
+          )}
+          <main className="lg:col-span-10 xl:col-span-10">
+            <div className="px-4 sm:px-0">{props.children}</div>
+          </main>
+        </div>
+      </div>
     </div>
   );
 }
