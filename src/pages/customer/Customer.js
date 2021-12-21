@@ -1,28 +1,24 @@
 import React, { useEffect, Fragment, useState } from "react";
-import { useDispatch, useSelector, connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { doGetCustomerRequest } from "../../redux/actions/Customer";
-import PageHeading from "../../components/PageHeading";
 import {
   PencilAltIcon,
   TrashIcon,
   DotsVerticalIcon,
-  PhotographIcon,
   SearchIcon,
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
-import config from "../../config/config";
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import ReactPaginate from "react-paginate";
-import Axios from "axios";
 import { FilterIcon, PlusIcon } from "@heroicons/react/outline";
+import Pagination from '../../components/navigation/Pagination';
 
 const columns = [
-  { column: "Nama" },
-  { column: "Kontak" },
-  { column: "Keterangan" },
-  { column: "Tanggal Bergabung" },
-  { column: "Aksi" },
+  { column: "NAMA" },
+  { column: "KONTAK" },
+  { column: "KETERANGAN" },
+  { column: "TANGGAL BERGABUNG" },
+  { column: "AKSI" },
 ];
 
 function classNames(...classes) {
@@ -32,63 +28,23 @@ function classNames(...classes) {
 export default function Customer() {
   let history = useHistory();
   const dispatch = useDispatch();
-  // const customer = useSelector((state) => state.customerState.customer.data);
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState(0);
+  const customer = useSelector((state) => state.customerState.customer.data);
+  const isLoading = useSelector((state) => state.customerState);
   const [itemOffset, setItemOffset] = useState(0);
-  let data = [];
-  const [customer, setCustomer] = useState([]);
-
-  let payload = {
-    user_id: "+6281282187515",
-    outlet_id: "OTL-001",
-  };
-  // const columns = useMemo(() => [
-  //   {
-  //     Header: 'Nama',
-  //     accessor: 'name'
-  //   },
-  //   {
-  //     Header: 'Kontak',
-  //     accessor: 'phone'
-  //   },
-  //   {
-  //     Header: 'Tanggal Bergabung',
-  //     accessor: 'create_dtm'
-  //   }
-  // ])
+  const [endOffset, setEndOffset] = useState(5);
+  let data = []
+  const [customerSlice, setCustomerSlice] = useState([]);
 
   useEffect(() => {
-    const endOffset = itemOffset + 5;
-    let config = {
-      method: "POST",
-      url: "https://artaka-api.com/api/customers/show",
-      data: payload,
-    };
+      console.log(customer);
+      if(customer != null){
+      setCustomerSlice(customer.slice(itemOffset, endOffset));
+      }
+  }, [itemOffset, endOffset]);
 
-    Axios(config)
-      .then((response) => {
-        setCustomer(response.data);
-        setCurrentItems(response.data.slice(itemOffset, endOffset));
-        console.log(currentItems);
-        setPageCount(Math.ceil(response.data.length / 5));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    return () => {
-      setCustomer("");
-    };
-
-    // fetchData();
-    // if (customer != null) {
-    //   data = customer
-    //   setCurrentItems(data.slice(itemOffset, endOffset));
-    //   console.log(currentItems);
-    //   setPageCount(Math.ceil(data.length / 5));
-    // }
-  }, [itemOffset, 5]);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   async function fetchData() {
     const payload = {
@@ -96,6 +52,10 @@ export default function Customer() {
       outlet_id: "OTL-001",
     };
     dispatch(doGetCustomerRequest(payload));
+    console.log(customerSlice);
+    if(customer != null){
+    setCustomerSlice(customer.slice(itemOffset, endOffset));
+    }
   }
 
   const handlePageClick = (event) => {
@@ -106,7 +66,7 @@ export default function Customer() {
     setItemOffset(newOffset);
   };
 
-  // const onDelete = async (id) => { };
+  const onDelete = async (id) => { };
 
   return (
     <>
@@ -142,12 +102,12 @@ export default function Customer() {
         <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              {currentItems == null && (
+              {customer == null && (
                 <div className="flex items-center h-screen">
                   <CircularProgress className="mx-auto" />
                 </div>
               )}
-              {currentItems != null && (
+              { customer != null && (
                 <>
                   <table className="min-w-full h-auto divide-gray-200">
                     <thead className="bg-gray-200">
@@ -163,8 +123,8 @@ export default function Customer() {
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {currentItems &&
-                        currentItems.map((cust) => (
+                      {customerSlice &&
+                        customerSlice.map((cust) => (
                           <tr key={cust.id}>
                             <td>
                               <div className="flex items-center">
@@ -277,16 +237,7 @@ export default function Customer() {
                         ))}
                     </tbody>
                   </table>
-                  <ReactPaginate
-                    className="grid grid-rows-1 grid-flow-col"
-                    breakLabel="..."
-                    nextLabel="next >"
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={1}
-                    pageCount={pageCount}
-                    previousLabel="< previous"
-                    renderOnZeroPageCount={null}
-                  />
+                  <Pagination />
                 </>
               )}
             </div>

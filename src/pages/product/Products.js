@@ -1,6 +1,5 @@
-import React, { useEffect, Fragment } from 'react'
+import React, { useEffect, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { doGetProductRequest } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
 import {
@@ -8,19 +7,19 @@ import {
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
 import config from '../../config/config';
-
 import { useHistory, Link } from "react-router-dom";
-
+import CircularProgress from "@material-ui/core/CircularProgress";
+import ReactPaginate from 'react-paginate';
+import axios from 'axios';
+import Pagination from '../../components/navigation/Pagination';
 
 
 const columns = [
-    { column: 'Nama' },
-    { column: 'Harga' },
-    { column: 'Deskripsi' },
-    { column: 'Kategori' },
-    { column: 'Terjual' },
-    { column: 'Stok' },
-    { column: 'Tersedia' }
+    { column: 'NAMA PRODUK' },
+    { column: 'HARGA' },
+    { column: 'STOK BARANG' },
+    { column: 'STATUS' },
+    { column: 'EDIT' }
 ];
 
 function classNames(...classes) {
@@ -31,72 +30,102 @@ function classNames(...classes) {
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
-    const products = useSelector((state) => state.productState.products);
-    const remain_stock = useSelector((state) => state.productState.remain_stock);
+    const {products, isLoading} = useSelector((state) => state.productState);
+    //const [currentItems, setCurrentItems] = useState(null);
+    //const [pageCount, setPageCount] = useState(0);
+    const [itemOffset, setItemOffset] = useState(0);
+    const [endOffset, setEndOffset] = useState(6);
+    let data = []
+    const [productSlice, setProductSlice] = useState([]);
 
-
+    let payload = {
+        user_id: "+6287813841133",
+        outlet_id: "OTL-001",
+        category: "Semua",
+        is_active: "All"
+    }
 
     useEffect(() => {
-        fetchData();
-    }, []);
+        setProductSlice(products.slice(itemOffset, endOffset));
+    }, [itemOffset, endOffset]);
+
+    useEffect(() => {
+        fetchData()
+    }, [])
 
     async function fetchData() {
         const payload = {
-            user_id: '+6281282187515', outlet_id: 'OTL-001'
+            user_id: "+6287813841133",
+            outlet_id: "OTL-001",
+            category: "Semua",
+            is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
-    }
+        setProductSlice(products.slice(0, 6));
+    };
 
-    /* const onDelete = async (id) => {
-    } */
+    const handlePageClick = (event) => {
+        const newOffset = (event.selected * 5) % products.length;
+        console.log(
+            `User requested page number ${event.selected}, which is offset ${newOffset}`
+        );
+        setItemOffset(newOffset);
+    };
+
+    /* const onDelete = async (id) => {} */
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/artaka/seller/product/add')} />
+            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} />
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                            {isLoading && (
+                                <div className="flex items-center h-screen">
+                                    <CircularProgress className="mx-auto" />
+                                </div>
+                            )}
+                            {isLoading && (
+                                <>
+                                </>
+                            )}
                             <table className="min-w-full h-auto divide-gray-200">
                                 <thead className="bg-gray-50">
                                     <tr>
-                                        {
-                                            columns.map(col => (
-                                                <th
-                                                    scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                                >
-                                                    <b>{col.column}</b>
-                                                </th>
-                                            ))
-                                        }
-
+                                        {columns.map(col => (
+                                            <th
+                                                scope="col"
+                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                            >
+                                                <b>{col.column}</b>
+                                            </th>
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody className="bg-white divide-y divide-gray-200">
-                                    {products && products.map((prod) => (
-                                        <tr key={prod.prod_id}>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                    {productSlice && productSlice.map((prod) => (
+                                        <tr key={prod.id}>
+                                            <td>
                                                 <div className="flex items-center">
-                                                    <div className="flex-shrink-0 h-10 w-10">
+                                                    <div className="flex-shrink-0 h-12 w-12">
                                                         <img className="h-10 w-10 rounded-full"
-                                                            src={`${config.urlImage}/${prod.images}`}
+                                                            src={prod.images}
                                                             alt="" />
                                                     </div>
-
                                                     <div className="ml-4">
-                                                        <div className="text-sm font-medium text-gray-900">{prod.name}</div>
-                                                        
+                                                        <div className="text-sm font-medium text-black">{prod.name}</div>
+                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-900">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
+                                                <div className="text-sm text-black">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.category}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.quantity}</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{remain_stock}</td>
+                                            <td>
+                                                <div className="text-sm text-black">Terjual : {prod.quantity}</div>
+                                                <div className="text-sm text-gray-700">Sisa    : {prod.minimum_quantity}</div>
+                                            </td>
                                             <td>
                                                 <input type="checkbox" />
                                                 <label class="switch toggle">
@@ -128,7 +157,7 @@ export default function Products() {
                                                                     <div className="py-1">
                                                                         <Menu.Item>
                                                                             {({ active }) => (
-                                                                                <Link to={`/artaka/seller/product/edit/`}
+                                                                                <Link to={`/seller/product/edit/`}
                                                                                     className={classNames(
                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                         'group flex items-center px-4 py-2 text-sm'
@@ -194,8 +223,23 @@ export default function Products() {
                                     ))}
                                 </tbody>
                             </table>
-                            
                         </div>
+
+                        <>
+                        {/* <ReactPaginate
+                                className="grid grid-rows-1 grid-flow-col"
+                                breakLabel="..."
+                                nextLabel="next >"
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={1}
+                                pageCount={pageCount}
+                                previousLabel="< previous"
+                                renderOnZeroPageCount={null}
+                            /> */}
+
+                            <Pagination/>
+                    </>
+
                     </div>
                 </div>
             </div>

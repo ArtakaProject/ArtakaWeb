@@ -1,33 +1,34 @@
 import * as ActionType from '../constants/Product';
 
+/* {
+    id: "",
+    create_dtm: "",
+    sku_id: "",
+    user_id: "",
+    outlet_id: "",
+    name: "",
+    category: "",
+    variant: "",
+    units: "",
+    weight: 0,
+    quantity: 0,
+    minimum_quantity: 0,
+    description: "",
+    buy_cost: 0,
+    sell_cost: 0,
+    modifiers_id: "",
+    images: [],
+    rawmaterial: [],
+    is_stock_tracked: "",
+    number_sold: 0,
+    outlets: [],
+    buy_cost_discounted: 0,
+    is_active: "",
+    wholesaler_cost: []
+} remain_stock: 0, */
+
 const INIT_STATE = {
-    products: [{
-        id: "",
-        create_dtm: "",
-        sku_id: "",
-        user_id: "",
-        outlet_id: "",
-        name: "",
-        category: "",
-        variant: "",
-        units: "",
-        weight: 0,
-        quantity: 0,
-        minimum_quantity: 0,
-        description: "",
-        buy_cost: 0,
-        sell_cost: 0,
-        modifiers_id: "",
-        images: [],
-        rawmaterial: [],
-        is_stock_tracked: "",
-        number_sold: 0,
-        outlets: [],
-        buy_cost_discounted: 0,
-        is_active: "",
-        wholesaler_cost: []
-    }],
-    remain_stock: 0,
+    products: [],
     isLoading: false,
     status: false,
     error: null,
@@ -49,7 +50,12 @@ const productReducer = (state = INIT_STATE, action) => {
             }
         }
         case ActionType.GET_PRODUCT_SUCCEED: {
-            return applyGetProductSucceed(state, action)
+            return {
+                ...state,
+                products: action.payload,
+                isLoading: false
+            }
+            /* return applyGetProductSucceed(state, action) */
         }
         case ActionType.ADD_PRODUCT_REQUEST: {
             return {
@@ -76,13 +82,13 @@ const productReducer = (state = INIT_STATE, action) => {
 
 }
 
-const applyGetProductSucceed = (state, action) => {
+/* const applyGetProductSucceed = (state, action) => {
     return {
         ...state,
         products: action.payload,
         isLoading: false
     }
-}
+} */
 
 const applyAddProductSucceed = (state, action) => {
     const { payload } = action;
