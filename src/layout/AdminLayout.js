@@ -1,9 +1,9 @@
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import {
-    ChatAltIcon,
-    CodeIcon,
+    ChevronDownIcon,
+    BellIcon,
     DotsVerticalIcon,
     EyeIcon,
     FlagIcon,
@@ -14,7 +14,7 @@ import {
     ThumbUpIcon,
 } from '@heroicons/react/solid'
 import {
-    BellIcon, FireIcon, HomeIcon, MenuIcon,
+    FireIcon, HomeIcon, MenuIcon,
     TrendingUpIcon, XIcon,
     DocumentReportIcon, UserGroupIcon, ViewListIcon, BookOpenIcon, CreditCardIcon,
 } from '@heroicons/react/outline'
@@ -40,7 +40,7 @@ const navigation = [
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
+    { name: 'Sign out', href: "/artaka/signin" },
 ]
 
 function classNames(...classes) {
@@ -48,6 +48,11 @@ function classNames(...classes) {
 }
 
 export default function AdminLayout(props) {
+    const [menuCollapse, setMenuCollapse] = useState(false);
+
+    const menuIconClick = () => {
+        menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
+    };
     return (
         <div className="min-h-screen">
             {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -76,24 +81,7 @@ export default function AdminLayout(props) {
                                     </div>
                                 </div>
                                 <div className="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
-                                    <div className="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
-                                        <div className="w-full">
-                                            <label htmlFor="search" className="sr-only">
-                                                Search
-                                            </label>
-                                            <div className="relative">
-                                                <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                                    <SearchIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                </div>
-                                                <input
-                                                    id="search"
-                                                    name="search"
-                                                    className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
-                                                    placeholder="Search"
-                                                    type="search"
-                                                />
-                                            </div>
-                                        </div>
+                                    <div className="flex items-center px-6 py-4 h-14 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
                                     </div>
                                 </div>
                                 <div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
@@ -109,22 +97,16 @@ export default function AdminLayout(props) {
                                 </div>
                                 <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
 
-                                    <Link
-                                        to="#"
-                                        className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
-                                    >
-                                        <span className="sr-only">View notifications</span>
-                                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                    </Link>
-
                                     {/* Profile dropdown */}
-                                    <Menu as="div" className="flex-shrink-0 relative ml-5">
+                                    <Menu as="div" className="relative inline-block text-left">
                                         {({ open }) => (
                                             <>
                                                 <div>
-                                                    <Menu.Button className="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
-                                                        <span className="sr-only">Open user menu</span>
-                                                        <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
+                                                    <Menu.Button className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-white text-sm font-medium text-purple-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
+                                                        Ken Shop {/* nama toko */}
+                                                        <ChevronDownIcon
+                                                            className="-mr-1 ml-2 h-5 w-5"
+                                                            aria-hidden="true" />
                                                     </Menu.Button>
                                                 </div>
                                                 <Transition
@@ -161,7 +143,16 @@ export default function AdminLayout(props) {
                                             </>
                                         )}
                                     </Menu>
-
+                                    <Link
+                                        to="#"
+                                        className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
+                                    >
+                                        <span className="sr-only">View notifications</span>
+                                        <BellIcon
+                                            className="h-6 w-6 text-purple-700"
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -216,44 +207,101 @@ export default function AdminLayout(props) {
                 )}
             </Popover>
 
-            <div className="py-10 h-screen w-screen">
-                <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                    <div className="hidden lg:block lg:col-span-3 xl:col-span-2">
-                        <nav aria-label="Sidebar" className="sticky top-4 divide-y divide-gray-300">
-                            <div className="pb-8 space-y-1">
-                                {navigation.map((item) => (
-                                    <Link
-                                        key={item.name}
-                                        to={item.href}
-                                        className={classNames(
-                                            item.current ? 'bg-gray-200 text-gray-900' : 'text-gray-600 hover:bg-gray-50',
-                                            'group flex items-center px-3 py-2 text-sm font-medium rounded-md'
-                                        )}
-                                        aria-current={item.current ? 'page' : undefined}
-                                    >
-                                        <item.icon
+            {/* {sidebar} */}
+            <div className="py-2 h-screen w-screen">
+                <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:ml-0 lg:grid lg:grid-cols-12 lg:gap-4">
+                    {menuCollapse ? (
+                        <div className="lg:block lg:col-span-3 xl:col-span-1 w-10">
+                            <nav
+                                aria-label="Sidebar"
+                                className="sticky top-4 divide-y divide-gray-300"
+                            >
+                                <div className="group flex items-center px-3 py-2 rounded-md">
+                                    <MenuIcon
+                                        className="block h-6 w-6 text-purple-900"
+                                        aria-hidden="true"
+                                        onClick={menuIconClick}
+                                    />
+                                </div>
+                                <div className="pb-3 space-y-1">
+                                    {navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.href}
                                             className={classNames(
-                                                item.current ? 'text-gray-500' : 'text-gray-400 group-hover:text-gray-500',
-                                                'flex-shrink-0 -ml-1 mr-3 h-6 w-6'
+                                                item.current
+                                                    ? "bg-gray-200 text-purple-900"
+                                                    : "text-gray-600 hover:bg-gray-50",
+                                                "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
                                             )}
-                                            aria-hidden="true"
-                                        />
-                                        <span className="truncate">{item.name}</span>
-                                    </Link>
-                                ))}
-                            </div>
-
-                        </nav>
-                    </div>
-                    <main className="lg:col-span-9 xl:col-span-9">
-                        <div className="px-4 sm:px-0">
-                            {props.children}
+                                            aria-current={item.current ? "page" : undefined}
+                                        >
+                                            <item.icon
+                                                className={classNames(
+                                                    item.current
+                                                        ? "text-purple-500"
+                                                        : "text-purple-400 group-hover:text-purple-500",
+                                                    "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                                                )}
+                                                aria-hidden="true"
+                                            />
+                                        </Link>
+                                    ))}
+                                </div>
+                            </nav>
                         </div>
-
+                    ) : (
+                        <div className="lg:block lg:col-span-3 xl:col-span-2">
+                            <nav
+                                aria-label="Sidebar"
+                                className="sticky top-4 divide-y divide-gray-300"
+                            >
+                                <div className="group flex items-center px-3 py-2 rounded-md">
+                                    <p className="text-black text-xl w-40 text-purple-900">
+                                        Ken Shop
+                                    </p>
+                                    <MenuIcon
+                                        className="block h-6 w-6 text-purple-900"
+                                        aria-hidden="true"
+                                        onClick={menuIconClick}
+                                    />
+                                </div>
+                                <div className="pb-3 space-y-1">
+                                    {navigation.map((item) => (
+                                        <Link
+                                            key={item.name}
+                                            to={item.href}
+                                            className={classNames(
+                                                item.current
+                                                    ? "bg-gray-200 text-purple-900"
+                                                    : "text-gray-600 hover:bg-gray-50",
+                                                "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
+                                            )}
+                                            aria-current={item.current ? "page" : undefined}
+                                        >
+                                            <item.icon
+                                                className={classNames(
+                                                    item.current
+                                                        ? "text-purple-500"
+                                                        : "text-purple-400 group-hover:text-purple-500",
+                                                    "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                                                )}
+                                                aria-hidden="true"
+                                            />
+                                            <span className="truncate text-purple-700">
+                                                {item.name}
+                                            </span>
+                                        </Link>
+                                    ))}
+                                </div>
+                            </nav>
+                        </div>
+                    )}
+                    <main className="lg:col-span-10 xl:col-span-10">
+                        <div className="px-4 sm:px-0">{props.children}</div>
                     </main>
-
                 </div>
             </div>
         </div>
-    )
+    );
 }
