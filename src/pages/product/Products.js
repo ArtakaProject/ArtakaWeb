@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doGetProductRequest } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
 import {
-    PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon
+    PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
 import config from '../../config/config';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Pagination from '../../components/navigation/Pagination';
+import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
 
 
 const columns = [
@@ -62,7 +63,7 @@ export default function Products() {
 
     useEffect(() => {
         fetchData()
-    },  []);
+    }, []);
 
     /*const handlePageClick = (event) => {
            const newOffset = (event.selected * 5) % products.length;
@@ -76,10 +77,30 @@ export default function Products() {
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} />
+            {/* <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} /> */}
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
+                        <div className="flex w-full mb-5">
+                            <label className="text-indigo text-xl text-purple-900s mr-5"><b>DAFTAR PRODUK</b></label>
+                            <div className="relative w-7/12">
+                                <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                                    <SearchIcon
+                                        className="h-5 w-5 text-gray-400"
+                                        aria-hidden="true"
+                                    />
+                                </div>
+                                <input
+                                    id="search"
+                                    name="search"
+                                    className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
+                                    placeholder="Search"
+                                    type="search"
+                                />
+                            </div>
+                            <PlusIcon className="w-6 h-6"/>
+                            <FilterIcon className="w-6 h-6"/>
+                        </div>
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             {isLoading && (
                                 <div className="flex items-center h-screen">
