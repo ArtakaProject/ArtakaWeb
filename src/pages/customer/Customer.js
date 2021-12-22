@@ -6,11 +6,12 @@ import {
   TrashIcon,
   DotsVerticalIcon,
   SearchIcon,
+  FilterIcon
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { FilterIcon, PlusIcon } from "@heroicons/react/outline";
+import { PlusIcon } from "@heroicons/react/outline";
 import Pagination from '../../components/navigation/Pagination';
 
 const columns = [
@@ -75,8 +76,8 @@ export default function Customer() {
         onNewClick={() => history.push("/customer/add")}
       ></PageHeading> */}
       <div className="flex w-full mb-5">
-        <label className="text-black text-xl text-purple-900s mr-5">DAFTAR PELANGGAN</label>
-        <div className="relative w-7/12">
+        <label className="text-black text-xl text-purple-900s ml-5 mr-5 mt-1">DAFTAR PELANGGAN</label>
+        <div className="relative w-7/12 mr-10">
           <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
             <SearchIcon
               className="h-5 w-5 text-gray-400"
@@ -91,12 +92,14 @@ export default function Customer() {
             type="search"
           />
         </div>
-        <PlusIcon className="w-6 h-6">
-
-        </PlusIcon>
-        <FilterIcon className="w-6 h-6">
+        <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-2" onClick={() => history.push("/artaka/seller/customer/add")}/>
+        <FilterIcon className="w-6 h-6 mt-2">
 
         </FilterIcon>
+      </div>
+      <div className="flex w-full mb-5">
+        <button className="rounded-full bg-green-600 text-white p-2 ml-5 mr-5">Lunas</button>
+        <button className="rounded-full bg-gray-300 p-2">Belum Lunas</button>
       </div>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
@@ -189,7 +192,7 @@ export default function Customer() {
                                           <Menu.Item>
                                             {({ active }) => (
                                               <Link
-                                                to={`/customer/edit`}
+                                                to={`/artaka/seller/customer/edit`}
                                                 className={classNames(
                                                   active
                                                     ? "bg-gray-100 text-gray-900"

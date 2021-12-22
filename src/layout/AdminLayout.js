@@ -28,10 +28,10 @@ const user = {
 }
 const navigation = [
     { name: 'Dashboard', href: '/artaka/seller/dashboard', icon: HomeIcon, current: true },
-    { name: 'Kategory', href: '/artaka/seller/category', icon: FireIcon, current: false },
-    { name: 'Product', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
+    { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
+    { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
     { name: 'Laporan', href: '/artaka/seller/report', icon: DocumentReportIcon, current: false },
-    { name: 'Customer', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
+    { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
     { name: 'Pesanan', href: '#', icon: ViewListIcon, current: false },
     { name: 'Manual', href: '#', icon: BookOpenIcon, current: false },
     { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
