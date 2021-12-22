@@ -79,30 +79,32 @@ export default function Products() {
         <>
             {/* <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} /> */}
             <div className="flex w-full mb-5">
-                            <label className="text-indigo text-xl text-purple-900s mr-5"><b>DAFTAR PRODUK</b></label>
-                            <div className="relative w-7/12">
-                                <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                    <SearchIcon
-                                        className="h-5 w-5 text-gray-400"
-                                        aria-hidden="true"
-                                    />
-                                </div>
-                                <input
-                                    id="search"
-                                    name="search"
-                                    className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
-                                    placeholder="Search"
-                                    type="search"
-                                />
-                            </div>
-                            <PlusIcon className="w-6 h-6" onClick={() => history.push("/artaka/seller/customer/add")/>
-                            <FilterIcon className="w-6 h-6"/>
-                        </div>
-                        <div className="flex w-full mb-5">
-        <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
-        <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Obat</button>
-        <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Dokter</button>
-      </div>
+                <label className="text-indigo text-xl text-purple-900s ml-5 mr-5 mt-1"><b>DAFTAR PRODUK</b></label>
+                <div className="relative w-7/12 mr-10">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                        <SearchIcon
+                            className="h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                        />
+                    </div>
+                    <input
+                        id="search"
+                        name="search"
+                        className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
+                        placeholder="Search"
+                        type="search"
+                    />
+                </div>
+                <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-2" onClick={() => history.push("/artaka/seller/product/add")} />
+                <FilterIcon className="w-6 h-6 mt-2">
+
+                </FilterIcon>
+            </div>
+            <div className="flex w-full mb-5">
+                <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Obat</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Dokter</button>
+            </div>
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
