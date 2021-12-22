@@ -18,7 +18,7 @@ const columns = [
     { column: 'HARGA' },
     { column: 'STOK BARANG' },
     { column: 'STATUS' },
-    { column: 'EDIT' }
+    { column: 'OPSI' }
 ];
 
 function classNames(...classes) {
@@ -78,10 +78,7 @@ export default function Products() {
     return (
         <>
             {/* <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} /> */}
-            <div className="flex flex-col">
-                <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
-                    <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
-                        <div className="flex w-full mb-5">
+            <div className="flex w-full mb-5">
                             <label className="text-indigo text-xl text-purple-900s mr-5"><b>DAFTAR PRODUK</b></label>
                             <div className="relative w-7/12">
                                 <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -101,6 +98,14 @@ export default function Products() {
                             <PlusIcon className="w-6 h-6"/>
                             <FilterIcon className="w-6 h-6"/>
                         </div>
+                        <div className="flex w-full mb-5">
+        <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
+        <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Obat</button>
+        <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Dokter</button>
+      </div>
+            <div className="flex flex-col">
+                <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
+                    <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             {isLoading && (
                                 <div className="flex items-center h-screen">
@@ -112,12 +117,12 @@ export default function Products() {
                                 </>
                             )}
                             <table className="min-w-full h-auto divide-gray-200">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-gray-200">
                                     <tr>
                                         {columns.map(col => (
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                                className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
                                             >
                                                 <b>{col.column}</b>
                                             </th>
