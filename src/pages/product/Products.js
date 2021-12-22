@@ -95,7 +95,7 @@ export default function Products() {
                                     type="search"
                                 />
                             </div>
-                            <PlusIcon className="w-6 h-6"/>
+                            <PlusIcon className="w-6 h-6" onClick={() => history.push("/artaka/seller/customer/add")/>
                             <FilterIcon className="w-6 h-6"/>
                         </div>
                         <div className="flex w-full mb-5">
