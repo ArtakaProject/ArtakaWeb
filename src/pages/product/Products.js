@@ -6,11 +6,11 @@ import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
-import config from '../../config/config';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Pagination from '../../components/navigation/Pagination';
 import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
+import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 
 
 const columns = [
@@ -78,7 +78,7 @@ export default function Products() {
     return (
         <>
             {/* <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} /> */}
-            <div className="flex w-full mb-5">
+            <div className="flex w-full mb-3">
                 <label className="text-indigo text-xl text-purple-900s ml-5 mr-5 mt-1"><b>DAFTAR PRODUK</b></label>
                 <div className="relative w-7/12 mr-10">
                     <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
@@ -100,16 +100,24 @@ export default function Products() {
 
                 </FilterIcon>
             </div>
-            <div className="flex w-full mb-5">
-                <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
-                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Obat</button>
-                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Dokter</button>
+            <div className="flex w-full mb-2">
+                <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Pembalut</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Make Up</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Pakaian Wanita</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Pakaian Pria</b></button>
+                {/* <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Pembalut</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Make Up</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Pakaian Wanita</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Pakaian Pria</button> */}
             </div>
+            {/* <CategoryHeading/> */}
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            {isLoading && (
+                            {/* {isLoading && (
                                 <div className="flex items-center h-screen">
                                     <CircularProgress className="mx-auto" />
                                 </div>
@@ -117,7 +125,7 @@ export default function Products() {
                             {isLoading && (
                                 <>
                                 </>
-                            )}
+                            )} */}
                             <table className="min-w-full h-auto divide-gray-200">
                                 <thead className="bg-gray-200">
                                     <tr>
@@ -143,18 +151,19 @@ export default function Products() {
                                                     </div>
                                                     <div className="ml-4">
                                                         <div className="text-sm font-medium text-black">{prod.name}</div>
-                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{prod.desc}</div>
+                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{prod.desc}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-black">Rp. {new Intl.NumberFormat('ID').format(prod.sell_cost)}</div>
+                                                <div className="text-sm text-black">Rp{new Intl.NumberFormat('ID').format(prod.sell_cost)},00</div>
                                             </td>
                                             <td>
-                                                <div className="text-sm text-black">Terjual : {prod.quantity}</div>
-                                                <div className="text-sm text-gray-700">Sisa    : {prod.minimum_quantity}</div>
+                                                <div className="text-sm text-black">Terjual {prod.quantity}</div>
+                                                <div className="text-sm text-gray-700">Sisa {prod.minimum_quantity}</div>
                                             </td>
                                             <td>
+                                                {/* <ToggleSwitch /> */}
                                                 <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
                                                     <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
                                                 </div>
@@ -252,10 +261,7 @@ export default function Products() {
                             </table>
                         </div>
 
-                        <>
-
                             <Pagination />
-                        </>
 
                     </div>
                 </div>

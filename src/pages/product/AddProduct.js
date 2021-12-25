@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doCategoryStarted } from '../../redux/actions/Category';
 import { doAddProductRequest, doAddProductSucceed, doGetProductRequest } from '../../redux/actions/Product';
 import { handleAddProduct } from '../../redux/sagas/ProductSaga';
+import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 
 export default function AddProduct() {
     let history = useHistory();
@@ -124,20 +125,24 @@ export default function AddProduct() {
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                        <label /* class="block text-sm font-medium text-gray-700" */><b>Tambah Produk</b></label>
+                                        <label class="font-large text-indigo-700"><b>Tambah Produk</b></label>
                                     </div>
 
-                                    <div class="col-span-6 sm:col-span-2"></div>
+                                    <div class="col-span-6 sm:col-span-3">
+                                    </div>
 
-                                    <div className="col-span-6 sm:col-span-2 lg:col-span-3 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                    {/* <label for="file" class="block text-sm font-medium text-gray-700">Foto Produk</label> */}
+
+                                    <div className="col-span-6 sm:col-span-2 lg:col-span-3 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 rounded-md">
+                                    
                                         <div className="space-y-2 text-center">
                                             <div className="mx-auto h-48 w-24 text-gray-400">
                                                 {uploaded === false ?
                                                     <svg
-                                                        className="mx-auto h-40 w-40 text-gray-400"
+                                                        className="mx-auto h-15 w-15 text-gray-400"
                                                         stroke="currentColor"
                                                         fill="none"
-                                                        viewBox="0 0 48 48"
+                                                        viewBox="6 0 48 48"
                                                         aria-hidden="true"
                                                     >
                                                         <path
@@ -146,7 +151,7 @@ export default function AddProduct() {
                                                             strokeLinecap="round"
                                                             strokeLinejoin="round"
                                                         />
-                                                    </svg> : <img src={files.imagePreviewUrl} alt='image' className="mx-auto h-48 w-48" />}
+                                                    </svg> : <img src={files.imagePreviewUrl} alt='image' className="mx-auto h-30 w-30" />}
                                             </div>
                                             <div className="flex text-sm text-gray-600">
                                                 <label for="image" className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
@@ -159,7 +164,6 @@ export default function AddProduct() {
                                                     <span className='ml-4' onClick={onClearImage}>Hapus</span>
                                                 </label>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -210,6 +214,7 @@ export default function AddProduct() {
                                             value={values.sku_id}
                                             onChange={handleOnChange('sku_id')}
                                             class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+                                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z" /></svg>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3">
@@ -247,10 +252,7 @@ export default function AddProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_stock_tracked" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok (Opsional)</label>
-                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_stock_tracked} />
-                                        <label class="switch toggle">
-                                            {/* <span class="slider round"></span> */}
-                                        </label>
+                                        <ToggleSwitch/>
 
                                     </div>
 
@@ -280,10 +282,7 @@ export default function AddProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
-                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_active} />
-                                        <label class="switch toggle">
-                                            <span class="slider round"></span>
-                                        </label>
+                                        <ToggleSwitch/>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-6">
