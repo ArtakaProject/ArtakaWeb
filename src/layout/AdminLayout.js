@@ -1,23 +1,9 @@
 import { Fragment, useState } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import {
-    ChevronDownIcon,
-    BellIcon,
-    DotsVerticalIcon,
-    EyeIcon,
-    FlagIcon,
-    PlusIcon,
-    SearchIcon,
-    ShareIcon,
-    StarIcon,
-    ThumbUpIcon,
-} from '@heroicons/react/solid'
-import {
-    FireIcon, HomeIcon, MenuIcon,
-    TrendingUpIcon, XIcon,
-    DocumentReportIcon, UserGroupIcon, ViewListIcon, BookOpenIcon, CreditCardIcon,
-} from '@heroicons/react/outline'
+import { ChevronDownIcon, BellIcon} from '@heroicons/react/solid'
+import { FireIcon, HomeIcon, MenuIcon, TrendingUpIcon, XIcon, DocumentReportIcon, UserGroupIcon, ViewListIcon, BookOpenIcon, 
+        CreditCardIcon, ShoppingCartIcon, CashIcon} from '@heroicons/react/outline'
 
 // please fetch from redux
 const user = {
@@ -27,15 +13,19 @@ const user = {
         'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 }
 const navigation = [
-    { name: 'Dashboard', href: '/artaka/seller/dashboard', icon: HomeIcon, current: true },
-    { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
-    { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
+    { name: 'Dashboard', href:'/artaka/seller/dashboard', icon: HomeIcon, current: true },
     { name: 'Laporan', href: '/artaka/seller/report', icon: DocumentReportIcon, current: false },
-    { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
-    { name: 'Pesanan', href: '#', icon: ViewListIcon, current: false },
-    { name: 'Manual', href: '#', icon: BookOpenIcon, current: false },
-    { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
-    { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
+    { name: 'Kasir', href: '/artaka/seller/cashier', icon: CashIcon, current: false },
+    { name: 'Manual', href: '/artaka/not-found', icon: BookOpenIcon, current: false },
+    { name: 'Pesanan', href: '/artaka/not-found', icon: ShoppingCartIcon, current: false },
+    { name: 'Menu', href: '/artaka/not-found', icon: MenuIcon, current: false },
+
+
+   // { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
+   // { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
+   // { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
+   // { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
+   // { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },

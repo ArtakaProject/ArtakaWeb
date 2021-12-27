@@ -3,8 +3,9 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../redux/actions/User";
-import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import ArtakaClear from "../assets/ArtakaClear.png";
 
 export default function Login(props) {
@@ -40,14 +41,12 @@ export default function Login(props) {
           <div className="px-4 py-8 sm:px-10">
             <div>
               <div className="mt-1 grid grid-cols-3 gap-3">
-                <a href="#">
                   <span className="sr-only">Workflow</span>
                   <img
                     className="h-8 ml-32 w-auto sm:h-8"
                     src={ArtakaClear}
                     alt=""
                   />
-                </a>
               </div>
               <p className=" text-3xl pt-4 font-extrabold text-gray-700 text-center">
                 Sign in to Your Account

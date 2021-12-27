@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { doSignupRequest } from "../redux/actions/User";
 
 export default function Register(props) {

@@ -9,14 +9,13 @@ import {
   Products as ProductPage,
   Dashboard as DashboardPage,
   Customer as customerPage,
+  Cashier as CashierPage,
   ShopPerformance as ReportPage,
   AddCust,EditCust,
   AddProduct, EditProduct,
   PageNotFound,
   LandingPage
 } from './pages';
-import SignUp from './components/SignUp';
-import SignIn from './components/SignIn';
 import Login from './components/Login';
 import LandingLayout from './layout/LandingLayout';
 import LoginLayout from './layout/LoginLayout';
@@ -26,9 +25,6 @@ export default function Routes() {
   return (
     <Switch>
       <Redirect exact from="/" to="/artaka/landing" />
-      
-     {/*  <Route path="/artaka/signup" component={SignUp} />
-      <Route path="/artaka/signin" component={Login} /> */}
 
       <RouteWithLayout
         component={Register}
@@ -45,6 +41,7 @@ export default function Routes() {
         pageTitle=""
         path="/artaka/signin"
       />
+
       {/* 
       <RouteWithLayout
         component={HomePage}
@@ -68,6 +65,14 @@ export default function Routes() {
         layout={AdminLayout}
         pageTitle="Dashboard"
         path="/artaka/seller/dashboard"
+      />
+
+      <RouteWithLayout
+        component={CashierPage}
+        exact
+        layout={AdminLayout}
+        pageTitle="Cashier"
+        path="/artaka/seller/cashier"
       />
 
       <RouteWithLayout
