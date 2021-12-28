@@ -2,17 +2,8 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
+import { PhoneIcon } from "@heroicons/react/outline";
 import ArtakaClear from "../assets/ArtakaClear.png";
-import ArtakaSignUp from "../assets/ArtakaSignUp.png";
-
-const navigation = [
-  { name: "About Us", href: "https://artaka.id/home-2/" },
-  { name: "Contact Us", href: "https://artaka.id/kontak/" },
-  {
-    name: "Our Channel",
-    href: "https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA",
-  },
-];
 
 export default function LoginLayout(props) {
   return (
@@ -44,24 +35,13 @@ export default function LoginLayout(props) {
                       </Popover.Button>
                     </div>
                   </div>
-                  <div className=" hidden space-x-10 md:flex md:ml-10">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="font-medium text-black hover:text-purple-700"
-                      >
-                        {item.name}
-                      </a>
-                    ))}
-                  </div>
                 </div>
                 <div className="hidden md:flex">
                   <Link
                     to="/artaka/signin"
-                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-blue-700"
+                    className="inline-flex items-center px-4 py-2 border border-purple-700 text-sm font-semibold rounded-md text-black bg-transparent hover:bg-purple-700 hover:text-white"
                   >
-                    Sign In
+                    LOG IN
                   </Link>
                 </div>
               </nav>
@@ -93,17 +73,6 @@ export default function LoginLayout(props) {
                         </Popover.Button>
                       </div>
                     </div>
-                    <div className="px-2 pt-2 pb-3 space-y-1">
-                      {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                        >
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
                     <Link
                       to="/artaka/signin"
                       className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
@@ -120,18 +89,7 @@ export default function LoginLayout(props) {
       <div className="relative pb-16 sm:pb-24">
         <main className="mt-16 sm:mt-24">
           <div className="mx-auto max-w-7xl">
-            <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-              <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
-                <div>
-                  <img
-                    className="mx-auto h-full pl-10 w-auto"
-                    src={ArtakaSignUp}
-                    alt="Workflow"
-                  />
-                </div>
-              </div>
-              {props.children}
-            </div>
+           {props.children}
           </div>
         </main>
       </div>

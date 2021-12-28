@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import { RouteWithLayout } from './layout/common';
-import { MainLayout, MainLayoutSidebar, AdminLayout } from './layout';
+import { MainLayout, MainLayoutSidebar, AdminLayout, RegisterLayout } from './layout';
 
 import {
   Home as HomePage,
@@ -29,7 +29,7 @@ export default function Routes() {
       <RouteWithLayout
         component={Register}
         exact
-        layout={LoginLayout}
+        layout={RegisterLayout}
         pageTitle=""
         path="/artaka/signup"
       />
