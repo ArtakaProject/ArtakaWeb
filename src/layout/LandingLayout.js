@@ -135,7 +135,7 @@ export default function LandingLayout(props) {
                     </div>
                     <div className="mt-6 text-center">
                       <Link to="/artaka/signin">
-                        <button class="px-4 inline py-2 text-sm font-medium leading-8 text-white transition-colors duration-150 focus:outline-none focus:shadow-outline-blue bg-purple-800 active:bg-blue-600 hover:bg-indigo-600 hover:text-black">
+                        <button class="px-9 inline py-2 text-sm font-medium leading-8 text-white transition-colors duration-150 focus:outline-none focus:shadow-outline-blue bg-purple-800 active:bg-blue-600 hover:bg-indigo-600 hover:text-black">
                           LOGIN
                         </button>
                       </Link>

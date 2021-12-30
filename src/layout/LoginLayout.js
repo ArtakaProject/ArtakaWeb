@@ -2,7 +2,7 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
-import { PhoneIcon } from "@heroicons/react/outline";
+import { PhoneIcon } from "@heroicons/react/solid";
 import ArtakaClear from "../assets/ArtakaClear.png";
 
 export default function LoginLayout(props) {
@@ -24,7 +24,7 @@ export default function LoginLayout(props) {
                   <div className="flex items-center justify-between w-full md:w-auto">
                     <span className="sr-only">Workflow</span>
                     <img
-                      className="h-8 w-auto sm:h-10"
+                      className="mb-4 h-8 w-auto sm:h-10"
                       src={ArtakaClear}
                       alt=""
                     />
@@ -36,13 +36,19 @@ export default function LoginLayout(props) {
                     </div>
                   </div>
                 </div>
-                <div className="hidden md:flex">
-                  <Link
-                    to="/artaka/signin"
-                    className="inline-flex items-center px-4 py-2 border border-purple-700 text-sm font-semibold rounded-md text-black bg-transparent hover:bg-purple-700 hover:text-white"
-                  >
-                    LOG IN
-                  </Link>
+                <div className="hidden md:flex md:ml-10">
+                  <PhoneIcon className="h-9 mt-1 text-purple-700 hover:text-indigo-500"></PhoneIcon>
+                  <p className="mt-1 text-black text-lg font-semibold">
+                    +6281122334455
+                  </p>
+                  <div className="ml-10 mb-3">
+                    <Link
+                      to="/artaka/signin"
+                      className="inline-flex items-center px-10 py-2 border-4 border-purple-700 text-sm font-semibold rounded-xl text-black bg-transparent hover:bg-purple-700 hover:text-white hover:border-blue-500"
+                    >
+                      LOG IN
+                    </Link>
+                  </div>
                 </div>
               </nav>
 
@@ -88,9 +94,7 @@ export default function LoginLayout(props) {
       </Popover>
       <div className="relative pb-16 sm:pb-24">
         <main className="mt-16 sm:mt-24">
-          <div className="mx-auto max-w-7xl">
-           {props.children}
-          </div>
+          <div className="mx-auto max-w-7xl">{props.children}</div>
         </main>
       </div>
     </div>
