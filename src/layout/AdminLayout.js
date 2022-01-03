@@ -33,6 +33,20 @@ const userNavigation = [
     { name: 'Sign out', href: "/artaka/signin" },
 ]
 
+const menuNavigation = [
+    {name: 'Bantuan', href: '/artaka/not-found'},
+    {name: 'Kelola Produk', href: '/artaka/not-found'},
+    {name: 'Pengaturan Promo & Poin', href: '/artaka/not-found'},
+    {name: 'Pengaturan Toko', href: '/artaka/not-found'},
+    {name: 'Pengaturan Order Online', href: '/artaka/not-found'},
+    {name: 'Mitra', href: '/artaka/not-found'},
+    {name: 'Pemasukan Non Kasir', href: '/artaka/not-found'},
+    {name: 'Pengeluaran Non Persediaan', href: '/artaka/not-found'},
+    {name: 'Riwayat Retur Penjualan', href: '/artaka/not-found'},
+    {name: 'Printer & Struk', href: '/artaka/not-found'},
+    {name: 'Inbox', href: '/artaka/not-found'}
+]
+
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
@@ -247,7 +261,7 @@ export default function AdminLayout(props) {
                                 className="sticky top-4 divide-y divide-gray-300"
                             >
                                 <div className="group flex items-center px-3 py-2 rounded-md">
-                                    <p className="text-black text-xl w-40 text-purple-900">
+                                    <p className="text-xl w-40 text-purple-900">
                                         Ken Shop
                                     </p>
                                     <MenuIcon
