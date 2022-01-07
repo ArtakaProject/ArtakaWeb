@@ -3,16 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doGetProductRequest } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
 import {
-    PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon
+    PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
 import config from '../../config/config';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import ReactPaginate from 'react-paginate';
-import axios from 'axios';
-import { Posts } from '../../components/Posts';
 import Pagination from '../../components/navigation/Pagination';
+import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
 
 
 const columns = [
@@ -20,7 +18,7 @@ const columns = [
     { column: 'HARGA' },
     { column: 'STOK BARANG' },
     { column: 'STATUS' },
-    { column: 'EDIT' }
+    { column: 'OPSI' }
 ];
 
 function classNames(...classes) {
@@ -31,28 +29,20 @@ function classNames(...classes) {
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
-    const {products, isLoading} = useSelector((state) => state.productState);
+    const { products, isLoading } = useSelector((state) => state.productState);
     //const [currentItems, setCurrentItems] = useState(null);
     //const [pageCount, setPageCount] = useState(0);
     const [itemOffset, setItemOffset] = useState(0);
-    const [endOffset, setEndOffset] = useState(6);
-    let data = []
+    const [endOffset, setEndOffset] = useState(5);
+    //let data = []
     const [productSlice, setProductSlice] = useState([]);
 
-    let payload = {
+    /* let payload = {
         user_id: "+6287813841133",
         outlet_id: "OTL-001",
         category: "Semua",
         is_active: "All"
-    }
-
-    useEffect(() => {
-        setProductSlice(products.slice(itemOffset, endOffset));
-    }, [itemOffset, endOffset]);
-
-    useEffect(() => {
-        fetchData()
-    }, [])
+    } */
 
     async function fetchData() {
         const payload = {
@@ -62,22 +52,59 @@ export default function Products() {
             is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
-        setProductSlice(products.slice(0, 6));
+        setProductSlice(products.slice(itemOffset, endOffset));
     };
 
-    const handlePageClick = (event) => {
-        const newOffset = (event.selected * 5) % products.length;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
-        setItemOffset(newOffset);
-    };
+    /* useEffect(() => {
+        fetchData();
+        setProductSlice(products.slice(itemOffset, endOffset));
+
+    }, [itemOffset, endOffset]); */
+
+    useEffect(() => {
+        fetchData()
+    }, []);
+
+    /*const handlePageClick = (event) => {
+           const newOffset = (event.selected * 5) % products.length;
+           console.log(
+               `User requested page number ${event.selected}, which is offset ${newOffset}`
+           );
+           setItemOffset(newOffset);
+       }; */
 
     /* const onDelete = async (id) => {} */
 
     return (
         <>
-            <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} />
+            {/* <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} /> */}
+            <div className="flex w-full mb-5">
+                <label className="text-indigo text-xl text-purple-900s ml-5 mr-5 mt-1"><b>DAFTAR PRODUK</b></label>
+                <div className="relative w-7/12 mr-10">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
+                        <SearchIcon
+                            className="h-5 w-5 text-gray-400"
+                            aria-hidden="true"
+                        />
+                    </div>
+                    <input
+                        id="search"
+                        name="search"
+                        className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-rose-500 focus:border-rose-500 sm:text-sm"
+                        placeholder="Search"
+                        type="search"
+                    />
+                </div>
+                <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-2" onClick={() => history.push("/artaka/seller/product/add")} />
+                <FilterIcon className="w-6 h-6 mt-2">
+
+                </FilterIcon>
+            </div>
+            <div className="flex w-full mb-5">
+                <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Obat</button>
+                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Dokter</button>
+            </div>
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
@@ -92,12 +119,12 @@ export default function Products() {
                                 </>
                             )}
                             <table className="min-w-full h-auto divide-gray-200">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-gray-200">
                                     <tr>
                                         {columns.map(col => (
                                             <th
                                                 scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                                                className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
                                             >
                                                 <b>{col.column}</b>
                                             </th>
@@ -128,10 +155,9 @@ export default function Products() {
                                                 <div className="text-sm text-gray-700">Sisa    : {prod.minimum_quantity}</div>
                                             </td>
                                             <td>
-                                                <input type="checkbox" />
-                                                <label class="switch toggle">
-                                                    <span class="slider round"></span>
-                                                </label>
+                                                <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
+                                                    <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
+                                                </div>
                                             </td>
                                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                                                 <Menu as="div" className="relative flex justify-end items-center ">
@@ -227,23 +253,13 @@ export default function Products() {
                         </div>
 
                         <>
-                        {/* <ReactPaginate
-                                className="grid grid-rows-1 grid-flow-col"
-                                breakLabel="..."
-                                nextLabel="next >"
-                                onPageChange={handlePageClick}
-                                pageRangeDisplayed={1}
-                                pageCount={pageCount}
-                                previousLabel="< previous"
-                                renderOnZeroPageCount={null}
-                            /> */}
 
-                            <Pagination/>
-                    </>
+                            <Pagination />
+                        </>
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
 
     )
