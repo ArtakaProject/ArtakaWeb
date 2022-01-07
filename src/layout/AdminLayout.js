@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react'
 import { Menu, Popover, Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {
     ChevronDownIcon,
     BellIcon,
@@ -48,6 +48,7 @@ function classNames(...classes) {
 }
 
 export default function AdminLayout(props) {
+    let history = useHistory();
     const [menuCollapse, setMenuCollapse] = useState(false);
 
     const menuIconClick = () => {
@@ -217,11 +218,10 @@ export default function AdminLayout(props) {
                                 className="sticky top-4 divide-y divide-gray-300"
                             >
                                 <div className="group flex items-center px-3 py-2 rounded-md">
-                                    <MenuIcon
-                                        className="block h-6 w-6 text-purple-900"
-                                        aria-hidden="true"
-                                        onClick={menuIconClick}
-                                    />
+                                    <button aria-hidden="true"
+                                        onClick={menuIconClick}>
+                                        <MenuIcon className="block h-6 w-6 text-purple-900" />
+                                    </button>
                                 </div>
                                 <div className="pb-3 space-y-1">
                                     {navigation.map((item) => (
@@ -257,14 +257,15 @@ export default function AdminLayout(props) {
                                 className="sticky top-4 divide-y divide-gray-300"
                             >
                                 <div className="group flex items-center px-3 py-2 rounded-md">
-                                    <p className="text-black text-xl w-40 text-purple-900">
+                                    <button onClick={() => history.push("/artaka/seller/dashboard")}>
+                                    <p className="text-black text-xl w-40 text-purple-900 text-left">
                                         Ken Shop
                                     </p>
-                                    <MenuIcon
-                                        className="block h-6 w-6 text-purple-900"
-                                        aria-hidden="true"
-                                        onClick={menuIconClick}
-                                    />
+                                    </button>
+                                    
+                                    <button aria-hidden="true" onClick={menuIconClick}>
+                                    <MenuIcon className="block h-6 w-6 text-purple-900"/>
+                                    </button>
                                 </div>
                                 <div className="pb-3 space-y-1">
                                     {navigation.map((item) => (

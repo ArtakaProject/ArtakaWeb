@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetCustomerRequest } from "../../redux/actions/Customer";
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
   PencilAltIcon,
   TrashIcon,
@@ -13,11 +14,14 @@ import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { PlusIcon } from "@heroicons/react/outline";
 import Pagination from '../../components/navigation/Pagination';
+import moment from 'moment';
 
 const columns = [
-  { column: "NAMA" },
+  { column: "NAMA PELANGGAN" },
   { column: "KONTAK" },
-  { column: "KETERANGAN" },
+  { column: "TANGGAL LAHIR" },
+  { column: "ALAMAT" },
+  { column: "JENIS KELAMIN" },
   { column: "TANGGAL BERGABUNG" },
   { column: "AKSI" },
 ];
@@ -29,23 +33,16 @@ function classNames(...classes) {
 export default function Customer() {
   let history = useHistory();
   const dispatch = useDispatch();
-  const customer = useSelector((state) => state.customerState.customer.data);
-  const isLoading = useSelector((state) => state.customerState);
+  const customer = useSelector((state) => state.customerState.customer);
+  const isLoading = useSelector((state) => state.customerState.isLoading);
   const [itemOffset, setItemOffset] = useState(0);
   const [endOffset, setEndOffset] = useState(5);
-  let data = []
   const [customerSlice, setCustomerSlice] = useState([]);
-
-  useEffect(() => {
-      console.log(customer);
-      if(customer != null){
-      setCustomerSlice(customer.slice(itemOffset, endOffset));
-      }
-  }, [itemOffset, endOffset]);
 
   useEffect(() => {
     fetchData();
   }, []);
+
 
   async function fetchData() {
     const payload = {
@@ -53,9 +50,8 @@ export default function Customer() {
       outlet_id: "OTL-001",
     };
     dispatch(doGetCustomerRequest(payload));
-    console.log(customerSlice);
-    if(customer != null){
-    setCustomerSlice(customer.slice(itemOffset, endOffset));
+    if (customer) {
+      setCustomerSlice(customer.slice(itemOffset, endOffset));
     }
   }
 
@@ -68,16 +64,11 @@ export default function Customer() {
   };
 
   const onDelete = async (id) => { };
-
   return (
     <>
-      {/* <PageHeading
-        actionTitle={"Add Customer"}
-        onNewClick={() => history.push("/customer/add")}
-      ></PageHeading> */}
       <div className="flex w-full mb-5">
-        <label className="text-black text-xl text-purple-900s ml-5 mr-5 mt-1">DAFTAR PELANGGAN</label>
-        <div className="relative w-7/12 mr-10">
+        <label className="text-black text-xl text-purple-900s ml-5 mr-5 mt-2">DAFTAR PELANGGAN</label>
+        <div className="relative w-8/12 mr-1 mt-1">
           <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
             <SearchIcon
               className="h-5 w-5 text-gray-400"
@@ -92,10 +83,9 @@ export default function Customer() {
             type="search"
           />
         </div>
-        <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-2" onClick={() => history.push("/artaka/seller/customer/add")}/>
-        <FilterIcon className="w-6 h-6 mt-2">
-
-        </FilterIcon>
+        <button onClick={() => history.push("/artaka/seller/customer/add")}>
+          <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
+        </button>
       </div>
       <div className="flex w-full mb-5">
         <button className="rounded-full bg-green-600 text-white p-2 ml-5 mr-5">Lunas</button>
@@ -105,12 +95,12 @@ export default function Customer() {
         <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-              {customer == null && (
+              {isLoading && (
                 <div className="flex items-center h-screen">
                   <CircularProgress className="mx-auto" />
                 </div>
               )}
-              { customer != null && (
+              {!isLoading && (
                 <>
                   <table className="min-w-full h-auto divide-gray-200">
                     <thead className="bg-gray-200">
@@ -154,9 +144,17 @@ export default function Customer() {
                                 {cust.phone}
                               </div>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"></td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {cust.create_dtm}
+                              {cust.datebirth}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {cust.address}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {cust.gender}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                              {moment(cust.create_dtm).format('DD/MM/YYYY')}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                               <Menu
@@ -240,7 +238,89 @@ export default function Customer() {
                         ))}
                     </tbody>
                   </table>
-                  <Pagination />
+                  <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+                    <div className="flex-1 flex justify-between sm:hidden">
+                      <a
+                        href="#"
+                        className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                      >
+                        Previous
+                      </a>
+                      <a
+                        href="#"
+                        className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+                      >
+                        Next
+                      </a>
+                    </div>
+                    <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                      <div>
+                        <p className="text-sm text-gray-700">
+                          Showing <span className="font-medium">1</span> to <span className="font-medium">10</span> of{' '}
+                          <span className="font-medium">97</span> results
+                        </p>
+                      </div>
+                      <div>
+                        <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                          <a
+                            href="#"
+                            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                          >
+                            <span className="sr-only">Previous</span>
+                            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                          </a>
+                          {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
+                          <a
+                            href="#"
+                            aria-current="page"
+                            className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                          >
+                            1
+                          </a>
+                          <a
+                            href="#"
+                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                          >
+                            2
+                          </a>
+                          <a
+                            href="#"
+                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium"
+                          >
+                            3
+                          </a>
+                          <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
+                            ...
+                          </span>
+                          <a
+                            href="#"
+                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium"
+                          >
+                            8
+                          </a>
+                          <a
+                            href="#"
+                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                          >
+                            9
+                          </a>
+                          <a
+                            href="#"
+                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
+                          >
+                            10
+                          </a>
+                          <a
+                            href="#"
+                            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                          >
+                            <span className="sr-only">Next</span>
+                            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                          </a>
+                        </nav>
+                      </div>
+                    </div>
+                  </div>
                 </>
               )}
             </div>
