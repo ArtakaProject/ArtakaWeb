@@ -30,62 +30,58 @@ const navigation = [
     href: "/artaka/seller/dashboard",
     icon: HomeIcon,
     current: true,
-    subMenu: [],
   },
   {
     name: "Laporan",
     href: "/artaka/seller/report",
     icon: DocumentReportIcon,
     current: false,
-    subMenu: [],
   },
   {
     name: "Kasir",
     href: "/artaka/seller/cashier",
     icon: CashIcon,
     current: false,
-    subMenu: [],
   },
   {
     name: "Manual",
     href: "/artaka/not-found",
     icon: BookOpenIcon,
     current: false,
-    subMenu: [],
   },
   {
     name: "Pesanan",
     href: "/artaka/not-found",
     icon: ShoppingCartIcon,
     current: false,
-    subMenu: [],
   },
   {
     name: "Menu",
     href: "/artaka/not-found",
     icon: MenuIcon,
     current: false,
-    subMenu: [
-      { name: "Bantuan", href: "/artaka/not-found" },
-      { name: "Kelola Produk", href: "/artaka/not-found" },
-      { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
-      { name: "Pengaturan Toko", href: "/artaka/not-found" },
-      { name: "Pengaturan Order Online", href: "/artaka/not-found" },
-      { name: "Mitra", href: "/artaka/not-found" },
-      { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
-      { name: "Pengeluaran Non Persediaan", href: "/artaka/not-found" },
-      { name: "Riwayat Retur Penjualan", href: "/artaka/not-found" },
-      { name: "Printer & Struk", href: "/artaka/not-found" },
-      { name: "Inbox", href: "/artaka/not-found" },
-    ],
   },
-
-  // { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
-  // { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
-  // { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
-  // { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
-  // { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
+// { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
+// { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
+// { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
+// { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
+// { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
 ];
+
+const subMenu = [
+  { name: "Bantuan", href: "/artaka/not-found" },
+  { name: "Kelola Produk", href: "/artaka/not-found" },
+  { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
+  { name: "Pengaturan Toko", href: "/artaka/not-found" },
+  { name: "Pengaturan Order Online", href: "/artaka/not-found" },
+  { name: "Mitra", href: "/artaka/not-found" },
+  { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
+  { name: "Pengeluaran Non Persediaan", href: "/artaka/not-found" },
+  { name: "Riwayat Retur Penjualan", href: "/artaka/not-found" },
+  { name: "Printer & Struk", href: "/artaka/not-found" },
+  { name: "Inbox", href: "/artaka/not-found" },
+];
+
 const userNavigation = [
   { name: "Your Profile", href: "#" },
   { name: "Settings", href: "#" },
@@ -325,41 +321,47 @@ export default function AdminLayout(props) {
                 <div className="pb-3 space-y-1">
                   {navigation.map((item) => {
                     return (
-                      (<Link
-                        key={item.name}
-                        to={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-200 text-purple-900"
-                            : "text-gray-600 hover:bg-gray-50",
-                          "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        <item.icon
+                      <>
+                        <Link
+                          key={item.name}
+                          to={item.href}
                           className={classNames(
                             item.current
-                              ? "text-purple-500"
-                              : "text-purple-400 group-hover:text-purple-500",
-                            "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                              ? "bg-gray-200 text-purple-900"
+                              : "text-gray-600 hover:bg-gray-50",
+                            "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
                           )}
-                          aria-hidden="true"
-                        />
-                        <span className="truncate text-purple-700">
-                          {item.name}
-                        </span>
-                        {item.subMenu.map(menu => (
-                           
-                             <div className="truncate text-purple-700">
-                             {menu.name}
-                           </div>
-                           
-                      ))}
-                      </Link>)
-                      
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          <item.icon
+                            className={classNames(
+                              item.current
+                                ? "text-purple-500"
+                                : "text-purple-400 group-hover:text-purple-500",
+                              "flex-shrink-0 -ml-1 mr-3 h-6 w-6"
+                            )}
+                            aria-hidden="true"
+                          />
+                          <span className="truncate text-purple-700">
+                            {item.name}
+                          </span>
+                        </Link>
+                      </>
                     );
                   })}
-                  
+                  <div className="pl-4">
+                    <ul className="flex flex-col pl-2 text-black border-gray-700">
+                      {subMenu.map((item) => (
+                        <li>
+                          <Link key={item.name} to={item.href}>
+                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+                              {item.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </nav>
             </div>
