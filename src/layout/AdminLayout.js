@@ -28,7 +28,6 @@ const user = {
 }
 const navigation = [
     { name: 'Dashboard', href: '/artaka/seller/dashboard', icon: HomeIcon, current: true },
-    { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
     { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
     { name: 'Laporan', href: '/artaka/seller/report', icon: DocumentReportIcon, current: false },
     { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
@@ -36,6 +35,8 @@ const navigation = [
     { name: 'Manual', href: '#', icon: BookOpenIcon, current: false },
     { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
     { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
+    //
+    { name: 'Menu', href: '#', icon: StarIcon, current: false },
 ]
 const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -172,6 +173,42 @@ export default function AdminLayout(props) {
                                         {item.name}
                                     </Link>
                                 ))}
+                                <div class="group inline-block">
+                                    <button
+                                        class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32"
+                                    >
+                                        <span class="pr-1 font-semibold flex-1">Menu</span>
+                                        <span>
+                                            <svg
+                                                class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                            >
+                                                <path
+                                                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                                />
+                                            </svg>
+                                        </span>
+                                    </button>
+                                    <ul
+                                        class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
+                                    >
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Bantuan</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Kelola Produk</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Promo dan Poin</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Toko</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Order Online</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pelanggan</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Mitra</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pemasukan Non-Kasir</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengeluaran Non-Persediaan</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Riwayat Retur Penjualan</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Printer dan Struk</li>
+                                        <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Inbox</li>
+
+                                        
+                                    </ul>
+                                </div>
                             </div>
                             <div className="border-t border-gray-200 pt-4 pb-3">
                                 <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
@@ -247,6 +284,42 @@ export default function AdminLayout(props) {
                                             />
                                         </Link>
                                     ))}
+                                    <div class="group inline-block">
+                                        <button
+                                            class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32"
+                                        >
+                                            <span class="pr-1 font-semibold flex-1">Menu</span>
+                                            <span>
+                                                <svg
+                                                    class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path
+                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <ul
+                                            class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
+                                        >
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Bantuan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Kelola Produk</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Promo dan Poin</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Toko</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Order Online</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pelanggan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Mitra</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pemasukan Non-Kasir</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengeluaran Non-Persediaan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Riwayat Retur Penjualan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Printer dan Struk</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Inbox</li>
+
+                                            
+                                        </ul>
+                                    </div>
                                 </div>
                             </nav>
                         </div>
@@ -293,6 +366,42 @@ export default function AdminLayout(props) {
                                             </span>
                                         </Link>
                                     ))}
+                                    <div class="group inline-block">
+                                        <button
+                                            class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32"
+                                        >
+                                            <span class="pr-1 font-semibold flex-1">Menu</span>
+                                            <span>
+                                                <svg
+                                                    class="fill-current h-4 w-4 transform group-hover:-rotate-180 transition duration-150 ease-in-out"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                >
+                                                    <path
+                                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <ul
+                                            class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32"
+                                        >
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Bantuan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Kelola Produk</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Promo dan Poin</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Toko</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengaturan Order Online</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pelanggan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Mitra</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pemasukan Non-Kasir</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Pengeluaran Non-Persediaan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Riwayat Retur Penjualan</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Printer dan Struk</li>
+                                            <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Inbox</li>
+
+                                            
+                                        </ul>
+                                    </div>
                                 </div>
                             </nav>
                         </div>

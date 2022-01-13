@@ -78,13 +78,14 @@ export default function Routes() {
         path="/artaka/not-found"
       />
 
-      <RouteWithLayout
+      {/* <RouteWithLayout
         component={CategoryPage}
         exact
         layout={AdminLayout}
         pageTitle="Category"
         path="/artaka/seller/category"
-      />
+      /> */}
+
       <RouteWithLayout
         component={ProductPage}
         exact
@@ -106,6 +107,7 @@ export default function Routes() {
         pageTitle="Edit Produk"
         path="/artaka/seller/product/edit"
       />
+      
       <RouteWithLayout
         component={customerPage}
         exact

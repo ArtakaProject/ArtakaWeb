@@ -33,7 +33,8 @@ export default function Dashboard() {
               login nomor handphone dan Password Artaka
             </p>
             <div className="flex items-center justify-between">
-              <button class="px-4 inline py-2 text-sm font-medium leading-5 shadow text-purple-700 transition-colors duration-150 border border-transparent focus:outline-none focus:shadow-outline-blue bg-gray-300 active:bg-blue-600 hover:bg-blue-300 rounded-full">
+              <button class="px-4 inline py-2 text-sm font-medium leading-5 shadow text-purple-700 transition-colors duration-150 border border-transparent focus:outline-none focus:shadow-outline-blue bg-gray-300 active:bg-blue-600 hover:bg-blue-300 rounded-full"
+              onClick={() => '/seller/product/add'}>
                 Tambah Produk
               </button>
               <button class="px-4 inline py-2 text-sm font-medium leading-5 shadow text-purple-700 transition-colors duration-150 border border-transparent focus:outline-none focus:shadow-outline-blue bg-gray-300 active:bg-blue-600 hover:bg-blue-300 rounded-full">
