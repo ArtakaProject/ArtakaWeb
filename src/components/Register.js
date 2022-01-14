@@ -1,4 +1,5 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
+import { useFormik } from "formik";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,41 +9,34 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { doSignupRequest } from "../redux/actions/User";
 
 export default function Register(props) {
-  const dispatch = useDispatch();
-  const status = useSelector((state) => state.userState.status);
+  const validate = values =>{
+    const errors = {}
 
-  const [values, setValues] = useState({
-    user_id: "",
-    outlate_name: "",
-
-    secret_password: "",
-  });
-
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      user_id: values.user_id,
-      outlate_name: values.outlate_name,
-      secret_password: values.secret_password,
-    };
-
-    dispatch(doSignupRequest(payload));
-  };
-
-  const { from } = props.location.state || {
-    from: {
-      pathname: "/signin/",
-    },
-  };
-
-  if (status) {
-    //console.log('redirect : ' || { from })
-    return <Redirect to={from} />;
+    if(!values.handphone){
+      errors.handphone = 'Masukkan Nomor HP Anda'
+    }else if(!values.password){
+      errors.password = 'Masukkan Password Anda'
+    }else if(!values.handphone && !values.password){
+      errors.password = 'Masukkan Nomor Hp & Masukkan Password Anda'
+    }
+    return errors;
   }
+  
+
+  const formik = useFormik({
+    initialValues:{
+      handphone:'',
+      nama:'',
+      email:'',
+      password:'',
+      repassword:'',
+      referral:''
+    },
+    validate,
+    onSubmit:values=>{
+      alert(JSON.stringify(values,null,2))
+    }
+  })
 
   return (
     <>
@@ -64,8 +58,8 @@ export default function Register(props) {
                     id="handphone"
                     autoComplete="phone"
                     placeholder="Handphone"
-                    value={values.user_id}
-                    onChange={handleChange("user_id")}
+                    value={formik.values.handphone}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
@@ -77,12 +71,12 @@ export default function Register(props) {
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="nama"
+                    id="nama"
                     autoComplete="name"
                     placeholder="Nama"
-                    value={values.outlate_name}
-                    onChange={handleChange("outlate_name")}
+                    value={formik.values.handphone}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
@@ -98,8 +92,8 @@ export default function Register(props) {
                     id="email"
                     autoComplete="email"
                     placeholder="Email (Tidak Wajib)"
-                    //  value={values.user_id}
-                    //  onChange={handleChange("user_id")}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -114,8 +108,8 @@ export default function Register(props) {
                     type="password"
                     placeholder="Buat Password"
                     autoComplete="current-password"
-                    value={values.secret_password}
-                    onChange={handleChange("secret_password")}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
@@ -123,16 +117,16 @@ export default function Register(props) {
 
                 <div>
                   <label htmlFor="password" className="sr-only">
-                    Password
+                    RePassword
                   </label>
                   <input
-                    id="password"
-                    name="password"
+                    id="repassword"
+                    name="repassword"
                     type="password"
                     placeholder="Ulangi Password"
                     autoComplete="current-password"
-                    //  value={values.secret_password}
-                    //  onChange={handleChange("secret_password")}
+                    value={formik.values.repassword}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
@@ -148,6 +142,8 @@ export default function Register(props) {
                     id="referral"
                     autoComplete="name"
                     placeholder="Kode Referral (Tidak Wajib)"
+                    value={formik.values.referral}
+                    onChange={formik.handleChange}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>

@@ -4,36 +4,38 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../redux/actions/User";
 import { Redirect } from "react-router-dom";
+import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import ArtakaClear from "../assets/ArtakaClear.png";
 
 export default function Login(props) {
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.userState.user_id);
+  const validate = values =>{
+    const errors = {}
 
-  const [values, setValues] = useState({
-    user_id: "",
-    secret_password: "",
-  });
-
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      user_id: values.user_id,
-      secret_password: values.secret_password,
-    };
-
-    dispatch(doSigninRequest(payload));
-  };
-
-  if (userId) {
-    return <Redirect to={"/artaka/seller/dashboard"} />;
+    if(!values.handphone){
+      errors.handphone = 'Masukkan Nomor HP Anda'
+    }else if(!values.password){
+      errors.password = 'Masukkan Password Anda'
+    }else if(!values.handphone && !values.password){
+      errors.password = 'Masukkan Nomor Hp & Masukkan Password Anda'
+    }
+    return errors;
   }
+  
+
+  const formik = useFormik({
+    initialValues:{
+      handphone:'',
+      password:''
+    },
+    validate,
+    onSubmit:values=>{
+      alert(JSON.stringify(values,null,2))
+    }
+  })
+
+  
   return (
     <>
       <div className=" mt-14 sm:mt-14 lg:mt-0 lg:col-span-6">
@@ -54,7 +56,7 @@ export default function Login(props) {
             </div>
 
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
+              <form action="#" method="POST" className="space-y-6" onSubmit={formik.handleSubmit}>
                 <div>
                   <label htmlFor="mobile-or-email" className="sr-only">
                     Handphone
@@ -65,11 +67,12 @@ export default function Login(props) {
                     id="handphone"
                     autoComplete="phone"
                     placeholder="Handphone"
-                    value={values.user_id}
-                    onChange={handleChange("user_id")}
+                    value={formik.values.handphone}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
+                  {formik.errors.handphone ? <div className="error text-xs text-red-600">{formik.errors.handphone}</div> : null}
                 </div>
 
                 <div>
@@ -82,12 +85,12 @@ export default function Login(props) {
                     type="password"
                     placeholder="Password"
                     autoComplete="current-password"
-                    value={values.secret_password}
-                    onChange={handleChange("secret_password")}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
-                 
+                 {formik.errors.password ? <div className="error text-xs text-red-600">{formik.errors.password}</div> : null}
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -120,7 +123,7 @@ export default function Login(props) {
                   <button
                     type="submit"
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-indigo-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    onClick={onSubmit}
+                   // onClick={onSubmit}
                   >
                     <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                       <LockClosedIcon

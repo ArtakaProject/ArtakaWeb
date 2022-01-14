@@ -218,6 +218,19 @@ export default function AdminLayout(props) {
                     {item.name}
                   </Link>
                 ))}
+                 <div className="pl-4">
+                    <ul className="flex flex-col pl-2 text-black border-gray-700">
+                      {subMenu.map((item) => (
+                        <li>
+                          <Link key={item.name} to={item.href}>
+                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+                              {item.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
               </div>
               <div className="border-t border-gray-200 pt-4 pb-3">
                 <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
@@ -301,6 +314,7 @@ export default function AdminLayout(props) {
                       />
                     </Link>
                   ))}
+                  
                 </div>
               </nav>
             </div>
