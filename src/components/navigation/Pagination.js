@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 
-export default function Pagination() {
+export default function Pagination(props) {
   return (
     <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
       <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
@@ -52,8 +52,9 @@ export default function Pagination() {
             >
               5
             </a>
-            
+
             <a
+              onClick={() => props.onNextPage()}
               href="#!"
               className=
               "relative inline-flex items-center px-2 py-2 border border-indigo-300 bg-white text-sm font-medium text-gray-700 hover:bg-indigo-50"

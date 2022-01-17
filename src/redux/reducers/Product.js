@@ -28,11 +28,16 @@ import * as ActionType from '../constants/Product';
 } remain_stock: 0, */
 
 const INIT_STATE = {
-    products: [],
+    products: [],  
     isLoading: false,
     status: false,
     error: null,
-    redirect: false
+    redirect: false,
+    //
+    productSlice: [],
+    page: 1,
+    start: 0,
+    end: 5
 }
 
 const productReducer = (state = INIT_STATE, action) => {
@@ -53,10 +58,20 @@ const productReducer = (state = INIT_STATE, action) => {
             return {
                 ...state,
                 products: action.payload,
+                productSlice : action.payload.slice(state.start, state.end),
                 isLoading: false
             }
             /* return applyGetProductSucceed(state, action) */
         }
+
+        case ActionType.NEXT_PAGE: {
+            return {
+                ...state,
+                productSlice : state.products.slice(state.end, state.end + 5),
+                isLoading: false
+            }
+        }
+
         case ActionType.ADD_PRODUCT_REQUEST: {
             return {
                 ...state,

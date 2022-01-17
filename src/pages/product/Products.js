@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { doGetProductRequest } from '../../redux/actions/Product';
+import { doGetProductRequest, doNextPage } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
 import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
@@ -29,13 +29,16 @@ function classNames(...classes) {
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
-    const { products, isLoading } = useSelector((state) => state.productState);
-    //const [currentItems, setCurrentItems] = useState(null);
-    //const [pageCount, setPageCount] = useState(0);
+    const products = useSelector((state) => state.productState.products);
+    const productSlice = useSelector((state) => state.productState.productSlice);
+    const isLoading = useSelector((state) => state.productState.isLoading);
     const [itemOffset, setItemOffset] = useState(0);
     const [endOffset, setEndOffset] = useState(5);
-    //let data = []
-    const [productSlice, setProductSlice] = useState([]);
+    let data = [];
+    //const { products, isLoading } = useSelector((state) => state.productState);
+    //const [currentItems, setCurrentItems] = useState(null);
+    //const [pageCount, setPageCount] = useState(0);
+    //const [productSlice, setProductSlice] = useState([]);
 
     /* let payload = {
         user_id: "+6287813841133",
@@ -52,7 +55,7 @@ export default function Products() {
             is_active: "All"
         }
         dispatch(doGetProductRequest(payload));
-        setProductSlice(products.slice(itemOffset, endOffset));
+        //setProductSlice(products.slice(itemOffset, endOffset));
     };
 
     /* useEffect(() => {
@@ -73,7 +76,12 @@ export default function Products() {
            setItemOffset(newOffset);
        }; */
 
-    /* const onDelete = async (id) => {} */
+       const handleNextPage = () => {
+           const payload = {}
+           dispatch(doNextPage(payload))
+       }
+
+    const onDelete = async (id) => {}
 
     return (
         <>
@@ -259,10 +267,9 @@ export default function Products() {
                                     ))}
                                 </tbody>
                             </table>
+                            <Pagination
+                            onNextPage={handleNextPage} />
                         </div>
-
-                            <Pagination />
-
                     </div>
                 </div>
             </div >

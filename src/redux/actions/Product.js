@@ -36,3 +36,9 @@ export const doEditProductSucceed = (payload) => ({
     type: ActionType.UPDATE_PRODUCT_SUCCEED ,
     payload,
 });
+
+//--------------
+export const doNextPage = (payload) => ({
+    type: ActionType.NEXT_PAGE ,
+    payload,
+});
