@@ -149,7 +149,7 @@ export default function EditCust() {
                       Tanggal lahir(Opsional)
                     </label>
                     <input
-                      type="text"
+                      type="date"
                       autocomplete="family-name"
                       class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       value={customer.datebirth}
@@ -235,3 +235,5 @@ export default function EditCust() {
     </div>
   );
 }
+
+

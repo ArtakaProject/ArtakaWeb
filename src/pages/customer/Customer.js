@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from "react";
+import React, { useEffect, Fragment, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { doGetCustomerRequest } from "../../redux/actions/Customer";
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
@@ -6,25 +6,15 @@ import {
   PencilAltIcon,
   TrashIcon,
   DotsVerticalIcon,
-  SearchIcon,
-  FilterIcon
+  SearchIcon
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { PlusIcon } from "@heroicons/react/outline";
-import Pagination from '../../components/navigation/Pagination';
 import moment from 'moment';
+import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
-const columns = [
-  { column: "NAMA PELANGGAN" },
-  { column: "KONTAK" },
-  { column: "TANGGAL LAHIR" },
-  { column: "ALAMAT" },
-  { column: "JENIS KELAMIN" },
-  { column: "TANGGAL BERGABUNG" },
-  { column: "AKSI" },
-];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -35,9 +25,21 @@ export default function Customer() {
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customerState.customer);
   const isLoading = useSelector((state) => state.customerState.isLoading);
-  const [itemOffset, setItemOffset] = useState(0);
-  const [endOffset, setEndOffset] = useState(5);
-  const [customerSlice, setCustomerSlice] = useState([]);
+  const user = useSelector((state) => state.userState);
+  const [data, setData] = useState([]);
+
+  const columns = useMemo(() => [
+    { Header: 'IMAGES', accessor: 'images' },
+    { Header: 'NAMA PELANGGAN', accessor: 'name' },
+    { Header: 'EMAIL', accessor: 'email' },
+    { Header: 'KONTAK', accessor: 'phone' },
+    { Header: 'TANGGAL LAHIR', accessor: 'datebirth' },
+    { Header: 'ALAMAT', accessor: 'address' },
+    { Header: 'JENIS KELAMIN', accessor: 'gender' },
+    { Header: 'TANGGAL BERGABUNG', accessor: 'create_dtm' },
+    { Header: 'AKSI', accessor: '' }
+  ], [])
+
 
   useEffect(() => {
     fetchData();
@@ -46,24 +48,44 @@ export default function Customer() {
 
   async function fetchData() {
     const payload = {
-      user_id: "+6281282187515",
-      outlet_id: "OTL-001",
+      user_id: user.user_id,
+      outlet_id: user.outlet_id,
     };
     dispatch(doGetCustomerRequest(payload));
     if (customer) {
-      setCustomerSlice(customer.slice(itemOffset, endOffset));
+      setData(customer)
     }
   }
 
-  const handlePageClick = (event) => {
-    const newOffset = (event.selected * 5) % customer.length;
-    console.log(
-      `User requested page number ${event.selected}, which is offset ${newOffset}`
-    );
-    setItemOffset(newOffset);
-  };
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    gotoPage,
+    pageCount,
+    setPageSize,
+    state,
+    prepareRow,
+    setGlobalFilter,
+  } = useTable({
+    columns: columns,
+    data: customer
+  },
+    useGlobalFilter,
+    useSortBy,
+    usePagination)
+
+  const { pageIndex, pageSize } = state
 
   const onDelete = async (id) => { };
+
+  console.log(user);
   return (
     <>
       <div className="flex w-full mb-5">
@@ -105,221 +127,202 @@ export default function Customer() {
                   <table className="min-w-full h-auto divide-gray-200">
                     <thead className="bg-gray-200">
                       <tr>
-                        {columns.map((col) => (
-                          <th
-                            scope="col"
-                            className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
-                          >
-                            {col.column}
-                          </th>
-                        ))}
+                        {/* {columns.map((col) => ( */}
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          NAMA PELANGGAN
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          KONTAK
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          TANGGAL LAHIR
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          ALAMAT
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          JENIS KELAMIN
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          TANGGAL BERGABUNG
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          AKSI
+                        </th>
+                        {/* ))} */}
                       </tr>
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200">
-                      {customerSlice &&
-                        customerSlice.map((cust) => (
-                          <tr key={cust.id}>
-                            <td>
-                              <div className="flex items-center">
-                                <div className="flex-shrink-0 h-10 w-10 ml-2">
-                                  <img
-                                    className="h-10 w-10 rounded-full"
-                                    src={cust.images}
-                                    alt=""
-                                  />
-                                </div>
-                                <div className="ml-4">
-                                  <div className="text-sm font-medium text-gray-900">
-                                    {cust.name}
+                      {
+                        page.map(row => {
+                          prepareRow(row)
+                          console.log(row);
+                          return (
+                            <tr>
+                              <td>
+                                <div className="flex items-center">
+                                  <div className="flex-shrink-0 h-10 w-10 ml-2">
+                                    <img
+                                      className="h-10 w-10 rounded-full"
+                                      src={row.cells[0].value}
+                                      alt=""
+                                    />
+                                  </div>
+                                  <div className="ml-4">
+                                    <div className="text-sm font-medium text-gray-900">
+                                      {row.cells[1].value}
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-sm text-gray-900">
-                                {cust.email}
-                              </div>
-                              <br />
-                              <div className="text-sm text-gray-900">
-                                {cust.phone}
-                              </div>
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {cust.datebirth}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {cust.address}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {cust.gender}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                              {moment(cust.create_dtm).format('DD/MM/YYYY')}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
-                              <Menu
-                                as="div"
-                                className="relative flex justify-end items-center "
-                              >
-                                {({ open }) => (
-                                  <>
-                                    <Menu.Button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                                      <span className="sr-only">
-                                        Open options
-                                      </span>
-                                      <DotsVerticalIcon
-                                        className="w-5 h-5"
-                                        aria-hidden="true"
-                                      />
-                                    </Menu.Button>
-                                    <Transition
-                                      show={open}
-                                      as={Fragment}
-                                      enter="transition ease-out duration-100"
-                                      enterFrom="transform opacity-0 scale-95"
-                                      enterTo="transform opacity-100 scale-100"
-                                      leave="transition ease-in duration-75"
-                                      leaveFrom="transform opacity-100 scale-100"
-                                      leaveTo="transform opacity-0 scale-95"
-                                    >
-                                      <Menu.Items
-                                        static
-                                        className="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">
+                                  {row.cells[2].value}
+                                </div>
+                                <br />
+                                <div className="text-sm text-gray-900">
+                                  {row.cells[3].value}
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {row.cells[4].value}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {row.cells[5].value}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {row.cells[6].value}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {moment(row.cells[7].value).format('DD/MM/YYYY')}
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
+                                <Menu
+                                  as="div"
+                                  className="relative flex justify-end items-center "
+                                >
+                                  {({ open }) => (
+                                    <>
+                                      <Menu.Button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                        <span className="sr-only">
+                                          Open options
+                                        </span>
+                                        <DotsVerticalIcon
+                                          className="w-5 h-5"
+                                          aria-hidden="true"
+                                        />
+                                      </Menu.Button>
+                                      <Transition
+                                        show={open}
+                                        as={Fragment}
+                                        enter="transition ease-out duration-100"
+                                        enterFrom="transform opacity-0 scale-95"
+                                        enterTo="transform opacity-100 scale-100"
+                                        leave="transition ease-in duration-75"
+                                        leaveFrom="transform opacity-100 scale-100"
+                                        leaveTo="transform opacity-0 scale-95"
                                       >
-                                        <div className="py-1">
-                                          <Menu.Item>
-                                            {({ active }) => (
-                                              <Link
-                                                to={`/artaka/seller/customer/edit`}
-                                                className={classNames(
-                                                  active
-                                                    ? "bg-gray-100 text-gray-900"
-                                                    : "text-gray-700",
-                                                  "group flex items-center px-4 py-2 text-sm"
-                                                )}
-                                              >
-                                                <PencilAltIcon
-                                                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                                  aria-hidden="true"
-                                                />
-                                                Edit
-                                              </Link>
-                                            )}
-                                          </Menu.Item>
-                                        </div>
-                                        <div className="py-1">
-                                          <Menu.Item>
-                                            {({ active }) => (
-                                              <Link
-                                                to="#"
-                                                className={classNames(
-                                                  active
-                                                    ? "bg-gray-100 text-gray-900"
-                                                    : "text-gray-700",
-                                                  "group flex items-center px-4 py-2 text-sm"
-                                                )}
-                                              >
-                                                <TrashIcon
-                                                  className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                                  aria-hidden="true"
-                                                />
-                                                Delete
-                                              </Link>
-                                            )}
-                                          </Menu.Item>
-                                        </div>
-                                      </Menu.Items>
-                                    </Transition>
-                                  </>
-                                )}
-                              </Menu>
-                            </td>
-                          </tr>
-                        ))}
+                                        <Menu.Items
+                                          static
+                                          className="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+                                        >
+                                          <div className="py-1">
+                                            <Menu.Item>
+                                              {({ active }) => (
+                                                <Link
+                                                  to={`/artaka/seller/customer/edit`}
+                                                  className={classNames(
+                                                    active
+                                                      ? "bg-gray-100 text-gray-900"
+                                                      : "text-gray-700",
+                                                    "group flex items-center px-4 py-2 text-sm"
+                                                  )}
+                                                >
+                                                  <PencilAltIcon
+                                                    className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                    aria-hidden="true"
+                                                  />
+                                                  Edit
+                                                </Link>
+                                              )}
+                                            </Menu.Item>
+                                          </div>
+                                          <div className="py-1">
+                                            <Menu.Item>
+                                              {({ active }) => (
+                                                <Link
+                                                  to="#"
+                                                  className={classNames(
+                                                    active
+                                                      ? "bg-gray-100 text-gray-900"
+                                                      : "text-gray-700",
+                                                    "group flex items-center px-4 py-2 text-sm"
+                                                  )}
+                                                >
+                                                  <TrashIcon
+                                                    className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                    aria-hidden="true"
+                                                  />
+                                                  Delete
+                                                </Link>
+                                              )}
+                                            </Menu.Item>
+                                          </div>
+                                        </Menu.Items>
+                                      </Transition>
+                                    </>
+                                  )}
+                                </Menu>
+                              </td>
+                            </tr>
+                          )
+                        })
+                      }
                     </tbody>
                   </table>
-                  <div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                    <div className="flex-1 flex justify-between sm:hidden">
-                      <a
-                        href="#"
-                        className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-                      >
-                        Previous
-                      </a>
-                      <a
-                        href="#"
-                        className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
-                      >
-                        Next
-                      </a>
-                    </div>
-                    <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                      <div>
-                        <p className="text-sm text-gray-700">
-                          Showing <span className="font-medium">1</span> to <span className="font-medium">10</span> of{' '}
-                          <span className="font-medium">97</span> results
-                        </p>
-                      </div>
-                      <div>
-                        <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-                          <a
-                            href="#"
-                            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                          >
-                            <span className="sr-only">Previous</span>
-                            <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
-                          </a>
-                          {/* Current: "z-10 bg-indigo-50 border-indigo-500 text-indigo-600", Default: "bg-white border-gray-300 text-gray-500 hover:bg-gray-50" */}
-                          <a
-                            href="#"
-                            aria-current="page"
-                            className="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
-                          >
-                            1
-                          </a>
-                          <a
-                            href="#"
-                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
-                          >
-                            2
-                          </a>
-                          <a
-                            href="#"
-                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium"
-                          >
-                            3
-                          </a>
-                          <span className="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">
-                            ...
-                          </span>
-                          <a
-                            href="#"
-                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 hidden md:inline-flex relative items-center px-4 py-2 border text-sm font-medium"
-                          >
-                            8
-                          </a>
-                          <a
-                            href="#"
-                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
-                          >
-                            9
-                          </a>
-                          <a
-                            href="#"
-                            className="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium"
-                          >
-                            10
-                          </a>
-                          <a
-                            href="#"
-                            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                          >
-                            <span className="sr-only">Next</span>
-                            <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
-                          </a>
-                        </nav>
-                      </div>
-                    </div>
+                  <div className="bg-white px-4 py-3 flex justify-between border-t border-gray-200 sm:px-6">
+                    <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} style={{ marginTop: "5px", marginRight: "5px" }}>{'<<'}</button>
+                    <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" onClick={() => previousPage()} disabled={!canPreviousPage} style={{ marginTop: "5px" }}>Previous</button>
+                    <span style={{ marginTop: '10px' }}>
+                      Page{' '}
+                      <strong>
+                        {pageIndex + 1} of {pageOptions.length}
+                      </strong>{' '}
+                    </span>
+                    <span style={{ marginTop: '10px' }}>
+                      <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                        {
+                          [5, 10, 100].map(pageSize => (
+                            <option key={pageSize} value={pageSize}>
+                              Show {pageSize}
+                            </option>
+                          ))
+                        }
+                      </select>
+                    </span>
+                    <button onClick={() => nextPage()} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" disabled={!canNextPage}>Next</button>
+                    <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} style={{ marginTop: "5px", marginLeft: "5px" }}>{'>>'}</button>
                   </div>
                 </>
               )}

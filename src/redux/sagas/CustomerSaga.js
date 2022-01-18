@@ -3,7 +3,7 @@ import {
   } from 'redux-saga/effects';
 import apiCustomer from '../../api/api-customer';
 import {  
-    doGetCustomerRequest,doGetCustomerSucceed,
+    doGetCustomerSucceed,
     doGetCustomerFailed
 } from '../actions/Customer';
 
@@ -20,3 +20,5 @@ function* handleGetCustomer(action) {
 export  {
     handleGetCustomer
 }
+
+

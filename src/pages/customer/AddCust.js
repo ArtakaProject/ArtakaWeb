@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+//import Datepicker from '@themesberg/tailwind-datepicker/Datepicker';
+
 
 export default function AddCust() {
     let history = useHistory();
@@ -107,7 +109,7 @@ export default function AddCust() {
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label class="block text-sm font-medium text-gray-700">Tanggal lahir(Opsional)</label>
-                                            <input type="text"
+                                            <input type="date"
                                                 autocomplete="family-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
@@ -160,3 +162,4 @@ export default function AddCust() {
         </>
     )
 }
+
