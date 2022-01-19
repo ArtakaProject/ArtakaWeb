@@ -1,7 +1,6 @@
 import {
     all, call, fork, put, takeEvery, takeLatest
 } from 'redux-saga/effects';
-
 import apiProduct from '../../api/api-product'
 import {
     doGetProductRequest, doGetProductSucceed, doProductFailed,

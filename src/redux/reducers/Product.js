@@ -28,17 +28,12 @@ import * as ActionType from '../constants/Product';
 } remain_stock: 0, */
 
 const INIT_STATE = {
-    products: [],  
+    products: [],
     isLoading: false,
     status: false,
     error: null,
     redirect: false,
-    //
-    productSlice: [],
-    page: 1,
-    start: 0,
-    end: 5
-}
+};
 
 const productReducer = (state = INIT_STATE, action) => {
     switch (action.type) {
@@ -58,21 +53,11 @@ const productReducer = (state = INIT_STATE, action) => {
             return {
                 ...state,
                 products: action.payload,
-                productSlice : action.payload.slice(state.start, state.end),
-                isLoading: false
-            }
-            /* return applyGetProductSucceed(state, action) */
-        }
-
-        case ActionType.NEXT_PAGE: {
-            return {
-                ...state,
-                productSlice : state.products.slice(state.end, state.end + 5),
                 isLoading: false
             }
         }
 
-        case ActionType.ADD_PRODUCT_REQUEST: {
+        /* case ActionType.ADD_PRODUCT_REQUEST: {
             return {
                 ...state,
                 isLoading: true
@@ -90,12 +75,11 @@ const productReducer = (state = INIT_STATE, action) => {
         }
         case ActionType.UPDATE_PRODUCT_SUCCEED: {
             return applyEditProductSucceed(state, action);
-        }
+        } */
         default:
             return state;
     }
-
-}
+};
 
 /* const applyGetProductSucceed = (state, action) => {
     return {
@@ -103,7 +87,7 @@ const productReducer = (state = INIT_STATE, action) => {
         products: action.payload,
         isLoading: false
     }
-} */
+}
 
 const applyAddProductSucceed = (state, action) => {
     const { payload } = action;
@@ -146,6 +130,6 @@ const applyEditProductSucceed = (state, action) => {
         product,
         succeed: true
     };
-}
+} */
 
 export default productReducer;

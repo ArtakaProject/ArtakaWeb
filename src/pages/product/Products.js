@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment, useState } from 'react';
+import React, { useEffect, Fragment, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { doGetProductRequest, doNextPage } from '../../redux/actions/Product';
 import PageHeading from '../../components/PageHeading';
@@ -8,18 +8,11 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Pagination from '../../components/navigation/Pagination';
+import moment from 'moment';
 import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
 import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
+import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
-
-const columns = [
-    { column: 'NAMA PRODUK' },
-    { column: 'HARGA' },
-    { column: 'STOK BARANG' },
-    { column: 'STATUS' },
-    { column: 'OPSI' }
-];
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -30,15 +23,21 @@ export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
-    const productSlice = useSelector((state) => state.productState.productSlice);
     const isLoading = useSelector((state) => state.productState.isLoading);
-    const [itemOffset, setItemOffset] = useState(0);
-    const [endOffset, setEndOffset] = useState(5);
-    let data = [];
-    //const { products, isLoading } = useSelector((state) => state.productState);
-    //const [currentItems, setCurrentItems] = useState(null);
-    //const [pageCount, setPageCount] = useState(0);
-    //const [productSlice, setProductSlice] = useState([]);
+    const user = useSelector((state) => state.userState);
+    const [data, setData] = useState([]);
+
+    const columns = useMemo(() => [
+        { Header: 'ID', accessor: 'id' },
+        { Header: 'GAMBAR', accessor: 'images' },
+        { Header: 'NAMA PRODUK', accessor: 'name' },
+        { Header: 'DESKRIPSI', accessor: 'description' },
+        { Header: 'HARGA', accessor: 'sell_cost' },
+        { Header: 'STOK BARANG (TERJUAL)', accessor: 'quantity' },
+        { Header: 'STOK BARANG (SISA)', accessor: 'minimum_quantity' },
+        { Header: 'STATUS', accessor: 'is_active' },
+        { Header: 'OPSI', accessor: '' }
+    ], [])
 
     /* let payload = {
         user_id: "+6287813841133",
@@ -47,48 +46,57 @@ export default function Products() {
         is_active: "All"
     } */
 
-    async function fetchData() {
-        const payload = {
-            user_id: "+6287813841133",
-            outlet_id: "OTL-001",
-            category: "Semua",
-            is_active: "All"
-        }
-        dispatch(doGetProductRequest(payload));
-        //setProductSlice(products.slice(itemOffset, endOffset));
-    };
-
-    /* useEffect(() => {
-        fetchData();
-        setProductSlice(products.slice(itemOffset, endOffset));
-
-    }, [itemOffset, endOffset]); */
-
     useEffect(() => {
         fetchData()
     }, []);
 
-    /*const handlePageClick = (event) => {
-           const newOffset = (event.selected * 5) % products.length;
-           console.log(
-               `User requested page number ${event.selected}, which is offset ${newOffset}`
-           );
-           setItemOffset(newOffset);
-       }; */
+    async function fetchData() {
+        const payload = {
+            user_id: user.user_id,
+            outlet_id: user.outlet_id,
+            category: user.category,
+            is_active: user.is_active
+        };
+        dispatch(doGetProductRequest(payload));
+        if (products) {
+            setData(products)
+        }
+    };
 
-       const handleNextPage = () => {
-           const payload = {}
-           dispatch(doNextPage(payload))
-       }
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        page,
+        nextPage,
+        previousPage,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        gotoPage,
+        pageCount,
+        setPageSize,
+        state,
+        prepareRow,
+        setGlobalFilter,
+    } = useTable({
+        columns: columns,
+        data: products
+    },
+        useGlobalFilter,
+        useSortBy,
+        usePagination)
 
-    const onDelete = async (id) => {}
+    const { pageIndex, pageSize } = state
 
+    const onDelete = async (id) => { };
+
+    console.log(user);
     return (
         <>
-            {/* <PageHeading actionTitle={"Tambah Produk"} onNewClick={() => history.push('/seller/product/add')} /> */}
-            <div className="flex w-full mb-3">
-                <label className="text-indigo text-xl text-purple-900s ml-5 mr-5 mt-1"><b>DAFTAR PRODUK</b></label>
-                <div className="relative w-7/12 mr-10">
+            <div className="flex w-full mb-5">
+                <label className="text-indigo text-xl text-purple-900s ml-5 mr-5 mt-2"><b>DAFTAR PRODUK</b></label>
+                <div className="relative w-8/12 mr-1 mt-1">
                     <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                         <SearchIcon
                             className="h-5 w-5 text-gray-400"
@@ -103,177 +111,227 @@ export default function Products() {
                         type="search"
                     />
                 </div>
-                <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-2" onClick={() => history.push("/artaka/seller/product/add")} />
-                <FilterIcon className="w-6 h-6 mt-2">
-
-                </FilterIcon>
+                <button onClick={() => history.push("/artaka/seller/product/add")}>
+                    <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
+                </button>
             </div>
-            <div className="flex w-full mb-2">
-                <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
-                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Pembalut</b></button>
-                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Make Up</b></button>
-                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Pakaian Wanita</b></button>
-                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Pakaian Pria</b></button>
-                {/* <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
-                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Pembalut</button>
-                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Make Up</button>
-                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Pakaian Wanita</button>
-                <button className="rounded-full bg-gray-300 p-2 ml-3 mr-3">Pakaian Pria</button> */}
+            <div className="flex w-full mb-5">
+                {/* <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Masker</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Vitamin</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Obat</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Hand Sanitizer</b></button> */}
+                <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
+                <button className="rounded-full bg-gray-300 p-2 ">Hand Sanitizer</button>
+                <button className="rounded-full bg-gray-300 p-2 ">Masker</button>
+                <button className="rounded-full bg-gray-300 p-2 ">Obat</button>
+                <button className="rounded-full bg-gray-300 p-2 ">Vitamin</button>
             </div>
-            {/* <CategoryHeading/> */}
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            {/* {isLoading && (
+                            {isLoading && (
                                 <div className="flex items-center h-screen">
                                     <CircularProgress className="mx-auto" />
                                 </div>
                             )}
-                            {isLoading && (
+                            {!isLoading && (
                                 <>
+                                    <table className="min-w-full h-auto divide-gray-200">
+                                        <thead className="bg-gray-200">
+                                            <tr>
+                                                {/* {columns.map(col => ( */}
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                >
+                                                    <b>NAMA PRODUK</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                >
+                                                    <b>HARGA</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                >
+                                                    <b>STOK BARANG</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                >
+                                                    <b>STATUS</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                >
+                                                    <b>OPSI</b>
+                                                </th>
+                                                {/* ))} */}
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white divide-y divide-gray-200">
+                                            {/* productSlice && productSlice.map((prod) => ( */
+                                                page.map(row => {
+                                                    prepareRow(row);
+                                                    console.log(row);
+                                                    return (
+                                                        <tr key={row.cells[0].value}>
+                                                            {/* prod.id */}
+                                                            <td>
+                                                                <div className="flex items-center">
+                                                                    <div className="flex-shrink-0 h-12 w-12">
+                                                                        <img className="h-10 w-10 " /* rounded-full */
+                                                                            src={row.cells[1].value}
+                                                                            alt=""
+                                                                        />
+                                                                    </div>
+                                                                    <div className="ml-4">
+                                                                        <div className="text-sm font-medium text-black">{row.cells[2].valuee}</div>
+                                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{row.cells[3].value}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                                <div className="text-sm text-black">Rp{new Intl.NumberFormat('ID').format(row.cells[4].value)},00</div>
+                                                            </td>
+                                                            <td>
+                                                                <div className="text-sm text-black">Terjual {row.cells[5].value}</div>
+                                                                <div className="text-sm text-gray-700">Sisa {row.cells[6].value}</div>
+                                                            </td>
+                                                            <td>
+                                                                {/* <ToggleSwitch /> */}
+                                                                <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
+                                                                    <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
+                                                                <Menu as="div" className="relative flex justify-end items-center ">
+                                                                    {({ open }) => (
+                                                                        <>
+                                                                            <Menu.Button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                                                                <span className="sr-only">Opsi</span>
+                                                                                <DotsVerticalIcon className="w-5 h-5" aria-hidden="true" />
+                                                                            </Menu.Button>
+                                                                            <Transition
+                                                                                show={open}
+                                                                                as={Fragment}
+                                                                                enter="transition ease-out duration-100"
+                                                                                enterFrom="transform opacity-0 scale-95"
+                                                                                enterTo="transform opacity-100 scale-100"
+                                                                                leave="transition ease-in duration-75"
+                                                                                leaveFrom="transform opacity-100 scale-100"
+                                                                                leaveTo="transform opacity-0 scale-95"
+                                                                            >
+                                                                                <Menu.Items
+                                                                                    static
+                                                                                    className="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
+                                                                                >
+                                                                                    <div className="py-1">
+                                                                                        <Menu.Item>
+                                                                                            {({ active }) => (
+                                                                                                <Link to={`/artaka/seller/product/edit/`}
+                                                                                                    className={classNames(
+                                                                                                        active
+                                                                                                            ? 'bg-gray-100 text-gray-900'
+                                                                                                            : 'text-gray-700',
+                                                                                                        'group flex items-center px-4 py-2 text-sm'
+                                                                                                    )}
+                                                                                                >
+                                                                                                    <PencilAltIcon
+                                                                                                        className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                                                                        aria-hidden="true"
+                                                                                                    />
+                                                                                                    Edit Produk
+                                                                                                </Link>
+                                                                                            )}
+                                                                                        </Menu.Item>
+                                                                                        <Menu.Item>
+                                                                                            {({ active }) => (
+                                                                                                < Link to='#'
+                                                                                                    className={classNames(
+                                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                                                                        'group flex items-center px-4 py-2 text-sm'
+                                                                                                    )}
+                                                                                                >
+                                                                                                    <PhotographIcon
+                                                                                                        className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                                                                        aria-hidden="true"
+                                                                                                    />
+                                                                                                    Unggah File Gambar
+                                                                                                </Link>
+                                                                                            )}
+                                                                                        </Menu.Item>
+                                                                                    </div>
+                                                                                    <div className="py-1">
+                                                                                        <Menu.Item>
+                                                                                            {({ active }) => (
+                                                                                                <Link
+                                                                                                    to="#"
+                                                                                                    className={classNames(
+                                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                                                                        'group flex items-center px-4 py-2 text-sm'
+                                                                                                    )}
+                                                                                                /* onClick={() => {
+                                                                                                    if (window.confirm('Anda yakin menghapus produk ini ?'))
+                                                                                                        onDelete(prod.prod_id)
+                                                                                                }} */
+                                                                                                >
+                                                                                                    <TrashIcon
+                                                                                                        className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
+                                                                                                        aria-hidden="true"
+                                                                                                    />
+                                                                                                    Hapus
+                                                                                                </Link>
+                                                                                            )}
+                                                                                        </Menu.Item>
+                                                                                    </div>
+                                                                                </Menu.Items>
+                                                                            </Transition>
+                                                                        </>
+                                                                    )}
+                                                                </Menu>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div className="bg-white px-4 py-3 flex justify-between border-t border-gray-200 sm:px-6">
+                                        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} style={{ marginTop: "5px", marginRight: "5px" }}>{'<<'}</button>
+                                        <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" onClick={() => previousPage()} disabled={!canPreviousPage} style={{ marginTop: "5px" }}>Previous</button>
+                                        <span style={{ marginTop: '10px' }}>
+                                            Page{' '}
+                                            <strong>
+                                                {pageIndex + 1} of {pageOptions.length}
+                                            </strong>{' '}
+                                        </span>
+                                        <span style={{ marginTop: '10px' }}>
+                                            <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                                                {
+                                                    [5, 10, 100].map(pageSize => (
+                                                        <option key={pageSize} value={pageSize}>
+                                                            Show {pageSize}
+                                                        </option>
+                                                    ))
+                                                }
+                                            </select>
+                                        </span>
+                                        <button onClick={() => nextPage()} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" disabled={!canNextPage}>Next</button>
+                                        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} style={{ marginTop: "5px", marginLeft: "5px" }}>{'>>'}</button>
+                                    </div>
                                 </>
-                            )} */}
-                            <table className="min-w-full h-auto divide-gray-200">
-                                <thead className="bg-gray-200">
-                                    <tr>
-                                        {columns.map(col => (
-                                            <th
-                                                scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
-                                            >
-                                                <b>{col.column}</b>
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
-                                    {productSlice && productSlice.map((prod) => (
-                                        <tr key={prod.id}>
-                                            <td>
-                                                <div className="flex items-center">
-                                                    <div className="flex-shrink-0 h-12 w-12">
-                                                        <img className="h-10 w-10 rounded-full"
-                                                            src={prod.images}
-                                                            alt="" />
-                                                    </div>
-                                                    <div className="ml-4">
-                                                        <div className="text-sm font-medium text-black">{prod.name}</div>
-                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{prod.desc}</div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-black">Rp{new Intl.NumberFormat('ID').format(prod.sell_cost)},00</div>
-                                            </td>
-                                            <td>
-                                                <div className="text-sm text-black">Terjual {prod.quantity}</div>
-                                                <div className="text-sm text-gray-700">Sisa {prod.minimum_quantity}</div>
-                                            </td>
-                                            <td>
-                                                {/* <ToggleSwitch /> */}
-                                                <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
-                                                    <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
-                                                </div>
-                                            </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
-                                                <Menu as="div" className="relative flex justify-end items-center ">
-                                                    {({ open }) => (
-                                                        <>
-                                                            <Menu.Button className="w-8 h-8 bg-white inline-flex items-center justify-center text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                                                                <span className="sr-only">Opsi</span>
-                                                                <DotsVerticalIcon className="w-5 h-5" aria-hidden="true" />
-                                                            </Menu.Button>
-                                                            <Transition
-                                                                show={open}
-                                                                as={Fragment}
-                                                                enter="transition ease-out duration-100"
-                                                                enterFrom="transform opacity-0 scale-95"
-                                                                enterTo="transform opacity-100 scale-100"
-                                                                leave="transition ease-in duration-75"
-                                                                leaveFrom="transform opacity-100 scale-100"
-                                                                leaveTo="transform opacity-0 scale-95"
-                                                            >
-                                                                <Menu.Items
-                                                                    static
-                                                                    className="mx-3 origin-top-right absolute right-7 top-0 w-48 mt-1 rounded-md shadow-lg z-10 bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-200 focus:outline-none"
-                                                                >
-                                                                    <div className="py-1">
-                                                                        <Menu.Item>
-                                                                            {({ active }) => (
-                                                                                <Link to={`/seller/product/edit/`}
-                                                                                    className={classNames(
-                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                                                        'group flex items-center px-4 py-2 text-sm'
-                                                                                    )}>
-
-                                                                                    <PencilAltIcon
-                                                                                        className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                                                                        aria-hidden="true"
-                                                                                    />
-                                                                                    Edit Produk
-                                                                                </Link>
-                                                                            )}
-                                                                        </Menu.Item>
-
-                                                                        <Menu.Item>
-                                                                            {({ active }) => (
-                                                                                < Link to='#'
-                                                                                    className={classNames(
-                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                                                        'group flex items-center px-4 py-2 text-sm'
-                                                                                    )}
-                                                                                >
-                                                                                    <PhotographIcon
-                                                                                        className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                                                                        aria-hidden="true"
-                                                                                    />
-                                                                                    Unggah File Gambar
-                                                                                </Link>
-                                                                            )}
-                                                                        </Menu.Item>
-                                                                    </div>
-
-                                                                    <div className="py-1">
-                                                                        <Menu.Item>
-                                                                            {({ active }) => (
-                                                                                <Link
-                                                                                    to="#"
-                                                                                    className={classNames(
-                                                                                        active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                                                        'group flex items-center px-4 py-2 text-sm'
-                                                                                    )}
-                                                                                /* onClick={() => {
-                                                                                    if (window.confirm('Anda yakin menghapus produk ini ?'))
-                                                                                        onDelete(prod.prod_id)
-                                                                                }} */
-                                                                                >
-                                                                                    <TrashIcon
-                                                                                        className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
-                                                                                        aria-hidden="true"
-                                                                                    />
-                                                                                    Hapus
-                                                                                </Link>
-                                                                            )}
-                                                                        </Menu.Item>
-                                                                    </div>
-                                                                </Menu.Items>
-                                                            </Transition>
-                                                        </>
-                                                    )}
-                                                </Menu>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                            <Pagination
-                            onNextPage={handleNextPage} />
+                            )}
                         </div>
                     </div>
                 </div>
             </div >
         </>
-
-    )
+    );
 }

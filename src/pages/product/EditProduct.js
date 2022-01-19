@@ -12,7 +12,7 @@ export default function EditProduct() {
     const { redirect } = useSelector(state => state.productState);
 
     const [uploaded, setUploaded] = useState(false);
-    const [product, setProduct] = useState(false);
+    const [product, setProduct] = useState([]);
 
     let payload = {
         user_id: '+6281282187515',
@@ -77,7 +77,7 @@ export default function EditProduct() {
         setValues({ ...values, [name]: event.target.value })
     }
 
-    const uploadOnChange = name => event => {
+    const uploadOnChange = (name) => event => {
         let reader = new FileReader();
         let file = event.target.files[0];
 
@@ -134,14 +134,13 @@ export default function EditProduct() {
     return (
         <div class="mt-10 sm:mt-0">
             <div class="md:grid md:grid-cols-3 md:gap-6  items-center">
-
                 <div class="mt-5 md:mt-0 md:col-span-6">
                     <form action="#" method="PUT">
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white sm:p-6">
                                 <div class="grid grid-cols-6 gap-6">
                                     <div class="col-span-6 sm:col-span-6 lg:col-span-2">
-                                        <label /* class="block text-sm font-medium text-gray-700" */><b>Edit Produk</b></label>
+                                        <label /* class="block text-sm font-medium text-gray-700" */><b>EDIT PRODUK</b></label>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-3"></div>
