@@ -15,18 +15,19 @@ import { PlusIcon } from "@heroicons/react/outline";
 import moment from 'moment';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
 
 export default function Customer() {
   let history = useHistory();
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customerState.customer);
   const isLoading = useSelector((state) => state.customerState.isLoading);
-  const user = useSelector((state) => state.userState);
-  const [data, setData] = useState([]);
+  //get data from local storage
+  const user = useState(userFromLocalStorage);
 
   const columns = useMemo(() => [
     { Header: 'IMAGES', accessor: 'images' },
@@ -48,13 +49,10 @@ export default function Customer() {
 
   async function fetchData() {
     const payload = {
-      user_id: user.user_id,
-      outlet_id: user.outlet_id,
+      user_id: user[0].user_id,
+      outlet_id: user[0].outlet_id,
     };
     dispatch(doGetCustomerRequest(payload));
-    if (customer) {
-      setData(customer)
-    }
   }
 
   const {
@@ -301,8 +299,43 @@ export default function Customer() {
                       }
                     </tbody>
                   </table>
-                  <div className="bg-white px-4 py-3 flex justify-between border-t border-gray-200 sm:px-6">
-                    <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} style={{ marginTop: "5px", marginRight: "5px" }}>{'<<'}</button>
+                  <div className="flex flex-row min-h-screen justify-center items-center">
+                    <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                      <button
+                        onClick={() => previousPage()} disabled={!canPreviousPage}
+                        className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                      >
+                        <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                        <p>Previous</p>
+                      </button>
+                      <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                        Page{' '}
+                        <strong>
+                          {pageIndex + 1} of {pageOptions.length}
+                        </strong>{' '}
+                      </span>
+                      <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                        <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                          {
+                            [5, 10, 100].map(pageSize => (
+                              <option key={pageSize} value={pageSize}>
+                                Show {pageSize}
+                              </option>
+                            ))
+                          }
+                        </select>
+                      </span>
+                      <button
+                        onClick={() => nextPage()}
+                        className=
+                        "relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                      >
+                        <p>Next</p>
+                        <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                    </nav>
+                  </div>
+                  {/* <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} style={{ marginTop: "5px", marginRight: "5px" }}>{'<<'}</button>
                     <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" onClick={() => previousPage()} disabled={!canPreviousPage} style={{ marginTop: "5px" }}>Previous</button>
                     <span style={{ marginTop: '10px' }}>
                       Page{' '}
@@ -322,8 +355,7 @@ export default function Customer() {
                       </select>
                     </span>
                     <button onClick={() => nextPage()} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" disabled={!canNextPage}>Next</button>
-                    <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} style={{ marginTop: "5px", marginLeft: "5px" }}>{'>>'}</button>
-                  </div>
+                    <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} style={{ marginTop: "5px", marginLeft: "5px" }}>{'>>'}</button> */}
                 </>
               )}
             </div>
