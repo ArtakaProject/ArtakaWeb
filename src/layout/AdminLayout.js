@@ -48,7 +48,7 @@ const navigation = [
   },
   {
     name: "Manual",
-    href: "/artaka/not-found",
+    href: "/artaka/seller/customer",
     icon: BookOpenIcon,
     current: false,
     subMenu: [],
@@ -275,11 +275,12 @@ export default function AdminLayout(props) {
                 className="sticky top-4 divide-y divide-gray-300"
               >
                 <div className="group flex items-center px-3 py-2 rounded-md">
+                  <button>
                   <MenuIcon
                     className="block h-6 w-6 text-purple-900"
                     aria-hidden="true"
                     onClick={menuIconClick}
-                  />
+                  /></button>
                 </div>
                 <div className="pb-3 space-y-1">
                   {navigation.map((item) => (
@@ -316,11 +317,12 @@ export default function AdminLayout(props) {
               >
                 <div className="group flex items-center px-3 py-2 rounded-md">
                   <p className="text-xl w-40 text-purple-900">Ken Shop</p>
+                  <button>
                   <MenuIcon
                     className="block h-6 w-6 text-purple-900"
                     aria-hidden="true"
                     onClick={menuIconClick}
-                  />
+                  /></button>
                 </div>
                 <div className="pb-3 space-y-1">
                   {navigation.map((item) => {

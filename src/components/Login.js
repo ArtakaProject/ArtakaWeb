@@ -10,6 +10,7 @@ import ArtakaClear from "../assets/ArtakaClear.png";
 export default function Login(props) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.userState.user_id);
+  const user = useSelector((state) => state.userState);
 
   const [values, setValues] = useState({
     user_id: "",
@@ -31,6 +32,10 @@ export default function Login(props) {
   };
 
   if (userId) {
+
+    //save ke local storage
+    localStorage.setItem("user", JSON.stringify(user));
+
     return <Redirect to={"/artaka/seller/dashboard"} />;
   }
   return (
