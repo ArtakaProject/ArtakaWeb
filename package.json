@@ -20,6 +20,7 @@
     "date-fns": "^2.27.0",
     "formik": "^2.2.9",
     "i": "^0.3.7",
+    "moment": "^2.29.1",
     "pino": "^6.13.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.3",
@@ -39,7 +40,9 @@
     "redux-pagination": "^0.2.0",
     "redux-saga": "^1.1.3",
     "reselect": "^4.1.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11",
+    "yup-phone": "^1.3.2"
   },
   "scripts": {
     "start": "craco start",

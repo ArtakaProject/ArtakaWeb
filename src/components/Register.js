@@ -1,5 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import { useFormik } from "formik";
+import * as Yup from "yup";
+import "yup-phone";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,32 +9,24 @@ import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { doSignupRequest } from "../redux/actions/User";
+import { Password } from "@mui/icons-material";
 
 export default function Register(props) {
-  const validate = values =>{
-    const errors = {}
-
-    if(!values.handphone){
-      errors.handphone = 'Masukkan Nomor HP Anda'
-    }else if(!values.password){
-      errors.password = 'Masukkan Password Anda'
-    }else if(!values.handphone && !values.password){
-      errors.password = 'Masukkan Nomor Hp & Masukkan Password Anda'
-    }
-    return errors;
-  }
-  
-
-  const formik = useFormik({
+   const formik = useFormik({
     initialValues:{
-      handphone:'',
-      nama:'',
-      email:'',
-      password:'',
-      repassword:'',
-      referral:''
+      phone:"",
+      nama:"",
+      email:"",
+      password:"",
+      repassword:"",
+      referral:""
     },
-    validate,
+    validationSchema:Yup.object().shape({
+      phone: Yup.string().required("Masukkan Nomor Handphone Anda").phone(null, true, "Nomor Handphone Tidak Sesuai"),
+      nama:Yup.string().required("Masukkan Nama Lengkap Anda"),
+      password:Yup.string().required("Masukkan Password Anda").min(6,"Panjang Password Minimal 6 Karakter"),
+      repassword:Yup.string().required("Masukkan Konfirmasi Password Anda").oneOf([Yup.ref("password")],"Password Harus Sesuai"),
+    }),
     onSubmit:values=>{
       alert(JSON.stringify(values,null,2))
     }
@@ -47,23 +41,29 @@ export default function Register(props) {
               Daftar Akun Artaka
             </p>
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
+              <form action="#" method="POST" className="space-y-6" onSubmit={formik.handleSubmit}>
                 <div>
                   <label htmlFor="mobile-or-email" className="sr-only">
                     Handphone
                   </label>
                   <input
                     type="text"
-                    name="handphone"
-                    id="handphone"
+                    name="phone"
+                    id="phone"
                     autoComplete="phone"
                     placeholder="Handphone"
                     value={formik.values.handphone}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+                {formik.touched.phone && formik.errors.phone ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.phone}
+                  </span>
+                ) : null}
 
                 <div>
                   <label htmlFor="name" className="sr-only">
@@ -75,12 +75,18 @@ export default function Register(props) {
                     id="nama"
                     autoComplete="name"
                     placeholder="Nama"
-                    value={formik.values.handphone}
+                    value={formik.values.nama}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+                {formik.touched.nama && formik.errors.nama ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.nama}
+                  </span>
+                ) : null}
 
                 <div>
                   <label htmlFor="email" className="sr-only">
@@ -94,6 +100,7 @@ export default function Register(props) {
                     placeholder="Email (Tidak Wajib)"
                     value={formik.values.email}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -110,11 +117,17 @@ export default function Register(props) {
                     autoComplete="current-password"
                     value={formik.values.password}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-
+                {formik.touched.password && formik.errors.password ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.nama}
+                  </span>
+                ) : null}
+                
                 <div>
                   <label htmlFor="password" className="sr-only">
                     RePassword
@@ -131,6 +144,11 @@ export default function Register(props) {
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+                {formik.touched.repassword && formik.errors.repassword ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.nama}
+                  </span>
+                ) : null}
 
                 <div>
                   <label htmlFor="name" className="sr-only">
@@ -144,14 +162,17 @@ export default function Register(props) {
                     placeholder="Kode Referral (Tidak Wajib)"
                     value={formik.values.referral}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+
                 <div className="flex items-center">
                   <p className="ml-2 block text-xs font-semibold text-gray-900">
                   Kami akan Mengirim SMS OTP Verifikasi
                   </p>                
                 </div>
+                
                 <div>
                   <button
                     type="submit"

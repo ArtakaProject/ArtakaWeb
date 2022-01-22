@@ -63,7 +63,6 @@ const navigation = [
   },
 // { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
 // { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
-// { name: 'Pelanggan', href: '/artaka/seller/customer', icon: UserGroupIcon, current: false },
 // { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
 // { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
 ];
@@ -74,6 +73,7 @@ const subMenu = [
   { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
   { name: "Pengaturan Toko", href: "/artaka/not-found" },
   { name: "Pengaturan Order Online", href: "/artaka/not-found" },
+  { name: "Pelanggan", href: "/artaka/seller/customer" },
   { name: "Mitra", href: "/artaka/not-found" },
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
   { name: "Pengeluaran Non Persediaan", href: "/artaka/not-found" },
@@ -218,7 +218,7 @@ export default function AdminLayout(props) {
                     {item.name}
                   </Link>
                 ))}
-                 <div className="pl-4">
+                 <div>
                     <ul className="flex flex-col pl-2 text-black border-gray-700">
                       {subMenu.map((item) => (
                         <li>
