@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-//import { doCategoryStarted } from '../../redux/actions/Category';
 import { doEditProductRequest } from '../../redux/actions/Product';
 import { Axios } from 'axios';
 
