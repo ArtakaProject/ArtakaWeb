@@ -14,10 +14,10 @@ import { Password } from "@mui/icons-material";
 export default function Register(props) {
    const formik = useFormik({
     initialValues:{
-      phone:"",
+      user_id:"",
       nama:"",
       email:"",
-      password:"",
+      secret_password:"",
       repassword:"",
       referral:""
     },
