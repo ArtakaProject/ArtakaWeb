@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { doGetProductRequest, doNextPage } from '../../redux/actions/Product';
-import PageHeading from '../../components/PageHeading';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
@@ -18,13 +18,15 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
+
 
 export default function Products() {
     let history = useHistory();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
-    const user = useSelector((state) => state.userState);
+    const user = useState(userFromLocalStorage);
     const [data, setData] = useState([]);
 
     const columns = useMemo(() => [
@@ -52,15 +54,15 @@ export default function Products() {
 
     async function fetchData() {
         const payload = {
-            user_id: user.user_id,
-            outlet_id: user.outlet_id,
-            category: user.category,
-            is_active: user.is_active
+            user_id: user[0].user_id,
+            outlet_id: user[0].outlet_id,
+            category: user[0].category,
+            is_active: user[0].is_active
         };
         dispatch(doGetProductRequest(payload));
-        if (products) {
+        /* if (products) {
             setData(products)
-        }
+        } */
     };
 
     const {
@@ -116,16 +118,16 @@ export default function Products() {
                 </button>
             </div>
             <div className="flex w-full mb-5">
-                {/* <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
+                <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Masker</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Vitamin</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Obat</b></button>
-                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Hand Sanitizer</b></button> */}
-                <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
+                <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Hand Sanitizer</b></button>
+                {/* <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
                 <button className="rounded-full bg-gray-300 p-2 ">Hand Sanitizer</button>
                 <button className="rounded-full bg-gray-300 p-2 ">Masker</button>
                 <button className="rounded-full bg-gray-300 p-2 ">Obat</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Vitamin</button>
+                <button className="rounded-full bg-gray-300 p-2 ">Vitamin</button> */}
             </div>
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
@@ -235,7 +237,19 @@ export default function Products() {
                                                                                     <div className="py-1">
                                                                                         <Menu.Item>
                                                                                             {({ active }) => (
-                                                                                                <Link to={`/artaka/seller/product/edit/`}
+                                                                                                <Link to={{
+                                                                                                    pathname: `/artaka/seller/product/edit/`,
+                                                                                                    state: {
+                                                                                                        id: row.cells[0].value,
+                                                                                                        images: row.cells[1].value,
+                                                                                                        name: row.cells[2].value,
+                                                                                                        description: row.cells[3].value,
+                                                                                                        sell_cost: row.cells[4].value,
+                                                                                                        quantity: row.cells[5].value,
+                                                                                                        minimum_quantity: row.cells[6].value,
+                                                                                                        is_active: row.cells[7].value
+                                                                                                    }
+                                                                                                }}
                                                                                                     className={classNames(
                                                                                                         active
                                                                                                             ? 'bg-gray-100 text-gray-900'
@@ -303,28 +317,42 @@ export default function Products() {
                                             }
                                         </tbody>
                                     </table>
-                                    <div className="bg-white px-4 py-3 flex justify-between border-t border-gray-200 sm:px-6">
-                                        <button onClick={() => gotoPage(0)} disabled={!canPreviousPage} style={{ marginTop: "5px", marginRight: "5px" }}>{'<<'}</button>
-                                        <button className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" onClick={() => previousPage()} disabled={!canPreviousPage} style={{ marginTop: "5px" }}>Previous</button>
-                                        <span style={{ marginTop: '10px' }}>
-                                            Page{' '}
-                                            <strong>
-                                                {pageIndex + 1} of {pageOptions.length}
-                                            </strong>{' '}
-                                        </span>
-                                        <span style={{ marginTop: '10px' }}>
-                                            <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
-                                                {
-                                                    [5, 10, 100].map(pageSize => (
-                                                        <option key={pageSize} value={pageSize}>
-                                                            Show {pageSize}
-                                                        </option>
-                                                    ))
-                                                }
-                                            </select>
-                                        </span>
-                                        <button onClick={() => nextPage()} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l" disabled={!canNextPage}>Next</button>
-                                        <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} style={{ marginTop: "5px", marginLeft: "5px" }}>{'>>'}</button>
+                                    <div className="flex flex-row min-h-screen justify-center items-center">
+                                        <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                            <button
+                                                onClick={() => previousPage()} disabled={!canPreviousPage}
+                                                className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                                            >
+                                                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                                                <p>Previous</p>
+                                            </button>
+                                            <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                                                Page{' '}
+                                                <strong>
+                                                    {pageIndex + 1} of {pageOptions.length}
+                                                </strong>{' '}
+                                            </span>
+                                            <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                                                <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                                                    {
+                                                        [5, 10, 100].map(pageSize => (
+                                                            <option key={pageSize} value={pageSize}>
+                                                                Show {pageSize}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </select>
+                                            </span>
+                                            <button
+                                                onClick={() => nextPage()}
+                                                disabled={!canNextPage}
+                                                className=
+                                                "relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                                            >
+                                                <p>Next</p>
+                                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                            </button>
+                                        </nav>
                                     </div>
                                 </>
                             )}

@@ -2,11 +2,11 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
 
-export default function EditCust() {
+export default function EditCust(props) {
+  const customer = props.location.state
   let history = useHistory();
 
   const [uploaded, setUploaded] = useState(false);
-  const [customer, setCustomer] = useState([]);
 
   const [files, setFiles] = useState({
     file: undefined,
@@ -37,31 +37,6 @@ export default function EditCust() {
       imagePreviewUrl: undefined,
     });
   };
-
-  let payload = {
-    user_id: "+6281282187515",
-    outlet_id: "OTL-001",
-  };
-
-  useEffect(() => {
-    let config = {
-      method: "POST",
-      url: "https://artaka-api.com/api/customers/show",
-      data: payload,
-    };
-
-    Axios(config)
-      .then((response) => {
-        setCustomer(response.data[0]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    return () => {
-      setCustomer("");
-    };
-  }, []);
 
   return (
     <div class="mt-10 sm:mt-0">
