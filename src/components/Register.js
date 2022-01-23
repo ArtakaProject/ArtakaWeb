@@ -1,53 +1,36 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import "yup-phone";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { doSignupRequest } from "../redux/actions/User";
+import { Password } from "@mui/icons-material";
 
 export default function Register(props) {
-    const dispatch = useDispatch();
-    const status = useSelector((state) => state.userState.status);
-
-
-    const [values, setValues] = useState({
-        user_id: "",
-        outlate_name: "",
-
-        secret_password: "",
-
-        
-        
-    });
-
-    const handleChange = name => event => {
-        setValues({ ...values, [name]: event.target.value })
+   const formik = useFormik({
+    initialValues:{
+      phone:"",
+      nama:"",
+      email:"",
+      password:"",
+      repassword:"",
+      referral:""
+    },
+    validationSchema:Yup.object().shape({
+      phone: Yup.string().required("Masukkan Nomor Handphone Anda").phone(null, true, "Nomor Handphone Tidak Sesuai"),
+      nama:Yup.string().required("Masukkan Nama Lengkap Anda"),
+      password:Yup.string().required("Masukkan Password Anda").min(6,"Panjang Password Minimal 6 Karakter"),
+      repassword:Yup.string().required("Masukkan Konfirmasi Password Anda").oneOf([Yup.ref("password")],"Password Harus Sesuai"),
+    }),
+    onSubmit:values=>{
+      alert(JSON.stringify(values,null,2))
     }
-
-
-    const onSubmit = async (e) => {
-        e.preventDefault();
-         const payload = {
-           user_id: values.user_id,
-           outlate_name: values.outlate_name,
-           secret_password: values.secret_password
-       }
-
-       dispatch(doSignupRequest(payload));  
-    }
-
-
-    const { from } = props.location.state || {
-        from: {
-            pathname: '/signin/'
-        }
-    }
-
-    if (status) {
-        //console.log('redirect : ' || { from })
-        return (<Redirect to={from} />)
-    }
+  })
 
   return (
     <>
@@ -58,40 +41,52 @@ export default function Register(props) {
               Daftar Akun Artaka
             </p>
             <div className="mt-6">
-              <form action="#" method="POST" className="space-y-6">
+              <form action="#" method="POST" className="space-y-6" onSubmit={formik.handleSubmit}>
                 <div>
                   <label htmlFor="mobile-or-email" className="sr-only">
                     Handphone
                   </label>
                   <input
                     type="text"
-                    name="handphone"
-                    id="handphone"
+                    name="phone"
+                    id="phone"
                     autoComplete="phone"
                     placeholder="Handphone"
-                    value={values.user_id}
-                    onChange={handleChange("user_id")}
+                    value={formik.values.handphone}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-             
+                {formik.touched.phone && formik.errors.phone ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.phone}
+                  </span>
+                ) : null}
+
                 <div>
                   <label htmlFor="name" className="sr-only">
                     Nama
                   </label>
                   <input
                     type="text"
-                    name="name"
-                    id="name"
+                    name="nama"
+                    id="nama"
                     autoComplete="name"
                     placeholder="Nama"
-                    value={values.outlate_name}
-                    onChange={handleChange("outlate_name")}
+                    value={formik.values.nama}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+                {formik.touched.nama && formik.errors.nama ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.nama}
+                  </span>
+                ) : null}
 
                 <div>
                   <label htmlFor="email" className="sr-only">
@@ -103,8 +98,9 @@ export default function Register(props) {
                     id="email"
                     autoComplete="email"
                     placeholder="Email (Tidak Wajib)"
-                  //  value={values.user_id}
-                  //  onChange={handleChange("user_id")}
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -119,29 +115,40 @@ export default function Register(props) {
                     type="password"
                     placeholder="Buat Password"
                     autoComplete="current-password"
-                    value={values.secret_password}
-                    onChange={handleChange("secret_password")}
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-
+                {formik.touched.password && formik.errors.password ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.nama}
+                  </span>
+                ) : null}
+                
                 <div>
                   <label htmlFor="password" className="sr-only">
-                    Password
+                    RePassword
                   </label>
                   <input
-                    id="password"
-                    name="password"
+                    id="repassword"
+                    name="repassword"
                     type="password"
                     placeholder="Ulangi Password"
                     autoComplete="current-password"
-                  //  value={values.secret_password}
-                  //  onChange={handleChange("secret_password")}
+                    value={formik.values.repassword}
+                    onChange={formik.handleChange}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
+                {formik.touched.repassword && formik.errors.repassword ? (
+                  <span className="error text-xs text-red-600">
+                    {formik.errors.nama}
+                  </span>
+                ) : null}
 
                 <div>
                   <label htmlFor="name" className="sr-only">
@@ -153,14 +160,23 @@ export default function Register(props) {
                     id="referral"
                     autoComplete="name"
                     placeholder="Kode Referral (Tidak Wajib)"
+                    value={formik.values.referral}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
 
+                <div className="flex items-center">
+                  <p className="ml-2 block text-xs font-semibold text-gray-900">
+                  Kami akan Mengirim SMS OTP Verifikasi
+                  </p>                
+                </div>
+                
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-2xl shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-indigo-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Daftar Akun
                   </button>

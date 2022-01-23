@@ -2,18 +2,14 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
+import { PhoneIcon } from "@heroicons/react/solid";
 import ArtakaClear from "../assets/ArtakaClear.png";
-import ArtakaLanding from "../assets/ArtakaLanding.png";
+import ArtakaSignUp from "../assets/ArtakaSignUp.png";
 
-const navigation = [
-  { name: "Why Open Enterprise", href: "#" },
-  { name: "Features", href: "#" },
-  { name: "Contribute", href: "#" },
-];
 
-export default function LandingLayout(props) {
+export default function LoginLayout(props) {
   return (
-    <div className=" max-h-full bg-gray-200 overflow-hidden">
+    <div className=" max-h-screen bg-gray-200 overflow-hidden">
       <div
         className="hidden sm:block sm:absolute sm:inset-0"
         aria-hidden="true"
@@ -30,7 +26,7 @@ export default function LandingLayout(props) {
                   <div className="flex items-center justify-between w-full md:w-auto">
                     <span className="sr-only">Workflow</span>
                     <img
-                      className="h-8 w-auto sm:h-10"
+                      className=" mb-4 h-8 w-auto sm:h-10"
                       src={ArtakaClear}
                       alt=""
                     />
@@ -42,25 +38,20 @@ export default function LandingLayout(props) {
                     </div>
                   </div>
                 </div>
-                <div className="hidden space-x-7 md:flex md:ml-10">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="font-medium text-black hover:text-purple-700"
-                    >
-                      {item.name}
-                    </a>
-                  ))}
-                  <div>
+                <div className="hidden md:flex md:ml-10">
+                <PhoneIcon className="h-9 mt-1 text-purple-700 hover:text-indigo-500"></PhoneIcon>
+                  <p className="mt-1 text-black text-lg font-semibold">
+                  +6281122334455
+                  </p>
+                  <div className="ml-10 mb-3">
                     <Link
-                      to="#"
-                      className="font-medium text-purple-800 hover:text-indigo-500"
+                      to="/artaka/signin"
+                      className="inline-flex items-center px-10 py-2 border-4 border-purple-700 text-sm font-semibold rounded-xl text-black bg-transparent hover:bg-purple-700 hover:text-white hover:border-blue-500"
                     >
-                      Request Early Access
+                      LOG IN
                     </Link>
+                    </div>
                   </div>
-                </div>
               </nav>
 
               <Transition
@@ -90,25 +81,13 @@ export default function LandingLayout(props) {
                         </Popover.Button>
                       </div>
                     </div>
-                    <div className="px-2 pt-2 pb-3 space-y-1">
-                      {navigation.map((item) => (
-                        <a
-                          key={item.name}
-                          href={item.href}
-                          className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                        >
-                          {item.name}
-                        </a>
-                      ))}
-                    </div>
-                    <div>
-                      <Link
-                        to="#"
-                        className="font-medium ml-5 text-purple-800 hover:text-indigo-500"
-                      >
-                        Request Early Access
-                      </Link>
-                    </div>
+                   
+                    <Link
+                      to="/artaka/signin"
+                      className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                    >
+                      Sign in
+                    </Link>
                   </div>
                 </Popover.Panel>
               </Transition>
@@ -120,39 +99,15 @@ export default function LandingLayout(props) {
         <main className="mt-16 sm:mt-24">
           <div className="mx-auto max-w-7xl">
             <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-              <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-                <div className="bg-gray-200 sm:mt-10 sm:w-full sm:overflow-hidden">
-                  <div className="px-4 py-8 sm:px-10">
-                    <p className=" text-5xl font-bold font-serif text-left text-black">
-                      Hitung Penjualan Anda Dengan Tepat dan Mudah
-                    </p>
-                    <div className="mt-3">
-                      <p className="text-sm text-left font-bold font-serif text-black">
-                        Bersama ARTAKA kami siap membantu para umkm untuk
-                        memudahkan para pemilik umkm untuk melakukan pembukuan
-                        penjualannya
-                      </p>
-                    </div>
-                    <div className="mt-6 text-center">
-                      <Link to="/artaka/signin">
-                        <button class="px-9 inline py-2 text-sm font-medium leading-8 text-white transition-colors duration-150 focus:outline-none focus:shadow-outline-blue bg-purple-800 active:bg-blue-600 hover:bg-indigo-600 hover:text-black">
-                          LOGIN
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="px-4 pt-6 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
+              <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <img
-                    className="mx-auto h-96 w-full pl-10"
-                    src={ArtakaLanding}
+                    className="mx-auto h-full pl-10 w-auto"
+                    src={ArtakaSignUp}
                     alt="Workflow"
                   />
                 </div>
               </div>
-
               {props.children}
             </div>
           </div>

@@ -18,11 +18,13 @@
     "@themesberg/tailwind-datepicker": "^1.1.0",
     "axios": "^0.22.0",
     "date-fns": "^2.27.0",
+    "formik": "^2.2.9",
     "i": "^0.3.7",
     "moment": "^2.29.1",
     "pino": "^6.13.3",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.3",
+    "react-circular-progressbar": "^2.0.4",
     "react-dom": "^17.0.2",
     "react-js-pagination": "^3.0.3",
     "react-otp-input": "^2.4.0",
@@ -38,7 +40,9 @@
     "redux-pagination": "^0.2.0",
     "redux-saga": "^1.1.3",
     "reselect": "^4.1.1",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11",
+    "yup-phone": "^1.3.2"
   },
   "scripts": {
     "start": "craco start",
