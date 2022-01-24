@@ -3,8 +3,9 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../redux/actions/User";
-import { toast } from "react-toastify";
 import { Redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import ArtakaClear from "../assets/ArtakaClear.png";
 
 export default function Login(props) {
@@ -40,19 +41,17 @@ export default function Login(props) {
   }
   return (
     <>
-      <div className=" mt-32 sm:mt-24 lg:mt-0 lg:col-span-6">
-        <div className=" bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+      <div className=" mt-14 sm:mt-14 lg:mt-0 lg:col-span-6">
+        <div className="bg-white sm:max-w-md sm:w-auto sm:mx-auto sm:rounded-lg sm:overflow-hidden">
           <div className="px-4 py-8 sm:px-10">
             <div>
               <div className="mt-1 grid grid-cols-3 gap-3">
-                <a href="#">
                   <span className="sr-only">Workflow</span>
                   <img
-                    className="h-8 ml-32 w-auto sm:h-8"
+                    className="h-8 ml-32 w-auto sm:h-8 sm:items-center"
                     src={ArtakaClear}
                     alt=""
                   />
-                </a>
               </div>
               <p className=" text-3xl pt-4 font-extrabold text-gray-700 text-center">
                 Sign in to Your Account
@@ -93,6 +92,7 @@ export default function Login(props) {
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
+                 
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -114,7 +114,7 @@ export default function Login(props) {
                   <div className="text-sm">
                     <a
                       href="#"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="font-medium text-purple-700 hover:text-indigo-500"
                     >
                       Forgot your password?
                     </a>
@@ -124,12 +124,12 @@ export default function Login(props) {
                 <div>
                   <button
                     type="submit"
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-indigo-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     onClick={onSubmit}
                   >
                     <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                       <LockClosedIcon
-                        className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                        className="h-5 w-5 text-indigo-500 group-hover:text-purple-700"
                         aria-hidden="true"
                       />
                     </span>
@@ -151,7 +151,7 @@ export default function Login(props) {
                   <div className="text-sm">
                     <Link
                       to="/artaka/signup"
-                      className="font-medium text-indigo-600 hover:text-indigo-500"
+                      className="font-medium text-purple-700 hover:text-indigo-500"
                     >
                         Daftar Sekarang
                     </Link>

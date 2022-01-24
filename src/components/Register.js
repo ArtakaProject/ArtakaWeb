@@ -4,50 +4,45 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { doSignupRequest } from "../redux/actions/User";
 
 export default function Register(props) {
-    const dispatch = useDispatch();
-    const status = useSelector((state) => state.userState.status);
+  const dispatch = useDispatch();
+  const status = useSelector((state) => state.userState.status);
 
+  const [values, setValues] = useState({
+    user_id: "",
+    outlate_name: "",
 
-    const [values, setValues] = useState({
-        user_id: "",
-        outlate_name: "",
+    secret_password: "",
+  });
 
-        secret_password: "",
+  const handleChange = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.value });
+  };
 
-        
-        
-    });
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    const payload = {
+      user_id: values.user_id,
+      outlate_name: values.outlate_name,
+      secret_password: values.secret_password,
+    };
 
-    const handleChange = name => event => {
-        setValues({ ...values, [name]: event.target.value })
-    }
+    dispatch(doSignupRequest(payload));
+  };
 
+  const { from } = props.location.state || {
+    from: {
+      pathname: "/signin/",
+    },
+  };
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-         const payload = {
-           user_id: values.user_id,
-           outlate_name: values.outlate_name,
-           secret_password: values.secret_password
-       }
-
-       dispatch(doSignupRequest(payload));  
-    }
-
-
-    const { from } = props.location.state || {
-        from: {
-            pathname: '/signin/'
-        }
-    }
-
-    if (status) {
-        //console.log('redirect : ' || { from })
-        return (<Redirect to={from} />)
-    }
+  if (status) {
+    //console.log('redirect : ' || { from })
+    return <Redirect to={from} />;
+  }
 
   return (
     <>
@@ -75,7 +70,7 @@ export default function Register(props) {
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-             
+
                 <div>
                   <label htmlFor="name" className="sr-only">
                     Nama
@@ -103,8 +98,8 @@ export default function Register(props) {
                     id="email"
                     autoComplete="email"
                     placeholder="Email (Tidak Wajib)"
-                  //  value={values.user_id}
-                  //  onChange={handleChange("user_id")}
+                    //  value={values.user_id}
+                    //  onChange={handleChange("user_id")}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
@@ -136,8 +131,8 @@ export default function Register(props) {
                     type="password"
                     placeholder="Ulangi Password"
                     autoComplete="current-password"
-                  //  value={values.secret_password}
-                  //  onChange={handleChange("secret_password")}
+                    //  value={values.secret_password}
+                    //  onChange={handleChange("secret_password")}
                     required
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
@@ -156,11 +151,15 @@ export default function Register(props) {
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
                   />
                 </div>
-
+                <div className="flex items-center">
+                  <p className="ml-2 block text-xs font-semibold text-gray-900">
+                  Kami akan Mengirim SMS OTP Verifikasi
+                  </p>                
+                </div>
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-2xl shadow-sm text-sm font-medium text-white bg-purple-700 hover:bg-indigo-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Daftar Akun
                   </button>
