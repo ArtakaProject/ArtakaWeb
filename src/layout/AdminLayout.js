@@ -330,7 +330,7 @@ export default function AdminLayout(props) {
                     className="block h-6 w-6 text-purple-900"
                     aria-hidden="true"
                     onClick={menuIconClick}
-                  />
+                    />
                 </div>
                 <div className="pb-3 space-y-1">
                   {navigation.map((item) => {
