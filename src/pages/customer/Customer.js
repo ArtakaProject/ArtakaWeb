@@ -110,8 +110,8 @@ export default function Customer() {
         </button>
       </div>
       <div className="flex w-full mb-5">
-        <button className="rounded-full bg-green-600 text-white p-2 ml-5 mr-5">Lunas</button>
-        <button className="rounded-full bg-gray-300 p-2">Belum Lunas</button>
+        <button className="p-2 ml-3 mr-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-purple-900">Lunas</button>
+        <button className="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-green-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-purple-900">Belum Lunas</button>
       </div>
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">

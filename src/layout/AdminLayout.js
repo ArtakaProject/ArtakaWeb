@@ -69,7 +69,7 @@ const navigation = [
 
 const subMenu = [
   { name: "Bantuan", href: "/artaka/not-found" },
-  { name: "Kelola Produk", href: "/artaka/not-found" },
+  { name: "Kelola Produk", href: "/artaka/seller/product" },
   { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
   { name: "Pengaturan Toko", href: "/artaka/not-found" },
   { name: "Pengaturan Order Online", href: "/artaka/not-found" },
