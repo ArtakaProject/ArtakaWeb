@@ -15,6 +15,9 @@ import apiUser from "../api/api-user";
 export default function Login(props) {
   // const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
+ // const [showHide, setShowHide] = useState("Show");
+  const [showPassword, setShowPassword] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       user_id: "",
@@ -44,6 +47,15 @@ export default function Login(props) {
     },
   });
 
+  const toggleVisiblity = () => {
+    setShowPassword(showPassword ? false : true);
+  };
+
+ // const visibility = () => {
+ //  setShowHide(showHide ? "Show" : "hide");
+ // }
+  
+
   if (redirect) {
    return <Redirect to={"/artaka/seller/dashboard"} />;
   }
@@ -71,7 +83,7 @@ export default function Login(props) {
               <form
                 action="#"
                 method="POST"
-                className="space-y-6"
+                className="space-y-4"
                 onSubmit={formik.handleSubmit}
               >
                 <div>
@@ -87,12 +99,11 @@ export default function Login(props) {
                     value={formik.values.user_id}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
                 </div>
                 {formik.touched.user_id && formik.errors.user_id ? (
-                  <span className="error text-xs text-red-600">
+                  <span className="error mt-6 text-xs text-red-600">
                     {formik.errors.user_id}
                   </span>
                 ) : null}
@@ -104,18 +115,20 @@ export default function Login(props) {
                   <input
                     id="secret_password"
                     name="secret_password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     autoComplete="current-password"
                     value={formik.values.secret_password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
+                  <button className="bg-white text-purple-700 text-xs font-semibold"
+                  onClick={toggleVisiblity}>Show</button>
+
                   {formik.touched.secret_password &&
                   formik.errors.secret_password ? (
-                    <span className="error text-xs text-red-600">
+                    <span className="error  mt-6 text-xs text-red-600">
                       {formik.errors.secret_password}
                     </span>
                   ) : null}

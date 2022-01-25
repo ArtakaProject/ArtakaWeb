@@ -12,25 +12,36 @@ import { doSignupRequest } from "../redux/actions/User";
 import { Password } from "@mui/icons-material";
 
 export default function Register(props) {
+   const [showPassword, setShowPassword] = useState(false);
+   const [showRepassword, setShowRepassword] = useState(false);
    const formik = useFormik({
     initialValues:{
       user_id:"",
-      nama:"",
+      employee_name:"",
       email:"",
       secret_password:"",
       repassword:"",
       referral:""
     },
     validationSchema:Yup.object().shape({
-      phone: Yup.string().required("Masukkan Nomor Handphone Anda").phone(null, true, "Nomor Handphone Tidak Sesuai"),
-      nama:Yup.string().required("Masukkan Nama Lengkap Anda"),
-      password:Yup.string().required("Masukkan Password Anda").min(6,"Panjang Password Minimal 6 Karakter"),
+      user_id: Yup.string().required("Masukkan Nomor Handphone Anda").phone(null, true, "Nomor Handphone Tidak Sesuai"),
+      employee_name:Yup.string().required("Masukkan Nama Lengkap Anda"),
+      secret_password:Yup.string().required("Masukkan Password Anda").min(6,"Panjang Password Minimal 6 Karakter"),
       repassword:Yup.string().required("Masukkan Konfirmasi Password Anda").oneOf([Yup.ref("password")],"Password Harus Sesuai"),
     }),
     onSubmit:values=>{
       alert(JSON.stringify(values,null,2))
     }
   })
+
+  const toggleVisiblity = () => {
+    setShowPassword(showPassword ? false : true);
+  };
+
+  const toggleRepassword = () => {
+    setShowRepassword(showRepassword ? false : true);
+  };
+
 
   return (
     <>
@@ -48,20 +59,19 @@ export default function Register(props) {
                   </label>
                   <input
                     type="text"
-                    name="phone"
-                    id="phone"
+                    name="user_id"
+                    id="user_id"
                     autoComplete="phone"
                     placeholder="Handphone"
-                    value={formik.values.handphone}
+                    value={formik.values.user_id}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
                 </div>
-                {formik.touched.phone && formik.errors.phone ? (
+                {formik.touched.user_id && formik.errors.user_id ? (
                   <span className="error text-xs text-red-600">
-                    {formik.errors.phone}
+                    {formik.errors.user_id}
                   </span>
                 ) : null}
 
@@ -71,18 +81,17 @@ export default function Register(props) {
                   </label>
                   <input
                     type="text"
-                    name="nama"
-                    id="nama"
+                    name="employee_name"
+                    id="employee_name"
                     autoComplete="name"
                     placeholder="Nama"
-                    value={formik.values.nama}
+                    value={formik.values.employee_name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
                 </div>
-                {formik.touched.nama && formik.errors.nama ? (
+                {formik.touched.employee_name && formik.errors.employee_name ? (
                   <span className="error text-xs text-red-600">
                     {formik.errors.nama}
                   </span>
@@ -101,7 +110,7 @@ export default function Register(props) {
                     value={formik.values.email}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
                 </div>
 
@@ -110,21 +119,23 @@ export default function Register(props) {
                     Password
                   </label>
                   <input
-                    id="password"
-                    name="password"
-                    type="password"
+                    id="secret_password"
+                    name="secret_password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Buat Password"
                     autoComplete="current-password"
-                    value={formik.values.password}
+                    value={formik.values.secret_password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
+                  <button className="bg-white text-purple-700 text-xs font-semibold"
+                  onClick={toggleVisiblity}>Show</button>
                 </div>
-                {formik.touched.password && formik.errors.password ? (
+
+                {formik.touched.secret_password && formik.errors.secret_password ? (
                   <span className="error text-xs text-red-600">
-                    {formik.errors.nama}
+                    {formik.errors.secret_password}
                   </span>
                 ) : null}
                 
@@ -140,9 +151,10 @@ export default function Register(props) {
                     autoComplete="current-password"
                     value={formik.values.repassword}
                     onChange={formik.handleChange}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
+                  <button className="bg-white text-purple-700 text-xs font-semibold"
+                  onClick={toggleRepassword}>Show</button>
                 </div>
                 {formik.touched.repassword && formik.errors.repassword ? (
                   <span className="error text-xs text-red-600">
@@ -163,7 +175,7 @@ export default function Register(props) {
                     value={formik.values.referral}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
                 </div>
 
