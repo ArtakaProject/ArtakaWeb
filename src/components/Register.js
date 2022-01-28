@@ -51,7 +51,7 @@ export default function Register(props) {
             <p className=" text-2xl mt-1 font-semibold text-gray-700 text-center">
               Daftar Akun Artaka
             </p>
-            <div className="mt-6">
+            <div className="mt-6 relative">
               <form action="#" method="POST" className="space-y-6" onSubmit={formik.handleSubmit}>
                 <div>
                   <label htmlFor="mobile-or-email" className="sr-only">
@@ -129,15 +129,18 @@ export default function Register(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                  <button className="bg-white text-purple-700 text-xs font-semibold"
-                  onClick={toggleVisiblity}>Show</button>
-                </div>
+                  <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-48 right-4 "
+                  onClick={toggleVisiblity}>
+                    Show</button>
 
-                {formik.touched.secret_password && formik.errors.secret_password ? (
+                    {formik.touched.secret_password && formik.errors.secret_password ? (
                   <span className="error text-xs text-red-600">
                     {formik.errors.secret_password}
                   </span>
                 ) : null}
+                </div>
+
+              
                 
                 <div>
                   <label htmlFor="password" className="sr-only">
@@ -153,14 +156,17 @@ export default function Register(props) {
                     onChange={formik.handleChange}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                  <button className="bg-white text-purple-700 text-xs font-semibold"
-                  onClick={toggleRepassword}>Show</button>
-                </div>
-                {formik.touched.repassword && formik.errors.repassword ? (
+                   <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-64 right-4 "
+                  onClick={toggleRepassword}>
+                    Show</button>
+
+                    {formik.touched.repassword && formik.errors.repassword ? (
                   <span className="error text-xs text-red-600">
                     {formik.errors.nama}
                   </span>
                 ) : null}
+                </div>
+              
 
                 <div>
                   <label htmlFor="name" className="sr-only">

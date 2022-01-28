@@ -62,7 +62,7 @@ export default function Login(props) {
 
   return (
     <>
-      <div className=" mt-14 sm:mt-14 lg:mt-0 lg:col-span-6">
+      <div className="mt-20 sm:mt-14 lg:mt-0 lg:col-span-6">
         <div className="bg-white sm:max-w-md sm:w-auto sm:mx-auto sm:rounded-lg sm:overflow-hidden">
           <div className="px-4 py-8 sm:px-10">
             <div>
@@ -79,7 +79,7 @@ export default function Login(props) {
               </p>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-8 relative">
               <form
                 action="#"
                 method="POST"
@@ -103,7 +103,7 @@ export default function Login(props) {
                   />
                 </div>
                 {formik.touched.user_id && formik.errors.user_id ? (
-                  <span className="error mt-6 text-xs text-red-600">
+                  <span className="error text-xs text-red-600">
                     {formik.errors.user_id}
                   </span>
                 ) : null}
@@ -123,18 +123,19 @@ export default function Login(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
-                  <button className="bg-white text-purple-700 text-xs font-semibold"
-                  onClick={toggleVisiblity}>Show</button>
+                  <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-16 right-4 "
+                  onClick={toggleVisiblity}>
+                    Show</button>
 
                   {formik.touched.secret_password &&
                   formik.errors.secret_password ? (
-                    <span className="error  mt-6 text-xs text-red-600">
+                    <span className="error text-xs text-red-600">
                       {formik.errors.secret_password}
                     </span>
                   ) : null}
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className=" flex items-center justify-between">
                   <div className="flex items-center">
                     <input
                       id="remember-me"
