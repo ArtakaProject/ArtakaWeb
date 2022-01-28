@@ -15,6 +15,9 @@ import apiUser from "../api/api-user";
 export default function Login(props) {
   // const dispatch = useDispatch();
   const [redirect, setRedirect] = useState(false);
+ // const [showHide, setShowHide] = useState("Show");
+  const [showPassword, setShowPassword] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       user_id: "",
@@ -44,13 +47,22 @@ export default function Login(props) {
     },
   });
 
+  const toggleVisiblity = () => {
+    setShowPassword(showPassword ? false : true);
+  };
+
+ // const visibility = () => {
+ //  setShowHide(showHide ? "Show" : "hide");
+ // }
+  
+
   if (redirect) {
    return <Redirect to={"/artaka/seller/dashboard"} />;
   }
 
   return (
     <>
-      <div className=" mt-14 sm:mt-14 lg:mt-0 lg:col-span-6">
+      <div className="mt-20 sm:mt-14 lg:mt-0 lg:col-span-6">
         <div className="bg-white sm:max-w-md sm:w-auto sm:mx-auto sm:rounded-lg sm:overflow-hidden">
           <div className="px-4 py-8 sm:px-10">
             <div>
@@ -67,11 +79,11 @@ export default function Login(props) {
               </p>
             </div>
 
-            <div className="mt-6">
+            <div className="mt-8 relative">
               <form
                 action="#"
                 method="POST"
-                className="space-y-6"
+                className="space-y-4"
                 onSubmit={formik.handleSubmit}
               >
                 <div>
@@ -87,8 +99,7 @@ export default function Login(props) {
                     value={formik.values.user_id}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
                 </div>
                 {formik.touched.user_id && formik.errors.user_id ? (
@@ -104,15 +115,18 @@ export default function Login(props) {
                   <input
                     id="secret_password"
                     name="secret_password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder="Password"
                     autoComplete="current-password"
                     value={formik.values.secret_password}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
-                    required
-                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md"
+                    className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
+                  <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-16 right-4 "
+                  onClick={toggleVisiblity}>
+                    Show</button>
+
                   {formik.touched.secret_password &&
                   formik.errors.secret_password ? (
                     <span className="error text-xs text-red-600">
@@ -121,7 +135,7 @@ export default function Login(props) {
                   ) : null}
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className=" flex items-center justify-between">
                   <div className="flex items-center">
                     <input
                       id="remember-me"
