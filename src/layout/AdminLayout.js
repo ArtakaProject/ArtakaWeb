@@ -2,20 +2,7 @@ import { Fragment, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
-import {
-  FireIcon,
-  HomeIcon,
-  MenuIcon,
-  TrendingUpIcon,
-  XIcon,
-  DocumentReportIcon,
-  UserGroupIcon,
-  ViewListIcon,
-  BookOpenIcon,
-  CreditCardIcon,
-  ShoppingCartIcon,
-  CashIcon,
-} from "@heroicons/react/outline";
+import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon} from "@heroicons/react/outline";
 
 // please fetch from redux
 const user = {
@@ -24,6 +11,7 @@ const user = {
   imageUrl:
     "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
+
 const navigation = [
   {
     name: "Dashboard",
@@ -31,41 +19,51 @@ const navigation = [
     icon: HomeIcon,
     current: true,
   },
+
   {
     name: "Laporan",
     href: "/artaka/seller/report",
     icon: DocumentReportIcon,
     current: false,
   },
+
   {
     name: "Kasir",
     href: "/artaka/seller/cashier",
     icon: CashIcon,
     current: false,
   },
+
   {
     name: "Manual",
     href: "/artaka/not-found",
     icon: BookOpenIcon,
     current: false,
-  },
+  }, 
+
   {
     name: "Pesanan",
     href: "/artaka/not-found",
     icon: ShoppingCartIcon,
     current: false,
   },
+  
   {
     name: "Menu",
     href: "/artaka/not-found",
     icon: MenuIcon,
     current: false,
   },
-// { name: 'Kategori', href: '/artaka/seller/category', icon: FireIcon, current: false },
-// { name: 'Produk', href: '/artaka/seller/product', icon: UserGroupIcon, current: false },
-// { name: 'Akun Bayar', href: '#', icon: CreditCardIcon, current: false },
-// { name: 'Transaksi Bayar', href: '#', icon: TrendingUpIcon, current: false },
 ];
+
+const subLaporan = [
+  { name: "Laba / Rugi", href: "/artaka/seller/report" },  
+  { name: "Arus Kas", href: "/artaka/not-found" },
+  { name: "Neraca", href: "/artaka/not-found" },
+  { name: "Transaksi Kasir", href: "/artaka/not-found" },
+  { name: "Transaksi Online", href: "/artaka/not-found" },
+  { name: "Transaksi Non Kasir", href: "/artaka/not-found" },
+]
 
 const subMenu = [
   { name: "Bantuan", href: "/artaka/not-found" },
@@ -92,12 +90,17 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
+
 export default function AdminLayout(props) {
   const [menuCollapse, setMenuCollapse] = useState(false);
+  const [subnav, setSubnav] = useState(false);
 
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
+
+  const showSubnav = () => setSubnav(!subnav);
+
   return (
     <div className="min-h-screen">
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -218,19 +221,19 @@ export default function AdminLayout(props) {
                     {item.name}
                   </Link>
                 ))}
-                 <div>
-                    <ul className="flex flex-col pl-2 text-black border-gray-700">
-                      {subMenu.map((item) => (
-                        <li>
-                          <Link key={item.name} to={item.href}>
-                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
-                              {item.name}
-                            </span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                <div>
+                  <ul className="flex flex-col pl-2 text-black border-gray-700">
+                    {subMenu.map((item) => (
+                      <li>
+                        <Link key={item.name} to={item.href}>
+                          <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+                            {item.name}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
               <div className="border-t border-gray-200 pt-4 pb-3">
                 <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
@@ -297,7 +300,7 @@ export default function AdminLayout(props) {
                       to={item.href}
                       className={classNames(
                         item.current
-                          ? "bg-gray-200 text-purple-900"
+                          ? "text-purple-900"
                           : "text-gray-600 hover:bg-gray-50",
                         "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
                       )}
@@ -314,7 +317,6 @@ export default function AdminLayout(props) {
                       />
                     </Link>
                   ))}
-                  
                 </div>
               </nav>
             </div>
@@ -332,8 +334,102 @@ export default function AdminLayout(props) {
                     onClick={menuIconClick}
                   />
                 </div>
+
                 <div className="pb-3 space-y-1">
-                  {navigation.map((item) => {
+                  <Link
+                    to="/artaka/seller/dashboard"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <HomeIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></HomeIcon>
+                    <span className="truncate text-purple-700">
+                     Dashboard
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/artaka/seller/report"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <DocumentReportIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></DocumentReportIcon>
+                    <span className="truncate text-purple-700">
+                     Laporan
+                    </span>
+                  </Link>
+                  <div className="pl-4">
+                    <ul className="flex flex-col pl-2 text-black border-gray-700">
+                      {subLaporan.map((item) => (
+                        <li>
+                          <Link key={item.name} to={item.href}>
+                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+                              {item.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))} 
+                    </ul>
+                  </div>
+
+                  <Link
+                    to="/artaka/seller/cashier"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <CashIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></CashIcon>
+                    <span className="truncate text-purple-700">
+                     Kasir
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/artaka/not-found"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <BookOpenIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></BookOpenIcon>
+                    <span className="truncate text-purple-700">
+                     Manual
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/artaka/not-found"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <ShoppingCartIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></ShoppingCartIcon>
+                    <span className="truncate text-purple-700">
+                     Pesanan
+                    </span>
+                  </Link>
+
+                  <Link
+                    to="/artaka/not-found"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <MenuIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></MenuIcon>
+                    <span className="truncate text-purple-700">
+                     Menu
+                    </span>
+                  </Link>
+                  <div className="pl-4">
+                    <ul className="flex flex-col pl-2 text-black border-gray-700">
+                      {subMenu.map((item) => (
+                        <li>
+                          <Link key={item.name} to={item.href}>
+                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+                              {item.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))} 
+                    </ul>
+                  </div>
+                  
+
+              {/*    {navigation.map((item) => {
                     return (
                       <>
                         <Link
@@ -341,8 +437,8 @@ export default function AdminLayout(props) {
                           to={item.href}
                           className={classNames(
                             item.current
-                              ? "bg-gray-200 text-purple-900"
-                              : "text-gray-600 hover:bg-gray-50",
+                              ? "text-purple-900 hover:bg-gray-200"
+                              : "text-gray-600 hover:bg-gray-200",
                             "group flex items-center px-3 py-2 text-sm font-medium rounded-md"
                           )}
                           aria-current={item.current ? "page" : undefined}
@@ -358,24 +454,12 @@ export default function AdminLayout(props) {
                           />
                           <span className="truncate text-purple-700">
                             {item.name}
-                          </span>
+                          </span>  
                         </Link>
                       </>
                     );
-                  })}
-                  <div className="pl-4">
-                    <ul className="flex flex-col pl-2 text-black border-gray-700">
-                      {subMenu.map((item) => (
-                        <li>
-                          <Link key={item.name} to={item.href}>
-                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
-                              {item.name}
-                            </span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  })} */}
+
                 </div>
               </nav>
             </div>
