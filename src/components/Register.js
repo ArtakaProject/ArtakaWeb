@@ -12,29 +12,10 @@ import { doSignupRequest } from "../redux/actions/User";
 import { Password } from "@mui/icons-material";
 
 export default function Register(props) {
-   const [showPassword, setShowPassword] = useState(false);
-   const [showRepassword, setShowRepassword] = useState(false);
-   const formik = useFormik({
-    initialValues:{
-      user_id:"",
-      employee_name:"",
-      email:"",
-      secret_password:"",
-      repassword:"",
-      referral:""
-    },
-    validationSchema:Yup.object().shape({
-      user_id: Yup.string().required("Masukkan Nomor Handphone Anda").phone(null, true, "Nomor Handphone Tidak Sesuai"),
-      employee_name:Yup.string().required("Masukkan Nama Lengkap Anda"),
-      secret_password:Yup.string().required("Masukkan Password Anda").min(6,"Panjang Password Minimal 6 Karakter"),
-      repassword:Yup.string().required("Masukkan Konfirmasi Password Anda").oneOf([Yup.ref("password")],"Password Harus Sesuai"),
-    }),
-    onSubmit:values=>{
-      alert(JSON.stringify(values,null,2))
-    }
-  })
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepassword, setShowRepassword] = useState(false);
 
-  const toggleVisiblity = () => {
+  const toggleVisibility = () => {
     setShowPassword(showPassword ? false : true);
   };
 
@@ -42,6 +23,36 @@ export default function Register(props) {
     setShowRepassword(showRepassword ? false : true);
   };
 
+  const formik = useFormik({
+    initialValues: {
+      user_id: "",
+      employee_name: "",
+      email: "",
+      secret_password: "",
+      repassword: "",
+      referral: "",
+    },
+    validationSchema: Yup.object().shape({
+      user_id: Yup.string()
+        .required("Masukkan Nomor Handphone Anda")
+        .phone("ID", true, "Nomor Handphone Tidak Sesuai"),
+      employee_name: Yup.string()
+      .required("Masukkan Nama Lengkap Anda"),
+      secret_password: Yup.string()
+        .required("Masukkan Password Anda")
+        .min(6, "Panjang Password Minimal 6 Karakter")
+        .matches(/[a-z]/g, "Password Minimal Harus Ada 1 Karakter Kecil")
+        .matches(/[A-Z]/g, "Password Minimal Harus Ada 1 Karakter Besar")
+        .matches(/[0-9]/g, "Password Minimal Harus Ada 1 Angka")
+        .matches(/^\S*$/, "Password Tidak Boleh Mengandung Spasi"),
+      repassword: Yup.string()
+        .required("Masukkan Konfirmasi Password Anda")
+        .oneOf([Yup.ref("secret_password")], "Password Harus Sesuai")
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
 
   return (
     <>
@@ -52,7 +63,12 @@ export default function Register(props) {
               Daftar Akun Artaka
             </p>
             <div className="mt-6 relative">
-              <form action="#" method="POST" className="space-y-6" onSubmit={formik.handleSubmit}>
+              <form
+                action="#"
+                method="POST"
+                className="space-y-6"
+                onSubmit={formik.handleSubmit}
+              >
                 <div>
                   <label htmlFor="mobile-or-email" className="sr-only">
                     Handphone
@@ -68,12 +84,13 @@ export default function Register(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                </div>
-                {formik.touched.user_id && formik.errors.user_id ? (
-                  <span className="error text-xs text-red-600">
+                   {formik.touched.user_id && formik.errors.user_id ? (
+                  <div className="error -mb-4 text-xs text-red-600">
                     {formik.errors.user_id}
-                  </span>
+                  </div>
                 ) : null}
+                </div>
+               
 
                 <div>
                   <label htmlFor="name" className="sr-only">
@@ -90,12 +107,13 @@ export default function Register(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                </div>
-                {formik.touched.employee_name && formik.errors.employee_name ? (
-                  <span className="error text-xs text-red-600">
-                    {formik.errors.nama}
-                  </span>
+                    {formik.touched.employee_name && formik.errors.employee_name ? (
+                  <div className="error -mb-4 text-xs text-red-600">
+                    {formik.errors.employee_name}
+                  </div>
                 ) : null}
+                </div>
+              
 
                 <div>
                   <label htmlFor="email" className="sr-only">
@@ -129,19 +147,16 @@ export default function Register(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                  <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-48 right-4 "
-                  onClick={toggleVisiblity}>
-                    Show</button>
+                  
 
-                    {formik.touched.secret_password && formik.errors.secret_password ? (
-                  <span className="error text-xs text-red-600">
+                  {formik.touched.secret_password &&
+                formik.errors.secret_password ? (
+                  <div className="error -mb-4 text-xs text-red-600">
                     {formik.errors.secret_password}
-                  </span>
+                  </div>
                 ) : null}
                 </div>
 
-              
-                
                 <div>
                   <label htmlFor="password" className="sr-only">
                     RePassword
@@ -149,24 +164,21 @@ export default function Register(props) {
                   <input
                     id="repassword"
                     name="repassword"
-                    type="password"
+                    type={showRepassword ? "text" : "password"}
                     placeholder="Ulangi Password"
                     autoComplete="current-password"
                     value={formik.values.repassword}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                   <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-64 right-4 "
-                  onClick={toggleRepassword}>
-                    Show</button>
-
-                    {formik.touched.repassword && formik.errors.repassword ? (
-                  <span className="error text-xs text-red-600">
-                    {formik.errors.nama}
-                  </span>
+                                    
+                  {formik.touched.repassword && formik.errors.repassword ? (
+                  <div className="error -mb-4 text-xs text-red-600">
+                    {formik.errors.repassword}
+                  </div>
                 ) : null}
                 </div>
-              
 
                 <div>
                   <label htmlFor="name" className="sr-only">
@@ -187,10 +199,10 @@ export default function Register(props) {
 
                 <div className="flex items-center">
                   <p className="ml-2 block text-xs font-semibold text-gray-900">
-                  Kami akan Mengirim SMS OTP Verifikasi
-                  </p>                
+                    Kami akan Mengirim SMS OTP Verifikasi
+                  </p>
                 </div>
-                
+
                 <div>
                   <button
                     type="submit"
@@ -200,6 +212,21 @@ export default function Register(props) {
                   </button>
                 </div>
               </form>
+
+              <button
+                    className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-48 right-4 "
+                    onClick={toggleVisibility}
+                  >
+                    Show
+             </button>
+
+             <button
+                    className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-64 right-4 "
+                    onClick={toggleRepassword}
+                  >
+                    Show
+            </button>
+
             </div>
           </div>
         </div>

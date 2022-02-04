@@ -14,9 +14,17 @@ import apiUser from "../api/api-user";
 
 export default function Login(props) {
   // const dispatch = useDispatch();
-  const [redirect, setRedirect] = useState(false);
- // const [showHide, setShowHide] = useState("Show");
+  // const [showHide, setShowHide] = useState("Show");
   const [showPassword, setShowPassword] = useState(false);
+  const [redirect, setRedirect] = useState(false);
+
+  const toggleVisibility = () => {
+    setShowPassword(showPassword ? false : true);
+  };
+
+  // const visibility = () => {
+  //  setShowHide(showHide ? "Show" : "hide");
+  // }
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +34,7 @@ export default function Login(props) {
     validationSchema: Yup.object().shape({
       user_id: Yup.string()
         .required("Masukkan Nomor Handphone Anda")
-        .phone(null, true, "Nomor Handphone Tidak Sesuai"),
+        .phone("ID", true, "Nomor Handphone Tidak Sesuai"),
       secret_password: Yup.string().required("Masukkan Password Anda"),
     }),
     onSubmit: async (values) => {
@@ -47,17 +55,8 @@ export default function Login(props) {
     },
   });
 
-  const toggleVisiblity = () => {
-    setShowPassword(showPassword ? false : true);
-  };
-
- // const visibility = () => {
- //  setShowHide(showHide ? "Show" : "hide");
- // }
-  
-
   if (redirect) {
-   return <Redirect to={"/artaka/seller/dashboard"} />;
+    return <Redirect to={"/artaka/seller/dashboard"} />;
   }
 
   return (
@@ -83,7 +82,7 @@ export default function Login(props) {
               <form
                 action="#"
                 method="POST"
-                className="space-y-4"
+                className="space-y-6"
                 onSubmit={formik.handleSubmit}
               >
                 <div>
@@ -101,12 +100,12 @@ export default function Login(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
+                  {formik.touched.user_id && formik.errors.user_id ? (
+                    <div className="error -mb-4 text-xs text-red-600">
+                      {formik.errors.user_id}
+                    </div>
+                  ) : null}
                 </div>
-                {formik.touched.user_id && formik.errors.user_id ? (
-                  <span className="error text-xs text-red-600">
-                    {formik.errors.user_id}
-                  </span>
-                ) : null}
 
                 <div>
                   <label htmlFor="password" className="sr-only">
@@ -123,19 +122,15 @@ export default function Login(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-lg"
                   />
-                  <button className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-16 right-4 "
-                  onClick={toggleVisiblity}>
-                    Show</button>
-
                   {formik.touched.secret_password &&
                   formik.errors.secret_password ? (
-                    <span className="error text-xs text-red-600">
+                    <div className="error -mb-4 text-xs text-red-600">
                       {formik.errors.secret_password}
-                    </span>
+                    </div>
                   ) : null}
                 </div>
 
-                <div className=" flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <input
                       id="remember-me"
@@ -165,7 +160,7 @@ export default function Login(props) {
                   <button
                     type="submit"
                     className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-indigo-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    onClick={formik.handleSubmit}
+                    onSubmit={formik.handleSubmit}
                   >
                     <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                       <LockClosedIcon
@@ -180,7 +175,6 @@ export default function Login(props) {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <p
-                      htmlFor="remember-me"
                       className="ml-2 block text-sm text-gray-900"
                     >
                       Belum Punya Akun?
@@ -197,6 +191,13 @@ export default function Login(props) {
                   </div>
                 </div>
               </form>
+
+              <button
+                  className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute bottom-40 right-4"
+                  onClick={toggleVisibility}
+                >
+                  Show
+                </button>
             </div>
           </div>
         </div>
