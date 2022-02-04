@@ -34,7 +34,7 @@ export default function Login(props) {
     validationSchema: Yup.object().shape({
       user_id: Yup.string()
         .required("Masukkan Nomor Handphone Anda")
-        .phone(null, true, "Nomor Handphone Tidak Sesuai"),
+        .phone("ID", true, "Nomor Handphone Tidak Sesuai"),
       secret_password: Yup.string().required("Masukkan Password Anda"),
     }),
     onSubmit: async (values) => {
@@ -130,13 +130,6 @@ export default function Login(props) {
                   ) : null}
                 </div>
 
-                <button
-                  className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-12 right-4"
-                  onClick={toggleVisibility}
-                >
-                  Show
-                </button>
-
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <input
@@ -198,6 +191,13 @@ export default function Login(props) {
                   </div>
                 </div>
               </form>
+
+              <button
+                  className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute bottom-40 right-4"
+                  onClick={toggleVisibility}
+                >
+                  Show
+                </button>
             </div>
           </div>
         </div>

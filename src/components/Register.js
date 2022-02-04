@@ -147,12 +147,7 @@ export default function Register(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                  <button
-                    className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-48 right-4 "
-                    onClick={toggleVisibility}
-                  >
-                    Show
-                  </button>
+                  
 
                   {formik.touched.secret_password &&
                 formik.errors.secret_password ? (
@@ -177,13 +172,7 @@ export default function Register(props) {
                     onBlur={formik.handleBlur}
                     className="block w-full shadow-sm sm:text-sm border-t-0 border-b-1 border-r-0 border-l-0"
                   />
-                  <button
-                    className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-64 right-4 "
-                    onClick={toggleRepassword}
-                  >
-                    Show
-                  </button>
-                  
+                                    
                   {formik.touched.repassword && formik.errors.repassword ? (
                   <div className="error -mb-4 text-xs text-red-600">
                     {formik.errors.repassword}
@@ -223,6 +212,21 @@ export default function Register(props) {
                   </button>
                 </div>
               </form>
+
+              <button
+                    className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-48 right-4 "
+                    onClick={toggleVisibility}
+                  >
+                    Show
+             </button>
+
+             <button
+                    className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-64 right-4 "
+                    onClick={toggleRepassword}
+                  >
+                    Show
+            </button>
+
             </div>
           </div>
         </div>
