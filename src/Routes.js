@@ -12,9 +12,12 @@ import {
   Cashier as CashierPage,
   ShopPerformance as ReportPage,
   AddCust,EditCust,
-  AddProduct, EditProduct,
-  PageNotFound,
-  LandingPage
+  AddProduct, EditProduct, SettingProduct,
+  SettingPromoPoint,PageNotFound,
+  LandingPage,
+  HelpPage,
+  SettingShop,
+  SettingOrderOnline
 } from './pages';
 import Login from './components/Login';
 import LandingLayout from './layout/LandingLayout';
@@ -92,6 +95,14 @@ export default function Routes() {
       /> */}
 
       <RouteWithLayout
+        component={HelpPage}
+        exact
+        layout={AdminLayout}
+        pageTitle="Bantuan"
+        path="/artaka/seller/help"
+      />
+
+      <RouteWithLayout
         component={ProductPage}
         exact
         layout={AdminLayout}
@@ -112,6 +123,35 @@ export default function Routes() {
         pageTitle="Edit Produk"
         path="/artaka/seller/product/edit"
       />
+      <RouteWithLayout
+        component={SettingProduct}
+        exact
+        layout={AdminLayout}
+        pageTitle="Kelola Produk"
+        path="/artaka/seller/product/settings"
+      />
+
+      <RouteWithLayout
+        component={SettingPromoPoint}
+        exact
+        layout={AdminLayout}
+        pageTitle="Pengaturan Promo & Poin"
+        path="/artaka/seller/promo"
+      />
+        <RouteWithLayout
+        component={SettingShop}
+        exact
+        layout={AdminLayout}
+        pageTitle="Pengaturan Toko"
+        path="/artaka/seller/shop"
+      />   
+       <RouteWithLayout
+        component={SettingOrderOnline}
+        exact
+        layout={AdminLayout}
+        pageTitle="Pengaturan Order Online"
+        path="/artaka/seller/online-order"
+      /> 
       
       <RouteWithLayout
         component={customerPage}

@@ -66,11 +66,11 @@ const subLaporan = [
 ]
 
 const subMenu = [
-  { name: "Bantuan", href: "/artaka/not-found" },
-  { name: "Kelola Produk", href: "/artaka/seller/product" },
-  { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
-  { name: "Pengaturan Toko", href: "/artaka/not-found" },
-  { name: "Pengaturan Order Online", href: "/artaka/not-found" },
+  { name: "Bantuan", href: "/artaka/seller/help" },
+  { name: "Kelola Produk", href: "/artaka/seller/product/settings" },
+  { name: "Pengaturan Promo & Poin", href: "/artaka/seller/promo" },
+  { name: "Pengaturan Toko", href: "/artaka/seller/shop" },
+  { name: "Pengaturan Order Online", href: "/artaka/seller/online-order"},
   { name: "Pelanggan", href: "/artaka/seller/customer" },
   { name: "Mitra", href: "/artaka/not-found" },
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },

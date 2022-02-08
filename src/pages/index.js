@@ -2,6 +2,7 @@ export {default as Category} from './category/Category';
 export {default as Products} from './product/Products';
 export {default as AddProduct} from './product/AddProduct';
 export {default as EditProduct} from './product/EditProduct';
+export {default as SettingProduct} from './settingsPage/SettingProduct'
 export {default as users} from './users/Users';
 export {default as Home} from './home/Home';
 export {default as Dashboard} from './dashboard/Dashboard';
@@ -12,3 +13,7 @@ export {default as AddCust} from './customer/AddCust'
 export {default as EditCust} from './customer/EditCust'
 export {default as ShopPerformance} from './report/ShopPerformance'
 export {default as LandingPage} from './landing/landing'
+export {default as HelpPage} from './settingsPage/Bantuan'
+export {default as SettingPromoPoint} from './settingsPage/SettingPromoPoint'
+export {default as SettingShop} from './settingsPage/SettingShop'
+export {default as SettingOrderOnline} from './settingsPage/SettingOrderOnline'
