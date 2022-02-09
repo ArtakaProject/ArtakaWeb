@@ -217,14 +217,14 @@ export default function Register(props) {
                     className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-48 right-4 "
                     onClick={toggleVisibility}
                   >
-                    Show
+                    {showPassword ? "Hide" : "Show"}
              </button>
 
              <button
                     className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute top-64 right-4 "
                     onClick={toggleRepassword}
                   >
-                    Show
+                    {showRepassword ? "Hide" : "Show"}
             </button>
 
             </div>

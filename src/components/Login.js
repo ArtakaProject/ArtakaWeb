@@ -196,7 +196,7 @@ export default function Login(props) {
                   className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute bottom-40 right-4"
                   onClick={toggleVisibility}
                 >
-                  Show
+                  {showPassword ? "Hide" : "Show"}
                 </button>
             </div>
           </div>
