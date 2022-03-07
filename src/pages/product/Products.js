@@ -27,7 +27,7 @@ export default function Products() {
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
     const user = useState(userFromLocalStorage);
-    const [data, setData] = useState([]);
+    //const [data, setData] = useState([]);
 
     const columns = useMemo(() => [
         { Header: 'ID', accessor: 'id' },
