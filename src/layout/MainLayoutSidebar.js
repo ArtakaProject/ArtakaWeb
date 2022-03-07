@@ -12,9 +12,8 @@ import {
     ViewGridAddIcon,
     CashIcon,
     ShoppingCartIcon,
-    StarIcon
+    StarIcon, CogIcon
 } from '@heroicons/react/solid';
-
 import { Redirect, Link, useHistory } from 'react-router-dom'
 import MainSidebar from './MainSidebar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,14 +22,14 @@ import { doSignoutRequest } from '../redux/actions/User'
 const navigation = [
     { name: 'Dashboard', href: '/artaka/seller/dashboard', icon: HomeIcon, current: true },
     { name: 'Produk', href: '/artaka/seller/product', icon: ViewGridAddIcon, current: false },
-    { name: 'Laporan', href: '/report/shopperformance', icon: DocumentReportIcon, current: false },
+    { name: 'Laporan', href: '/report/profitnloss', icon: DocumentReportIcon, current: false },
     { name: 'Customer', href: '/customer', icon: UserIcon, current: false },
     { name: 'Pesanan', href: '/artaka/seller/order', icon: CollectionIcon, current: false },
     { name: 'Manual', href: '/', icon: BookOpenIcon, current: false },
     { name: 'Akun Bayar', href: '/artaka/seller/account', icon: CreditCardIcon, current: false },
     { name: 'Transaksi Bayar', href: '/artaka/seller/payment', icon: CashIcon, current: false },
     //
-    { name: 'Menu', href: '#', icon: StarIcon, current: false },
+    { name: 'Menu', href: '#', icon: CogIcon, current: false },
 ]
 
 

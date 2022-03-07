@@ -10,12 +10,14 @@ import {
   Dashboard as DashboardPage,
   Customer as customerPage,
   Cashier as CashierPage,
-  ShopPerformance as ReportPage,
+  ProfitNLoss,
   AddCust,EditCust,
   AddProduct, EditProduct,
   PageNotFound,
   LandingPage
 } from './pages';
+import CashFlow from './pages/report/CashFlow';
+import BalanceSheet from './pages/report/BalanceSheet'
 import Login from './components/Login';
 import LandingLayout from './layout/LandingLayout';
 import LoginLayout from './layout/LoginLayout';
@@ -41,15 +43,6 @@ export default function Routes() {
         pageTitle=""
         path="/artaka/signin"
       />
-
-      {/* 
-      <RouteWithLayout
-        component={HomePage}
-        exact
-        layout={MainLayout}
-        pageTitle=""
-        path="/artaka/home"
-      /> */}
 
         <RouteWithLayout
         component={LandingPage}
@@ -82,14 +75,6 @@ export default function Routes() {
         pageTitle="404"
         path="/artaka/not-found"
       />
-
-      {/* <RouteWithLayout
-        component={CategoryPage}
-        exact
-        layout={AdminLayout}
-        pageTitle="Category"
-        path="/artaka/seller/category"
-      /> */}
 
       <RouteWithLayout
         component={ProductPage}
@@ -135,11 +120,25 @@ export default function Routes() {
         path="/artaka/seller/customer/edit"
       />
       <RouteWithLayout
-        component={ReportPage}
+        component={ProfitNLoss}
         exact
         layout={AdminLayout}
         pageTitle="Performansi Toko"
-        path="/artaka/seller/report"
+        path="/artaka/seller/report/profitnloss"
+      />
+      <RouteWithLayout
+        component={CashFlow}
+        exact
+        layout={AdminLayout}
+        pageTitle="Performansi Toko"
+        path="/artaka/seller/report/cashflow"
+      />
+      <RouteWithLayout
+        component={BalanceSheet}
+        exact
+        layout={AdminLayout}
+        pageTitle="Performansi Toko"
+        path="/artaka/seller/report/balancesheet"
       />
 
       <Redirect to="/artaka/not-found" status="404" />
