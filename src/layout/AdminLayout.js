@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
-import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon} from "@heroicons/react/outline";
+import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon, CogIcon} from "@heroicons/react/outline";
 
 // please fetch from redux
 const user = {
@@ -13,14 +13,7 @@ const user = {
 };
 
 const navigation = [
-  {
-    name: "Dashboard",
-    href: "/artaka/seller/dashboard",
-    icon: HomeIcon,
-    current: true,
-  },
-
-  {
+   {
     name: "Laporan",
     href: "/artaka/seller/report",
     icon: DocumentReportIcon,
@@ -49,28 +42,28 @@ const navigation = [
   },
   
   {
-    name: "Menu",
+    name: "Pengaturan",
     href: "/artaka/not-found",
-    icon: MenuIcon,
+    icon: CogIcon,
     current: false,
   },
 ];
 
 const subLaporan = [
-  { name: "Laba / Rugi", href: "/artaka/seller/report" },  
-  { name: "Arus Kas", href: "/artaka/not-found" },
-  { name: "Neraca", href: "/artaka/not-found" },
+  { name: "Laba / Rugi", href: "/artaka/seller/report/profitnloss" },  
+  { name: "Arus Kas", href: "/artaka/seller/report/cashflow" },
+  { name: "Neraca", href: "/artaka/seller/report/balancesheet" },
   { name: "Transaksi Kasir", href: "/artaka/not-found" },
   { name: "Transaksi Online", href: "/artaka/not-found" },
   { name: "Transaksi Non Kasir", href: "/artaka/not-found" },
 ]
 
 const subMenu = [
-  { name: "Bantuan", href: "/artaka/seller/help" },
-  { name: "Kelola Produk", href: "/artaka/seller/product/settings" },
-  { name: "Pengaturan Promo & Poin", href: "/artaka/seller/promo" },
-  { name: "Pengaturan Toko", href: "/artaka/seller/shop" },
-  { name: "Pengaturan Order Online", href: "/artaka/seller/online-order"},
+  { name: "Bantuan", href: "/artaka/not-found" },
+  { name: "Kelola Produk", href: "/artaka/seller/product" },
+  { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
+  { name: "Pengaturan Toko", href: "/artaka/not-found" },
+  { name: "Pengaturan Order Online", href: "/artaka/not-found" },
   { name: "Pelanggan", href: "/artaka/seller/customer" },
   { name: "Mitra", href: "/artaka/not-found" },
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
@@ -337,17 +330,6 @@ export default function AdminLayout(props) {
 
                 <div className="pb-3 space-y-1">
                   <Link
-                    to="/artaka/seller/dashboard"
-                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
-                    aria-current="page"
-                  >
-                    <HomeIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></HomeIcon>
-                    <span className="truncate text-purple-700">
-                     Dashboard
-                    </span>
-                  </Link>
-
-                  <Link
                     to="/artaka/seller/report"
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
@@ -409,9 +391,9 @@ export default function AdminLayout(props) {
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
                   >
-                    <MenuIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></MenuIcon>
+                    <CogIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></CogIcon>
                     <span className="truncate text-purple-700">
-                     Menu
+                     Pengaturan
                     </span>
                   </Link>
                   <div className="pl-4">

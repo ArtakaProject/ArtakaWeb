@@ -26,10 +26,10 @@ function *watchAll() {
     takeEvery(ActionType.DELETE_CATEGORY_REQUEST, handleDeleteCategory),
     takeEvery(ActionTypeUser.ADD_SIGNUP_REQUEST, handleSignup),
     takeEvery(ActionTypeUser.GET_SIGNIN_REQUEST, handleSignin),
+    takeEvery(ActionTypeUser.GET_SIGNOUT_REQUEST, handleSignout),
     takeEvery(ActionTypeProduct.GET_PRODUCT_REQUEST, handleGetProduct),
     takeEvery(ActionTypeProduct.ADD_PRODUCT_REQUEST, handleAddProduct),
     takeEvery(ActionTypeProduct.UPDATE_PRODUCT_REQUEST, handleUpdateProduct),
-    takeEvery(ActionTypeUser.GET_SIGNOUT_REQUEST, handleSignout),
     takeEvery(ActionTypeCustomer.GET_CUSTOMER_REQUEST, handleGetCustomer)
   ])
 }

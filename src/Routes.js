@@ -10,15 +10,14 @@ import {
   Dashboard as DashboardPage,
   Customer as customerPage,
   Cashier as CashierPage,
-  ShopPerformance as ReportPage,
+  ProfitNLoss,
   AddCust,EditCust,
-  AddProduct, EditProduct, SettingProduct,
-  SettingPromoPoint,PageNotFound,
-  LandingPage,
-  HelpPage,
-  SettingShop,
-  SettingOrderOnline
+  AddProduct, EditProduct,
+  PageNotFound,
+  LandingPage
 } from './pages';
+import CashFlow from './pages/report/CashFlow';
+import BalanceSheet from './pages/report/BalanceSheet'
 import Login from './components/Login';
 import LandingLayout from './layout/LandingLayout';
 import LoginLayout from './layout/LoginLayout';
@@ -44,15 +43,6 @@ export default function Routes() {
         pageTitle=""
         path="/artaka/signin"
       />
-
-      {/* 
-      <RouteWithLayout
-        component={HomePage}
-        exact
-        layout={MainLayout}
-        pageTitle=""
-        path="/artaka/home"
-      /> */}
 
         <RouteWithLayout
         component={LandingPage}
@@ -86,22 +76,6 @@ export default function Routes() {
         path="/artaka/not-found"
       />
 
-      {/* <RouteWithLayout
-        component={CategoryPage}
-        exact
-        layout={AdminLayout}
-        pageTitle="Category"
-        path="/artaka/seller/category"
-      /> */}
-
-      <RouteWithLayout
-        component={HelpPage}
-        exact
-        layout={AdminLayout}
-        pageTitle="Bantuan"
-        path="/artaka/seller/help"
-      />
-
       <RouteWithLayout
         component={ProductPage}
         exact
@@ -123,35 +97,6 @@ export default function Routes() {
         pageTitle="Edit Produk"
         path="/artaka/seller/product/edit"
       />
-      <RouteWithLayout
-        component={SettingProduct}
-        exact
-        layout={AdminLayout}
-        pageTitle="Kelola Produk"
-        path="/artaka/seller/product/settings"
-      />
-
-      <RouteWithLayout
-        component={SettingPromoPoint}
-        exact
-        layout={AdminLayout}
-        pageTitle="Pengaturan Promo & Poin"
-        path="/artaka/seller/promo"
-      />
-        <RouteWithLayout
-        component={SettingShop}
-        exact
-        layout={AdminLayout}
-        pageTitle="Pengaturan Toko"
-        path="/artaka/seller/shop"
-      />   
-       <RouteWithLayout
-        component={SettingOrderOnline}
-        exact
-        layout={AdminLayout}
-        pageTitle="Pengaturan Order Online"
-        path="/artaka/seller/online-order"
-      /> 
       
       <RouteWithLayout
         component={customerPage}
@@ -175,16 +120,28 @@ export default function Routes() {
         path="/artaka/seller/customer/edit"
       />
       <RouteWithLayout
-        component={ReportPage}
+        component={ProfitNLoss}
         exact
         layout={AdminLayout}
         pageTitle="Performansi Toko"
-        path="/artaka/seller/report"
+        path="/artaka/seller/report/profitnloss"
+      />
+      <RouteWithLayout
+        component={CashFlow}
+        exact
+        layout={AdminLayout}
+        pageTitle="Performansi Toko"
+        path="/artaka/seller/report/cashflow"
+      />
+      <RouteWithLayout
+        component={BalanceSheet}
+        exact
+        layout={AdminLayout}
+        pageTitle="Performansi Toko"
+        path="/artaka/seller/report/balancesheet"
       />
 
       <Redirect to="/artaka/not-found" status="404" />
     </Switch>
   );
 };
-
-
