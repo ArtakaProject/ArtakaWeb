@@ -22,7 +22,7 @@ const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
 
 
 export default function Products() {
-    let history = useHistory();
+   // let history = useHistory();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
@@ -113,9 +113,11 @@ export default function Products() {
                         type="search"
                     />
                 </div>
-                <button onClick={() => history.push("/artaka/seller/product/add")}>
+                {/*
+               <button onClick={() => history.push("/artaka/seller/product/add")}>
                     <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
                 </button>
+               */ }
             </div>
             <div className="flex w-full mb-5">
                 <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>

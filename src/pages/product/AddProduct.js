@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect, Link, useHistory } from 'react-router-dom'
+import { Route, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { doCategoryStarted } from '../../redux/actions/Category';
 import { doAddProductRequest, doAddProductSucceed, doGetProductRequest } from '../../redux/actions/Product';
@@ -7,7 +7,7 @@ import { handleAddProduct } from '../../redux/sagas/ProductSaga';
 import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 
 export default function AddProduct() {
-    let history = useHistory();
+   // let history = useHistory();
 
     const dispatch = useDispatch();
     const { redirect } = useSelector(state => state.productState);
@@ -112,7 +112,7 @@ export default function AddProduct() {
     }
 
     if (redirect) {
-        return (<Redirect to={'/artaka/seller/product'} />)
+        return (<Route path={'/artaka/seller/product'} />)
     }
 
     return (
@@ -310,13 +310,14 @@ export default function AddProduct() {
                                 </div>
                                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
 
-                                    <button type="submit"
+                                 {/*  <button type="submit"
                                         onClick={() => {
                                             history.push("/artaka/seller/product");
                                         }}
                                         class="inline-flex mr-3 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                         Batal
                                     </button>
+                                    */ }
                                     <button type="submit"
                                         onClick={onSubmit}
                                         class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useRoutes, Outlet, useNavigate } from 'react-router-dom';
+import { Navigate, useRoutes, Outlet, useNavigate, } from 'react-router-dom';
 import { RouteWithLayout } from './layout/common';
 import {  AdminLayout, RegisterLayout } from './layout';
 
@@ -18,24 +18,23 @@ import {
   HelpPage,
   SettingShop,
   SettingOrderOnline,
-  Category
 } from './pages';
 import Login from './components/Login';
-import Register from './components/Register';
+import Register from './components/Register'
 import LandingLayout from './layout/LandingLayout';
 import LoginLayout from './layout/LoginLayout';
 
 
 export default function Routes(isLoggedIn) {
+  
   return useRoutes ([
     {
       path: '/',
       element: <LandingLayout/>,
       children: [
-        { path: 'landing', element: <LandingPage/>  },
-        { path: 'signin', element: <Navigate to="/artaka/signin"  />  },
-        { path: 'signup', element: <Navigate to="/artaka/signup"  />  },
-        { path: '404', element: <PageNotFound /> },
+        { path: 'landing', element:<LandingPage/> },
+       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
+       // { path: '404', element: <PageNotFound /> },
       ]
     },
     {
@@ -43,6 +42,7 @@ export default function Routes(isLoggedIn) {
       element: <LoginLayout/>,
       children: [
         { path: 'signin', element: <Login/> },
+      //  { path: 'signup', element: <Navigate to="/artaka/signup"  />  },
       ]
     }, 
     {
@@ -50,6 +50,7 @@ export default function Routes(isLoggedIn) {
       element: <RegisterLayout/>,
       children: [
         { path: 'signup', element: <Register/>  },
+       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
       ]
     },
     {
@@ -73,6 +74,7 @@ export default function Routes(isLoggedIn) {
         { path: 'setting-order-online', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
       ]
     },
+    { path: '*', element: <Navigate to="/404" replace /> }
   ]);
 }
 /*

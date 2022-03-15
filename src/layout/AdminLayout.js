@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
-import { Link } from "react-router-dom";
+import { Link, Outlet} from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
 import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon, CogIcon} from "@heroicons/react/outline";
 
@@ -452,6 +452,7 @@ export default function AdminLayout(props) {
           </main>
         </div>
       </div>
+      <Outlet/>
     </div>
   );
 }

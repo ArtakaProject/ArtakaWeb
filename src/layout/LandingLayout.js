@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link , Outlet } from "react-router-dom";
 import ArtakaClear from "../assets/ArtakaClear.png";
 import ArtakaLanding from "../assets/ArtakaLanding.png";
 
@@ -156,8 +156,10 @@ export default function LandingLayout(props) {
               {props.children}
             </div>
           </div>
+          <Outlet/>
         </main>
       </div>
+      
     </div>
   );
 }

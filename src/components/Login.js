@@ -7,7 +7,6 @@ import "yup-phone";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../redux/actions/User";
 import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 import ArtakaClear from "../assets/ArtakaClear.png";
 import apiUser from "../api/api-user";
 
@@ -28,7 +27,6 @@ export default function Login() {
   }, [isLoggedIn])
 
   const [showPassword, setShowPassword] = useState(false);
-  // const [redirect, setRedirect] = useState(false);
 
   const toggleVisibility = () => {
     setShowPassword(showPassword ? false : true);
@@ -54,25 +52,10 @@ export default function Login() {
         user_id: values.user_id,
         secret_password: values.secret_password
       };
-/*
-      await apiUser
-        .signin(payload)
-        .then((result) => {
-          setRedirect(true);
-        })
-        .catch((error) => console.log(error));
-*/
-
 
       dispatch(doSigninRequest(payload));
     }
   });
-
-  /*
-  if (redirect) {
-    return <Redirect to={"/artaka/seller/cashier"} />;
-  }
-  */
 
   return (
     <>

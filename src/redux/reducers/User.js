@@ -3,7 +3,7 @@ import * as ActionType from '../constants/User';
 
 const INIT_STATE = {
 
-    /*
+    
     business_category: "",
     clockin: "",
     employee_id: "",
@@ -19,9 +19,9 @@ const INIT_STATE = {
     outlet_phone: "",
     position: "",
     user_id: "",
-    */
+    
 
-    userProfile:[],
+  //  userProfile:[],
     isLoading: true,
     isLogin : false,
     isLogout : false,
@@ -97,7 +97,7 @@ const applyGetSigninSucceed = (state, action) => {
     const { profile } = payload
     return {
         ...state,
-        /*
+        
         business_category: payload.business_category,
         clockin: payload.clockin,
         employee_id: payload.employee_id,
@@ -116,11 +116,11 @@ const applyGetSigninSucceed = (state, action) => {
         isLoading: false,
         isLoggedIn : true,
         isLogout : false,
-        */
-        userProfile: {...profile},
-        isLoading: false,
-        isLoggedIn : true,
-        isLogout : false,
+        
+      //  userProfile: {...profile},
+      //  isLoading: false,
+      //  isLoggedIn : true,
+      //  isLogout : false,
         message : ''
         
     }
