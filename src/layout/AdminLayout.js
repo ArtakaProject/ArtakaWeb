@@ -59,11 +59,11 @@ const subLaporan = [
 ]
 
 const subMenu = [
-  { name: "Bantuan", href: "/artaka/not-found" },
-  { name: "Kelola Produk", href: "/artaka/seller/product" },
-  { name: "Pengaturan Promo & Poin", href: "/artaka/not-found" },
-  { name: "Pengaturan Toko", href: "/artaka/not-found" },
-  { name: "Pengaturan Order Online", href: "/artaka/not-found" },
+  { name: "Bantuan", href: "/artaka/seller/help" },
+  { name: "Kelola Produk", href: "/artaka/seller/setting-product" },
+  { name: "Pengaturan Promo & Poin", href: "/artaka/seller/setting-promo-point" },
+  { name: "Pengaturan Toko", href: "/artaka/seller/setting-shop" },
+  { name: "Pengaturan Order Online", href: "/artaka/seller/setting-order-online" },
   { name: "Pelanggan", href: "/artaka/seller/customer" },
   { name: "Mitra", href: "/artaka/not-found" },
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
@@ -329,31 +329,7 @@ export default function AdminLayout(props) {
                 </div>
 
                 <div className="pb-3 space-y-1">
-                  <Link
-                    to="/artaka/seller/report"
-                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
-                    aria-current="page"
-                  >
-                    <DocumentReportIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></DocumentReportIcon>
-                    <span className="truncate text-purple-700">
-                     Laporan
-                    </span>
-                  </Link>
-                  <div className="pl-4">
-                    <ul className="flex flex-col pl-2 text-black border-gray-700">
-                      {subLaporan.map((item) => (
-                        <li>
-                          <Link key={item.name} to={item.href}>
-                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
-                              {item.name}
-                            </span>
-                          </Link>
-                        </li>
-                      ))} 
-                    </ul>
-                  </div>
-
-                  <Link
+                <Link
                     to="/artaka/seller/cashier"
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
@@ -386,6 +362,30 @@ export default function AdminLayout(props) {
                     </span>
                   </Link>
 
+                  <Link
+                    to="/artaka/seller/report"
+                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
+                    aria-current="page"
+                  >
+                    <DocumentReportIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></DocumentReportIcon>
+                    <span className="truncate text-purple-700">
+                     Laporan
+                    </span>
+                  </Link>
+                  <div className="pl-4">
+                    <ul className="flex flex-col pl-2 text-black border-gray-700">
+                      {subLaporan.map((item) => (
+                        <li>
+                          <Link key={item.name} to={item.href}>
+                            <span className="inline-block w-full px-4 py-0.5 text-sm rounded hover:text-purple-700 focus:outline-none focus:ring-1 focus:ring-gray-500 focus:text-white">
+                              {item.name}
+                            </span>
+                          </Link>
+                        </li>
+                      ))} 
+                    </ul>
+                  </div>
+                
                   <Link
                     to="/artaka/not-found"
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
@@ -448,11 +448,13 @@ export default function AdminLayout(props) {
           )}
 
           <main className="lg:col-span-10 xl:col-span-10">
-            <div className="px-4 sm:px-0">{props.children}</div>
+            <div className="px-4 sm:px-0">
+              <Outlet/>
+              </div>
           </main>
         </div>
       </div>
-      <Outlet/>
+      
     </div>
   );
 }

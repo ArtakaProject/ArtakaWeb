@@ -23,17 +23,17 @@ function* handleSignin(action) {
     const {payload} = action;
     try {
         const result = yield call(apiUser.signin,payload);
-        if(Object.keys(result.data.profile).length === 0){
-            yield put(doShowAuthMessage({message : 'user or password not match, try again'}));
+        if (result.message.includes('invalid')){
+            yield put(doShowAuthMessage({message : 'invalid user or password'}));
         }
         else{
-            localStorage.setItem('@token', result.data.token);
-            yield put(doSigninSucceed(result.data));
+            yield put(doSigninSucceed(result));
+            localStorage.setItem('@token', result.fcm_token);
         }
         // localStorage.setItem('@profile', JSON.stringify(result.data.profile));
     
     } catch (error) {
-        yield put(doShowAuthMessage({message : 'user or password not match, try again'}));
+        yield put(doShowAuthMessage({message : 'invalid user or password'}));
     }
 }
 

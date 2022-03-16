@@ -11,7 +11,7 @@ export default function PageNotFound() {
                         class="text-2xl md:text-3xl font-light leading-normal"
                     >Mohon maaf, kami tidak menemukan halaman ini. </p>
                     <p class="mb-8">Jangan khawatir, Anda bisa kembali ke halaman Home kami.</p>
-                        <Link to="/artaka/seller/dashboard">
+                        <Link to="/artaka/seller/cashier">
                             <button class="px-4 inline py-2 text-sm font-medium leading-5 shadow text-white transition-colors duration-150 border border-transparent rounded-lg focus:outline-none focus:shadow-outline-blue bg-blue-600 active:bg-blue-600 hover:bg-blue-700">
                                 back to homepage
                             </button>

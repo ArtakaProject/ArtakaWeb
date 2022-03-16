@@ -58,9 +58,6 @@ export default function Routes(isLoggedIn) {
       element:  <AdminLayout/>,
       children: [
         { path: 'cashier', element: isLoggedIn ? <CashierPage/> : <Navigate to="/artaka/signin"/>},
-        { path: 'cashflow', element: isLoggedIn ? <CashFlow /> : <Navigate to="/artaka/signin"/> },
-        { path: 'profitnloss', element: isLoggedIn ? <ProfitNLoss /> : <Navigate to="/artaka/signin"/> },
-        { path: 'balancesheet', element: isLoggedIn ? <BalanceSheet/> : <Navigate to="/artaka/signin"/> },
         { path: 'help', element: isLoggedIn ? <HelpPage/>: <Navigate to="/artaka/signin"/> },
         { path: 'customer', element: isLoggedIn ? <customerPage /> : <Navigate to="/artaka/signin"/>},
         { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
@@ -72,9 +69,20 @@ export default function Routes(isLoggedIn) {
         { path: 'setting-promo-point', element: isLoggedIn ? <SettingPromoPoint /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-shop', element: isLoggedIn ? <SettingShop /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-order-online', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
+        { path: '404', element: <PageNotFound /> },
       ]
     },
-    { path: '*', element: <Navigate to="/404" replace /> }
+    {
+      path: '/artaka/seller/report',
+      element:  <AdminLayout/>,
+      children: [
+        { path: 'cashflow', element: isLoggedIn ? <CashFlow /> : <Navigate to="/artaka/signin"/> },
+        { path: 'profitnloss', element: isLoggedIn ? <ProfitNLoss /> : <Navigate to="/artaka/signin"/> },
+        { path: 'balancesheet', element: isLoggedIn ? <BalanceSheet/> : <Navigate to="/artaka/signin"/> },
+        { path: '404', element: <PageNotFound /> },
+      ]
+    },
+    { path: '*', element: <PageNotFound /> }
   ]);
 }
 /*

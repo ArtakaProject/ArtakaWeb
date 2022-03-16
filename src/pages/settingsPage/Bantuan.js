@@ -8,13 +8,13 @@ export default function Bantuan() {
     <div>
       <div className="py-4 justify-center min-w-full sm:px-6 lg:px-8">
         <Link
-          to="/artaka/seller/dashboard"
+          to="/artaka/seller/cashier"
           className="text-black hover:text-gray-400 text-sm font-medium justify-center"
         >
           <ChevronLeftIcon
             className="h-5 w-5 text-black hover:text-gray-400 inline-block"
             aria-hidden="true"
-            href="/artaka/seller/dashboard"
+            href="/artaka/seller/cashier"
           />
           Kembali
         </Link>

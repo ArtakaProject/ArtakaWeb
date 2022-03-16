@@ -23,7 +23,7 @@ const INIT_STATE = {
 
   //  userProfile:[],
     isLoading: true,
-    isLogin : false,
+    isLoggedIn : false,
     isLogout : false,
     token : localStorage.getItem('@token'),
 }
@@ -113,15 +113,15 @@ const applyGetSigninSucceed = (state, action) => {
         outlet_phone: payload.outlet_phone,
         position: payload.position,
         user_id: payload.user_id,
+
         isLoading: false,
         isLoggedIn : true,
         isLogout : false,
         
-      //  userProfile: {...profile},
+     // userProfile: {...profile},
       //  isLoading: false,
       //  isLoggedIn : true,
       //  isLogout : false,
-        message : ''
         
     }
 }

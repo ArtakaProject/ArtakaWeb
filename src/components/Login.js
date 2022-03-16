@@ -13,7 +13,7 @@ import apiUser from "../api/api-user";
 export default function Login() {
   let navigate = useNavigate();
   let location = useLocation();
-  let from = location.state?.from?.pathname || "/";
+  let from = "/artaka/seller/cashier";
 
   const dispatch = useDispatch();
   const { message, isLoggedIn } = useSelector((state) => state.userState);
