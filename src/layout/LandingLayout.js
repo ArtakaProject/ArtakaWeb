@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link , Outlet } from "react-router-dom";
 import ArtakaClear from "../assets/ArtakaClear.png";
 import ArtakaLanding from "../assets/ArtakaLanding.png";
 
@@ -13,7 +13,7 @@ const navigation = [
 
 export default function LandingLayout(props) {
   return (
-    <div className=" max-h-full bg-gray-200 overflow-hidden">
+    <div className=" max-h-screen bg-gray-200 overflow-hidden">
       <div
         className="hidden sm:block sm:absolute sm:inset-0"
         aria-hidden="true"
@@ -123,7 +123,7 @@ export default function LandingLayout(props) {
               <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
                 <div className="bg-gray-200 sm:mt-10 sm:w-full sm:overflow-hidden">
                   <div className="px-4 py-8 sm:px-10">
-                    <p className=" text-5xl font-bold font-serif text-left text-black">
+                    <p className="text-3xl md:text-4xl lg:text-5xl font-bold font-serif text-left text-black">
                       Hitung Penjualan Anda Dengan Tepat dan Mudah
                     </p>
                     <div className="mt-3">
@@ -143,7 +143,7 @@ export default function LandingLayout(props) {
                   </div>
                 </div>
               </div>
-              <div className="px-4 pt-6 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
+              <div className="px-4 pt-1 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
                 <div>
                   <img
                     className="mx-auto h-96 w-full pl-10"
@@ -156,8 +156,10 @@ export default function LandingLayout(props) {
               {props.children}
             </div>
           </div>
+          <Outlet/>
         </main>
       </div>
+      
     </div>
   );
 }

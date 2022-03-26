@@ -51,7 +51,7 @@ export default function Dashboard() {
                   Input Manual
                 </button>
               </Link>
-              <Link to="https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA">
+              <Link to="https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA/videos">
                 <button class="px-6 inline py-2 text-sm font-semibold leading-5 shadow-2xl text-purple-700 transition-colors duration-150 border border-purple-700 focus:outline-none focus:shadow-outline-blue bg-transparent hover:bg-purple-700 hover:text-black hover:border-blue-500 rounded-full">
                   Tutorial Youtube
                 </button>

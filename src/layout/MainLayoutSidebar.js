@@ -14,7 +14,7 @@ import {
     ShoppingCartIcon,
     StarIcon, CogIcon
 } from '@heroicons/react/solid';
-import { Redirect, Link, useHistory } from 'react-router-dom'
+import { Route, Link, useHistory , Outlet } from 'react-router-dom'
 import MainSidebar from './MainSidebar';
 import { useDispatch, useSelector } from 'react-redux';
 import { doSignoutRequest } from '../redux/actions/User'
@@ -39,7 +39,7 @@ function classNames(...classes) {
 }
 
 export default function MainLayoutSidebar(props) {
-    let history = useHistory();
+   // let history = useHistory();
     const { children } = props
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const dispatch = useDispatch();
@@ -53,7 +53,7 @@ export default function MainLayoutSidebar(props) {
     }
 
     if (redirect) {
-        return (<Redirect to={'/'} />)
+        return  <Route path="/"/>
     }
 
 
@@ -385,10 +385,13 @@ export default function MainLayoutSidebar(props) {
                         </div>
                     </div>
                 </div>
-                <MainSidebar pageTitle={props.pageTitle} onShopping={() => history.push('/')}>
+               { /*
+                 <MainSidebar pageTitle={props.pageTitle} onShopping={() => history.push('/')}>
                     {children}
                 </MainSidebar>
+                                                                */}
             </div>
+            <Outlet/>
         </div>
     )
 }

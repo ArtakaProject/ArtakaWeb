@@ -5,7 +5,8 @@ import {
 import apiUser from '../../api/api-user'
 import {  
     doSignupSucceed,doSignupFailed,
-    doSigninSucceed,doSignoutSucceed
+    doSigninSucceed,doSignoutSucceed,
+    doShowAuthMessage
 } from '../actions/User';
 
 function* handleSignup(action) {
@@ -22,11 +23,17 @@ function* handleSignin(action) {
     const {payload} = action;
     try {
         const result = yield call(apiUser.signin,payload);
-        localStorage.setItem('@profile', JSON.stringify(result.data.profile));
-        localStorage.setItem('@token', result.data.token);
-        yield put(doSigninSucceed(result.data));
+        if (result.message.includes('invalid')){
+            yield put(doShowAuthMessage({message : 'invalid user or password'}));
+        }
+        else{
+            yield put(doSigninSucceed(result));
+            localStorage.setItem('@token', result.fcm_token);
+        }
+        // localStorage.setItem('@profile', JSON.stringify(result.data.profile));
+    
     } catch (error) {
-        yield put(doSignupFailed(error));
+        yield put(doShowAuthMessage({message : 'invalid user or password'}));
     }
 }
 

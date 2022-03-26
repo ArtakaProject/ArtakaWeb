@@ -1,63 +1,61 @@
-import React, { Fragment, useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "yup-phone";
 import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../redux/actions/User";
-import { Redirect } from "react-router-dom";
-import { toast } from "react-toastify";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Link } from "react-router-dom";
 import ArtakaClear from "../assets/ArtakaClear.png";
 import apiUser from "../api/api-user";
 
-export default function Login(props) {
-  // const dispatch = useDispatch();
-  // const [showHide, setShowHide] = useState("Show");
+export default function Login() {
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = "/artaka/seller/cashier";
+
+  const dispatch = useDispatch();
+  const { message, isLoggedIn } = useSelector((state) => state.userState);
+
+
+  useEffect(() => {
+    if (isLoggedIn){
+      navigate(from, { replace: true })
+    }
+
+  }, [isLoggedIn])
+
   const [showPassword, setShowPassword] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   const toggleVisibility = () => {
     setShowPassword(showPassword ? false : true);
   };
 
-  // const visibility = () => {
-  //  setShowHide(showHide ? "Show" : "hide");
-  // }
+  const validationSchema = Yup.object().shape({
+    user_id: Yup.string()
+      .required("Masukkan Nomor Handphone Anda")
+      .phone("ID", true, "Nomor Handphone Tidak Sesuai"),
+    secret_password: Yup.string().required("Masukkan Password Anda"),
+  });
 
   const formik = useFormik({
     initialValues: {
       user_id: "",
       secret_password: "",
     },
-    validationSchema: Yup.object().shape({
-      user_id: Yup.string()
-        .required("Masukkan Nomor Handphone Anda")
-        .phone("ID", true, "Nomor Handphone Tidak Sesuai"),
-      secret_password: Yup.string().required("Masukkan Password Anda"),
-    }),
+    validationSchema: validationSchema,
     onSubmit: async (values) => {
       console.log(values);
-      const payload = {
+
+      let payload = {
         user_id: values.user_id,
-        secret_password: values.secret_password,
+        secret_password: values.secret_password
       };
 
-      await apiUser
-        .signin(payload)
-        .then((result) => {
-          setRedirect(true);
-        })
-        .catch((error) => console.log(error));
-
-      // dispatch(doSigninRequest(payload));
-    },
+      dispatch(doSigninRequest(payload));
+    }
   });
-
-  if (redirect) {
-    return <Redirect to={"/artaka/seller/dashboard"} />;
-  }
 
   return (
     <>
@@ -128,6 +126,9 @@ export default function Login(props) {
                       {formik.errors.secret_password}
                     </div>
                   ) : null}
+                   {message ? (
+                  <div className="-mb-4 text-xs text-red-600">{message}</div>
+                ) : null}
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -196,7 +197,7 @@ export default function Login(props) {
                   className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute bottom-40 right-4"
                   onClick={toggleVisibility}
                 >
-                  Show
+                  {showPassword ? "Hide" : "Show"}
                 </button>
             </div>
           </div>

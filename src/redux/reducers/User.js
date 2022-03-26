@@ -2,6 +2,8 @@ import * as ActionType from '../constants/User';
 
 
 const INIT_STATE = {
+
+    
     business_category: "",
     clockin: "",
     employee_id: "",
@@ -17,7 +19,13 @@ const INIT_STATE = {
     outlet_phone: "",
     position: "",
     user_id: "",
-    isLoading: false
+    
+
+  //  userProfile:[],
+    isLoading: true,
+    isLoggedIn : false,
+    isLogout : false,
+    token : localStorage.getItem('@token'),
 }
 
 const userReducer = (state = INIT_STATE, action) => {
@@ -56,6 +64,13 @@ const userReducer = (state = INIT_STATE, action) => {
                 error: action.payload.error,
             };
         }
+        case ActionType.SHOW_MESSAGE: {
+            return {
+                ...state,
+                message : action.payload.message,
+                isLoggedIn : false
+            };
+        }
         default:
             return state;
     }
@@ -66,9 +81,12 @@ const applyAddSignupSucceed = (state, action) => {
     const { payload } = action;
     return {
         ...state,
-        username: payload.user_name,
-        email: payload.user_email,
-        role_type: payload.user_role_type,
+        user_id: payload.user_id,
+        employee_name: payload.employee_name,
+        email: payload.email,
+        secret_password:payload.secret_password,
+        repassword:payload.repassword,
+        referral:payload.referral,
         isLoading: false,
         status: true
     }
@@ -76,8 +94,10 @@ const applyAddSignupSucceed = (state, action) => {
 
 const applyGetSigninSucceed = (state, action) => {
     const { payload } = action;
+    const { profile } = payload
     return {
         ...state,
+        
         business_category: payload.business_category,
         clockin: payload.clockin,
         employee_id: payload.employee_id,
@@ -93,22 +113,43 @@ const applyGetSigninSucceed = (state, action) => {
         outlet_phone: payload.outlet_phone,
         position: payload.position,
         user_id: payload.user_id,
-        isLoading : true
+
+        isLoading: false,
+        isLoggedIn : true,
+        isLogout : false,
+        
+     // userProfile: {...profile},
+      //  isLoading: false,
+      //  isLoggedIn : true,
+      //  isLogout : false,
+        
     }
 }
 
 const applyGetSignoutSucceed = (state, action) => {
     return {
         ...state,
-        profile: {
-            userId: undefined,
-            username: "",
-            email: "",
-            roleType: ""
+        userProfile: {
+            business_category: "",
+            clockin: "",
+            employee_id: "",
+            employee_name: "",
+            fcm_token: "",
+            images: [...state.images, ""],
+            is_online_store_active: "",
+            message: "",
+            mini_website_url: "",
+            outlet_address: "",
+            outlet_id: "",
+            outlet_name: "",
+            outlet_phone: "",
+            position: "",
+            user_id: "",
         },
         isLoading: false,
-        token: "",
-        isLogout : true
+        isLoggedIn : false,
+        isLogout : true,
+        message : "",
     }
 }
 
