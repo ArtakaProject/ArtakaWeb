@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { PhoneIcon } from "@heroicons/react/solid";
 import ArtakaClear from "../assets/ArtakaClear.png";
 
@@ -95,8 +95,10 @@ export default function LoginLayout(props) {
       <div className="relative pb-16 sm:pb-24">
         <main className="mt-16 sm:mt-24">
           <div className="mx-auto max-w-7xl">{props.children}</div>
+          <Outlet/>
         </main>
       </div>
+      
     </div>
   );
 }
