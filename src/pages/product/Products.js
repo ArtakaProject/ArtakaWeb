@@ -8,9 +8,9 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 import { useHistory, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import moment from 'moment';
+//import moment from 'moment';
 import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
-import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
+//import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
 
@@ -91,7 +91,7 @@ export default function Products() {
 
     const { pageIndex, pageSize } = state
 
-    const onDelete = async (id) => { };
+    //const onDelete = async (id) => { };
 
     console.log(user);
     return (
