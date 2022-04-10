@@ -54,6 +54,14 @@ export default function Routes(isLoggedIn) {
       ]
     },
     {
+      path: '/artaka',
+      element: <AdminLayout/>,
+      children: [
+        { path: 'not-found', element: isLoggedIn ? <PageNotFound/> : <Navigate to="/artaka/signin"/> },
+       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
+      ]
+    },
+    {
       path: '/artaka/seller',
       element:  <AdminLayout/>,
       children: [
@@ -69,7 +77,8 @@ export default function Routes(isLoggedIn) {
         { path: 'setting-promo-point', element: isLoggedIn ? <SettingPromoPoint /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-shop', element: isLoggedIn ? <SettingShop /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-order-online', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
-        { path: '404', element: <PageNotFound /> },
+   //     { path: 'signin', element: isLoggedIn ? <Login/> : <Navigate to="/artaka/signin"/> },
+        { path: 'not-found', element: <PageNotFound /> },
       ]
     },
     {
