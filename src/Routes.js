@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Redirect, Route } from 'react-router-dom';
+import { Switch, Navigate, Route } from 'react-router-dom';
 import { RouteWithLayout } from './layout/common';
 import { MainLayout, MainLayoutSidebar, AdminLayout, RegisterLayout } from './layout';
 
@@ -24,7 +24,7 @@ import Register from './components/Register';
 export default function Routes() {
   return (
     <Switch>
-      <Redirect exact from="/" to="/artaka/landing" />
+      <Navigate exact from="/" to="/artaka/landing" />
 
       <RouteWithLayout
         component={Register}
@@ -142,7 +142,7 @@ export default function Routes() {
         path="/artaka/seller/report"
       />
 
-      <Redirect to="/artaka/not-found" status="404" />
+      <Navigate to="/artaka/not-found" status="404" />
     </Switch>
   );
 };
