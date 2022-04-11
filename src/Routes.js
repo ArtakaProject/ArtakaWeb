@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useRoutes, Outlet, useNavigate, } from 'react-router-dom';
+import { Navigate, useRoutes, Outlet, Switch} from 'react-router-dom';
 import { RouteWithLayout } from './layout/common';
 import {  AdminLayout, RegisterLayout } from './layout';
 
@@ -114,7 +114,7 @@ export default function Routes(isLoggedIn) {
 }
 /*
     <Switch>
-      <Redirect exact from="/" to="/artaka/landing" />
+      <Navigate exact from="/" to="/artaka/landing" />
 
       <RouteWithLayout
         component={Register}
@@ -263,6 +263,6 @@ export default function Routes(isLoggedIn) {
       />
      
 
-      <Redirect to="/artaka/not-found" status="404" />
+      <Navigate to="/artaka/not-found" status="404" />
     </Switch>
     */
