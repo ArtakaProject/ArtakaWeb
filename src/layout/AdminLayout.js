@@ -63,7 +63,7 @@ const subMenu = [
   { name: "Kelola Produk", href: "/artaka/seller/setting-product" },
   { name: "Pengaturan Promo & Poin", href: "/artaka/seller/setting-promo-point" },
   { name: "Pengaturan Toko", href: "/artaka/seller/setting-shop" },
-  { name: "Pengaturan Order Online", href: "/artaka/seller/setting-order-online" },
+  { name: "Pengaturan Order Online", href: "/artaka/seller/setting-online-order" },
   { name: "Pelanggan", href: "/artaka/seller/customer" },
   { name: "Mitra", href: "/artaka/not-found" },
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
