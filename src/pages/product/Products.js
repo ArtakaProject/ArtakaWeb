@@ -6,11 +6,11 @@ import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import moment from 'moment';
+//import moment from 'moment';
 import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
-import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
+//import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
 
@@ -22,7 +22,7 @@ const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
 
 
 export default function Products() {
-   // let history = useHistory();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
@@ -91,7 +91,7 @@ export default function Products() {
 
     const { pageIndex, pageSize } = state
 
-    const onDelete = async (id) => { };
+    //const onDelete = async (id) => { };
 
     console.log(user);
     return (
@@ -113,11 +113,9 @@ export default function Products() {
                         type="search"
                     />
                 </div>
-                {/*
-               <button onClick={() => history.push("/artaka/seller/product/add")}>
+                <button onClick={() => navigate("/artaka/seller/product/add")}>
                     <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
                 </button>
-               */ }
             </div>
             <div className="flex w-full mb-5">
                 <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
