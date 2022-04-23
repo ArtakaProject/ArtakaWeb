@@ -6,28 +6,28 @@ import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import moment from 'moment';
 import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
-import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
+//import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
 
 function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
+    return classes.filter(Boolean).join(" ");
 }
 
 const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
 
 
 export default function Products() {
-    // let history = useHistory();
+    let navigate = useNavigate();
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
     const user = useState(userFromLocalStorage);
-    //const [data, setData] = useState([]);
+    let add = "/artaka/seller/product/add";
 
     const columns = useMemo(() => [
         { Header: 'ID', accessor: 'id' },
@@ -41,12 +41,6 @@ export default function Products() {
         { Header: 'OPSI', accessor: '' }
     ], [])
 
-    /* let payload = {
-        user_id: "+6287813841133",
-        outlet_id: "OTL-001",
-        category: "Semua",
-        is_active: "All"
-    } */
 
     useEffect(() => {
         fetchData()
@@ -60,9 +54,6 @@ export default function Products() {
             is_active: user[0].is_active
         };
         dispatch(doGetProductRequest(payload));
-        /* if (products) {
-            setData(products)
-        } */
     };
 
     const {
@@ -113,11 +104,9 @@ export default function Products() {
                         type="search"
                     />
                 </div>
-                {/*
-               <button onClick={() => history.push("/artaka/seller/product/add")}>
+                <button onClick={() => navigate(add, { replace: true })}>
                     <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
                 </button>
-               */ }
             </div>
             <div className="flex w-full mb-5">
                 <button type="button" class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Semua</b></button>
@@ -125,11 +114,6 @@ export default function Products() {
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Vitamin</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Obat</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Hand Sanitizer</b></button>
-                {/* <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Hand Sanitizer</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Masker</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Obat</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Vitamin</button> */}
             </div>
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
@@ -148,31 +132,31 @@ export default function Products() {
                                                 {/* {columns.map(col => ( */}
                                                 <th
                                                     scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
                                                 >
                                                     <b>NAMA PRODUK</b>
                                                 </th>
                                                 <th
                                                     scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
                                                 >
                                                     <b>HARGA</b>
                                                 </th>
                                                 <th
                                                     scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
                                                 >
                                                     <b>STOK BARANG</b>
                                                 </th>
                                                 <th
                                                     scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
                                                 >
                                                     <b>STATUS</b>
                                                 </th>
                                                 <th
                                                     scope="col"
-                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
                                                 >
                                                     <b>OPSI</b>
                                                 </th>
@@ -180,10 +164,10 @@ export default function Products() {
                                             </tr>
                                         </thead>
                                         <tbody className="bg-white divide-y divide-gray-200">
-                                            {/* productSlice && productSlice.map((prod) => ( */
+                                            {
                                                 page.map(row => {
                                                     prepareRow(row);
-                                                    console.log(row);
+                                                    //console.log(row);
                                                     return (
                                                         <tr key={row.cells[0].value}>
                                                             {/* prod.id */}
@@ -239,19 +223,20 @@ export default function Products() {
                                                                                     <div className="py-1">
                                                                                         <Menu.Item>
                                                                                             {({ active }) => (
-                                                                                                <Link to={{
-                                                                                                    pathname: `/artaka/seller/product/edit/`,
-                                                                                                    state: {
-                                                                                                        id: row.cells[0].value,
-                                                                                                        images: row.cells[1].value,
-                                                                                                        name: row.cells[2].value,
-                                                                                                        description: row.cells[3].value,
-                                                                                                        sell_cost: row.cells[4].value,
-                                                                                                        quantity: row.cells[5].value,
-                                                                                                        minimum_quantity: row.cells[6].value,
-                                                                                                        is_active: row.cells[7].value
-                                                                                                    }
-                                                                                                }}
+                                                                                                <Link
+                                                                                                    to={{
+                                                                                                        pathname: `/artaka/seller/product/edit/`,
+                                                                                                        state: {
+                                                                                                            id: row.cells[0].value,
+                                                                                                            images: row.cells[1].value,
+                                                                                                            name: row.cells[2].value,
+                                                                                                            description: row.cells[3].value,
+                                                                                                            sell_cost: row.cells[4].value,
+                                                                                                            quantity: row.cells[5].value,
+                                                                                                            minimum_quantity: row.cells[6].value,
+                                                                                                            is_active: row.cells[7].value
+                                                                                                        }
+                                                                                                    }}
                                                                                                     className={classNames(
                                                                                                         active
                                                                                                             ? 'bg-gray-100 text-gray-900'
@@ -267,6 +252,8 @@ export default function Products() {
                                                                                                 </Link>
                                                                                             )}
                                                                                         </Menu.Item>
+                                                                                    </div>
+                                                                                    <div className="py-1">
                                                                                         <Menu.Item>
                                                                                             {({ active }) => (
                                                                                                 < Link to='#'
