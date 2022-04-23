@@ -8,7 +8,7 @@ import {
   // Category as CategoryPage,
   Products as ProductPage,
  // Dashboard as DashboardPage,
-  Customer as customerPage,
+  Customer as CustomerPage,
   Cashier as CashierPage,
   CashFlow,ProfitNLoss,BalanceSheet,
   AddCust,EditCust,
@@ -54,22 +54,31 @@ export default function Routes(isLoggedIn) {
       ]
     },
     {
+      path: '/artaka',
+      element: <AdminLayout/>,
+      children: [
+        { path: 'not-found', element: isLoggedIn ? <PageNotFound/> : <Navigate to="/artaka/signin"/> },
+       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
+      ]
+    },
+    {
       path: '/artaka/seller',
       element:  <AdminLayout/>,
       children: [
         { path: 'cashier', element: isLoggedIn ? <CashierPage/> : <Navigate to="/artaka/signin"/>},
         { path: 'help', element: isLoggedIn ? <HelpPage/>: <Navigate to="/artaka/signin"/> },
-        { path: 'customer', element: isLoggedIn ? <customerPage /> : <Navigate to="/artaka/signin"/>},
-        { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
-        { path: 'edit-customer', element: isLoggedIn ? <EditCust />: <Navigate to="/artaka/signin"/> },
+        { path: 'customer', element: isLoggedIn ? <CustomerPage /> : <Navigate to="/artaka/signin"/>},
+   //     { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
+   //     { path: 'edit-customer', element: isLoggedIn ? <EditCust />: <Navigate to="/artaka/signin"/> },
         { path: 'product', element: isLoggedIn ? <ProductPage />: <Navigate to="/artaka/signin"/> },
-        { path: 'add-product', element: isLoggedIn ? <AddProduct /> : <Navigate to="/artaka/signin"/> },
-        { path: 'edit-product', element: isLoggedIn ? <EditProduct /> : <Navigate to="/artaka/signin"/> },
+   //     { path: 'add-product', element: isLoggedIn ? <AddProduct /> : <Navigate to="/artaka/signin"/> },
+   //     { path: 'edit-product', element: isLoggedIn ? <EditProduct /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-product', element: isLoggedIn ? <SettingProduct /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-promo-point', element: isLoggedIn ? <SettingPromoPoint /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-shop', element: isLoggedIn ? <SettingShop /> : <Navigate to="/artaka/signin"/> },
-        { path: 'setting-order-online', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
-        { path: '404', element: <PageNotFound /> },
+        { path: 'setting-online-order', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
+   //     { path: 'signin', element: isLoggedIn ? <Login/> : <Navigate to="/artaka/signin"/> },
+        { path: 'not-found', element: <PageNotFound /> },
       ]
     },
     {
@@ -79,7 +88,25 @@ export default function Routes(isLoggedIn) {
         { path: 'cashflow', element: isLoggedIn ? <CashFlow /> : <Navigate to="/artaka/signin"/> },
         { path: 'profitnloss', element: isLoggedIn ? <ProfitNLoss /> : <Navigate to="/artaka/signin"/> },
         { path: 'balancesheet', element: isLoggedIn ? <BalanceSheet/> : <Navigate to="/artaka/signin"/> },
-        { path: '404', element: <PageNotFound /> },
+        { path: 'not-found', element: <PageNotFound /> },
+      ]
+    },
+    {
+      path: '/artaka/seller/product',
+      element:  <AdminLayout/>,
+      children: [
+        { path: 'add', element: isLoggedIn ? <AddProduct /> : <Navigate to="/artaka/signin"/> },
+        { path: 'edit', element: isLoggedIn ? <EditProduct /> : <Navigate to="/artaka/signin"/> },
+        { path: 'not-found', element: <PageNotFound /> },
+      ]
+    },
+    {
+      path: '/artaka/seller/customer',
+      element:  <AdminLayout/>,
+      children: [
+        { path: 'add', element: isLoggedIn ? <AddCust /> : <Navigate to="/artaka/signin"/> },
+        { path: 'edit', element: isLoggedIn ? <EditCust /> : <Navigate to="/artaka/signin"/> },
+        { path: 'not-found', element: <PageNotFound /> },
       ]
     },
     { path: '*', element: <PageNotFound /> }
