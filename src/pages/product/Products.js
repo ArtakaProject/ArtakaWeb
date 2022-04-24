@@ -8,8 +8,7 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-//import moment from 'moment';
-import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
+import {  PlusIcon } from '@heroicons/react/outline';
 //import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
@@ -41,13 +40,6 @@ export default function Products() {
         { Header: 'OPSI', accessor: '' }
     ], [])
 
-    /* let payload = {
-        user_id: "+6287813841133",
-        outlet_id: "OTL-001",
-        category: "Semua",
-        is_active: "All"
-    } */
-
     useEffect(() => {
         fetchData()
     }, []);
@@ -60,9 +52,6 @@ export default function Products() {
             is_active: user[0].is_active
         };
         dispatch(doGetProductRequest(payload));
-        /* if (products) {
-            setData(products)
-        } */
     };
 
     const {
@@ -91,7 +80,7 @@ export default function Products() {
 
     const { pageIndex, pageSize } = state
 
-    //const onDelete = async (id) => { };
+    const onDelete = async (id) => { };
 
     console.log(user);
     return (
@@ -123,11 +112,6 @@ export default function Products() {
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Vitamin</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Obat</b></button>
                 <button type="button" class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"><b>Hand Sanitizer</b></button>
-                {/* <button className="rounded-full bg-indigo-600 text-white p-2 ml-3 mr-3">Semua</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Hand Sanitizer</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Masker</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Obat</button>
-                <button className="rounded-full bg-gray-300 p-2 ">Vitamin</button> */}
             </div>
             <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto min-h-full sm:-mx-6 lg:-mx-8">
@@ -181,7 +165,6 @@ export default function Products() {
                                             {/* productSlice && productSlice.map((prod) => ( */
                                                 page.map(row => {
                                                     prepareRow(row);
-                                                    console.log(row);
                                                     return (
                                                         <tr key={row.cells[0].value}>
                                                             {/* prod.id */}
@@ -291,10 +274,6 @@ export default function Products() {
                                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                                         'group flex items-center px-4 py-2 text-sm'
                                                                                                     )}
-                                                                                                /* onClick={() => {
-                                                                                                    if (window.confirm('Anda yakin menghapus produk ini ?'))
-                                                                                                        onDelete(prod.prod_id)
-                                                                                                }} */
                                                                                                 >
                                                                                                     <TrashIcon
                                                                                                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
