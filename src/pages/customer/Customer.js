@@ -9,7 +9,7 @@ import {
   SearchIcon
 } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
-import { useHistory, Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { PlusIcon } from "@heroicons/react/outline";
 import moment from 'moment';
@@ -22,12 +22,13 @@ function classNames(...classes) {
 const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
 
 export default function Customer() {
- // let history = useHistory();
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   const customer = useSelector((state) => state.customerState.customer);
   const isLoading = useSelector((state) => state.customerState.isLoading);
   //get data from local storage
   const user = useState(userFromLocalStorage);
+  let add = "/artaka/seller/customer/add";
 
   const columns = useMemo(() => [
     { Header: 'IMAGES', accessor: 'images' },
@@ -105,10 +106,9 @@ export default function Customer() {
             type="search"
           />
         </div>
-      {/*  <button onClick={() => history.push("/artaka/seller/customer/add")}>
+        <button onClick={() => navigate(add , { replace: true })}>
           <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
         </button>
-  */}
       </div>
       <div className="flex w-full mb-5">
         <button className="p-2 ml-3 mr-3 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-purple-900">Lunas</button>

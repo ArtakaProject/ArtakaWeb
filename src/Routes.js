@@ -8,7 +8,7 @@ import {
   // Category as CategoryPage,
   Products as ProductPage,
  // Dashboard as DashboardPage,
-  Customer as CustomerPage,
+  Customer,
   Cashier as CashierPage,
   CashFlow,ProfitNLoss,BalanceSheet,
   AddCust,EditCust,
@@ -67,7 +67,7 @@ export default function Routes(isLoggedIn) {
       children: [
         { path: 'cashier', element: isLoggedIn ? <CashierPage/> : <Navigate to="/artaka/signin"/>},
         { path: 'help', element: isLoggedIn ? <HelpPage/>: <Navigate to="/artaka/signin"/> },
-        { path: 'customer', element: isLoggedIn ? <CustomerPage /> : <Navigate to="/artaka/signin"/>},
+        { path: 'customer', element: isLoggedIn ? <Customer /> : <Navigate to="/artaka/signin"/>},
    //     { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
    //     { path: 'edit-customer', element: isLoggedIn ? <EditCust />: <Navigate to="/artaka/signin"/> },
         { path: 'product', element: isLoggedIn ? <ProductPage />: <Navigate to="/artaka/signin"/> },

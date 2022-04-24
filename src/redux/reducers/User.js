@@ -22,7 +22,7 @@ const INIT_STATE = {
     
 
   //  userProfile:[],
-    isLoading: true,
+    isLoading: false,
     isLoggedIn : false,
     isLogout : false,
     token : localStorage.getItem('@token'),
@@ -94,7 +94,7 @@ const applyAddSignupSucceed = (state, action) => {
 
 const applyGetSigninSucceed = (state, action) => {
     const { payload } = action;
-    const { profile } = payload
+    // const { profile } = payload
     return {
         ...state,
         
@@ -129,7 +129,7 @@ const applyGetSigninSucceed = (state, action) => {
 const applyGetSignoutSucceed = (state, action) => {
     return {
         ...state,
-        userProfile: {
+        
             business_category: "",
             clockin: "",
             employee_id: "",
@@ -145,11 +145,11 @@ const applyGetSignoutSucceed = (state, action) => {
             outlet_phone: "",
             position: "",
             user_id: "",
-        },
+       
         isLoading: false,
         isLoggedIn : false,
         isLogout : true,
-        message : "",
+       // message : "",
     }
 }
 

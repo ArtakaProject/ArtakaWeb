@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { doSigninRequest } from "../redux/actions/User";
 import { Link } from "react-router-dom";
 import ArtakaClear from "../assets/ArtakaClear.png";
-import apiUser from "../api/api-user";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -18,7 +18,6 @@ export default function Login() {
   const dispatch = useDispatch();
   const { message, isLoggedIn } = useSelector((state) => state.userState);
 
-
   useEffect(() => {
     if (isLoggedIn){
       navigate(from, { replace: true })
@@ -27,15 +26,16 @@ export default function Login() {
   }, [isLoggedIn])
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const toggleVisibility = () => {
+   const toggleVisibility = () => {
     setShowPassword(showPassword ? false : true);
   };
-
+  
   const validationSchema = Yup.object().shape({
     user_id: Yup.string()
-      .required("Masukkan Nomor Handphone Anda")
-      .phone("ID", true, "Nomor Handphone Tidak Sesuai"),
+      .phone("ID",true,"Nomor Handphone Anda Tidak Sesuai")
+      .required("Masukkan Nomor Handphone Anda"),
     secret_password: Yup.string().required("Masukkan Password Anda"),
   });
 
@@ -47,13 +47,24 @@ export default function Login() {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       console.log(values);
-
+      setLoading(loading ? false : true);
       let payload = {
         user_id: values.user_id,
         secret_password: values.secret_password
       };
 
-      dispatch(doSigninRequest(payload));
+      let convert = (payload.user_id.slice(0,1) === "0") ? "+62" + payload.user_id.slice(1) : payload.user_id;
+
+      payload = {
+        user_id: convert,
+        secret_password: values.secret_password
+      };
+
+      dispatch(doSigninRequest(payload)) 
+
+      setTimeout(() => {
+        setLoading(false)
+      }, 500) ;   
     }
   });
 
@@ -169,7 +180,7 @@ export default function Login() {
                         aria-hidden="true"
                       />
                     </span>
-                    Sign in
+                    {loading ? <ClipLoader size={20} color={"#000000"} loading={loading}/> : "SIGN IN"}
                   </button>
                 </div>
 

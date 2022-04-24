@@ -3,6 +3,7 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 import { Link, Outlet} from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
 import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon, CogIcon} from "@heroicons/react/outline";
+import userReducer from '../redux/reducers/User'
 
 // please fetch from redux
 const user = {
@@ -361,17 +362,17 @@ export default function AdminLayout(props) {
                      Pesanan
                     </span>
                   </Link>
-
-                  <Link
-                    to="/artaka/seller/report"
+                
+                  <div
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
+                   // onClick={}
                   >
                     <DocumentReportIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></DocumentReportIcon>
                     <span className="truncate text-purple-700">
                      Laporan
                     </span>
-                  </Link>
+                  </div>
                   <div className="pl-4">
                     <ul className="flex flex-col pl-2 text-black border-gray-700">
                       {subLaporan.map((item) => (
@@ -386,16 +387,16 @@ export default function AdminLayout(props) {
                     </ul>
                   </div>
                 
-                  <Link
-                    to="/artaka/not-found"
+                  <div
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
+                   // onClick={}
                   >
                     <CogIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></CogIcon>
                     <span className="truncate text-purple-700">
                      Pengaturan
                     </span>
-                  </Link>
+                  </div>
                   <div className="pl-4">
                     <ul className="flex flex-col pl-2 text-black border-gray-700">
                       {subMenu.map((item) => (

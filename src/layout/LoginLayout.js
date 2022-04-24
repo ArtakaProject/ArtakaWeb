@@ -5,9 +5,10 @@ import { Link, Outlet } from "react-router-dom";
 import { PhoneIcon } from "@heroicons/react/solid";
 import ArtakaClear from "../assets/ArtakaClear.png";
 
+
 export default function LoginLayout(props) {
   return (
-    <div className=" max-h-screen bg-gray-200 overflow-hidden">
+    <div className=" max-h-screen bg-gray-200 overflow-hidden"> 
       <div
         className="hidden sm:block sm:absolute sm:inset-0"
         aria-hidden="true"
@@ -94,7 +95,7 @@ export default function LoginLayout(props) {
       </Popover>
       <div className="relative pb-16 sm:pb-24">
         <main className="mt-16 sm:mt-24">
-          <div className="mx-auto max-w-7xl">{props.children}</div>
+          <div className="mx-auto max-w-7xl">{props.mapStateToProps}</div>
           <Outlet/>
         </main>
       </div>
@@ -102,3 +103,5 @@ export default function LoginLayout(props) {
     </div>
   );
 }
+
+
