@@ -86,13 +86,21 @@ function classNames(...classes) {
 
 export default function AdminLayout(props) {
   const [menuCollapse, setMenuCollapse] = useState(false);
-  const [subnav, setSubnav] = useState(false);
+  const [laporanCollapse, setLaporanCollapse] = useState(false);
+  const [settingCollapse, setSettingCollapse] = useState(false);
 
   const menuIconClick = () => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
-  const showSubnav = () => setSubnav(!subnav);
+  const laporanClick = () => {
+    laporanCollapse ? setLaporanCollapse(false) : setLaporanCollapse(true);
+  };
+
+  const settingClick = () => {
+    settingCollapse ? setSettingCollapse(false) : setSettingCollapse(true);
+  };
+
 
   return (
     <div className="min-h-screen">
@@ -362,17 +370,14 @@ export default function AdminLayout(props) {
                     </span>
                   </Link>
 
-                  <Link
-                    to="/artaka/seller/report"
-                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
-                    aria-current="page"
-                  >
+                  <button onClick={laporanClick} className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md">
                     <DocumentReportIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></DocumentReportIcon>
                     <span className="truncate text-purple-700">
                      Laporan
                     </span>
-                  </Link>
-                  <div className="pl-4">
+                    <ChevronDownIcon className="h-5 w-5 ml-16"></ChevronDownIcon>
+                  </button>
+                  <div className= {laporanCollapse ? "pl-4" : "pl-4 hidden"} >
                     <ul className="flex flex-col pl-2 text-black border-gray-700">
                       {subLaporan.map((item) => (
                         <li>
@@ -385,18 +390,14 @@ export default function AdminLayout(props) {
                       ))} 
                     </ul>
                   </div>
-                
-                  <Link
-                    to="/artaka/not-found"
-                    className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
-                    aria-current="page"
-                  >
+                  <button onClick={settingClick} className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md">
                     <CogIcon className="text-purple-500 flex-shrink-0 -ml-1 mr-3 h-6 w-6"></CogIcon>
                     <span className="truncate text-purple-700">
                      Pengaturan
                     </span>
-                  </Link>
-                  <div className="pl-4">
+                    <ChevronDownIcon className="h-5 w-5 ml-11"></ChevronDownIcon>
+                  </button>
+                  <div className= {settingCollapse ? "pl-4" : "pl-4 hidden"}>
                     <ul className="flex flex-col pl-2 text-black border-gray-700">
                       {subMenu.map((item) => (
                         <li>
