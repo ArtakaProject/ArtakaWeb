@@ -3,6 +3,7 @@ import { Menu, Popover, Transition } from "@headlessui/react";
 import { Link, Outlet} from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
 import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon, CogIcon} from "@heroicons/react/outline";
+import userReducer from '../redux/reducers/User'
 
 // please fetch from redux
 const user = {
@@ -63,7 +64,7 @@ const subMenu = [
   { name: "Kelola Produk", href: "/artaka/seller/setting-product" },
   { name: "Pengaturan Promo & Poin", href: "/artaka/seller/setting-promo-point" },
   { name: "Pengaturan Toko", href: "/artaka/seller/setting-shop" },
-  { name: "Pengaturan Order Online", href: "/artaka/seller/setting-order-online" },
+  { name: "Pengaturan Order Online", href: "/artaka/seller/setting-online-order" },
   { name: "Pelanggan", href: "/artaka/seller/customer" },
   { name: "Mitra", href: "/artaka/not-found" },
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
