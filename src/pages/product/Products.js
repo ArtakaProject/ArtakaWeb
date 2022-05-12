@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { doGetProductRequest, doNextPage } from '../../redux/actions/Product';
+import { doGetProductRequest } from '../../redux/actions/Product';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
@@ -48,8 +48,8 @@ export default function Products() {
         const payload = {
             user_id: user[0].user_id,
             outlet_id: user[0].outlet_id,
-            category: user[0].category,
-            is_active: user[0].is_active
+            category: "Semua",   //user[0].category,
+            is_active: "All"  //user[0].is_active
         };
         dispatch(doGetProductRequest(payload));
     };
