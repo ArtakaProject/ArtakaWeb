@@ -3,7 +3,7 @@ import config from '../config/config';
 
 const findAll = async(payload)=>{
     try {
-        const result = await axios.post(`${config.domain}/products/show`,payload);
+        const result = await axios.post(`${config.domain}/products/show`,payload); //post
         return result;    
     } catch (error) {
         return error;

@@ -48,8 +48,8 @@ export default function Products() {
         const payload = {
             user_id: user[0].user_id,
             outlet_id: user[0].outlet_id,
-            category: "Semua",   //user[0].category,
-            is_active: "All"  //user[0].is_active
+            category: user[0].category, //"Semua",   //
+            is_active: user[0].is_active //"All"  //
         };
         dispatch(doGetProductRequest(payload));
     };
@@ -165,6 +165,7 @@ export default function Products() {
                                             {/* productSlice && productSlice.map((prod) => ( */
                                                 page.map(row => {
                                                     prepareRow(row);
+                                                    //console.log(row);
                                                     return (
                                                         <tr key={row.cells[0].value}>
                                                             {/* prod.id */}
