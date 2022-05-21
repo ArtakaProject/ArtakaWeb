@@ -8,7 +8,7 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import {  PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/outline';
 //import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
 
@@ -46,10 +46,15 @@ export default function Products() {
 
     async function fetchData() {
         const payload = {
-            user_id: user[0].user_id,
+            /* user_id: user[0].user_id,
             outlet_id: user[0].outlet_id,
-            category: user[0].category, //"Semua",   //
-            is_active: user[0].is_active //"All"  //
+            category: user[0].category, //"Semua",   
+            is_active: user[0].is_active //"All"   */
+
+            user_id: "+6287813841133",
+            outlet_id: "OTL-001",
+            category: "Semua",
+            is_active: "All"
         };
         dispatch(doGetProductRequest(payload));
     };
@@ -178,7 +183,7 @@ export default function Products() {
                                                                         />
                                                                     </div>
                                                                     <div className="ml-4">
-                                                                        <div className="text-sm font-medium text-black">{row.cells[2].valuee}</div>
+                                                                        <div className="text-sm font-medium text-black">{row.cells[2].value}</div>
                                                                         <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{row.cells[3].value}</div>
                                                                     </div>
                                                                 </div>
