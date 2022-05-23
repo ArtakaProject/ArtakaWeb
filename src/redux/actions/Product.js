@@ -15,30 +15,3 @@ export const doProductFailed = (payload) => ({
     payload,
 });
 
-
-export const doAddProductRequest = (payload) => ({
-    type: ActionType.ADD_PRODUCT_REQUEST,
-    payload,
-});
-
-export const doAddProductSucceed = (payload) => ({
-    type: ActionType.ADD_PRODUCT_SUCCEED ,
-    payload,
-});
-
-
-export const doEditProductRequest = (payload) => ({
-    type: ActionType.UPDATE_PRODUCT_REQUEST,
-    payload,
-});
-
-export const doEditProductSucceed = (payload) => ({
-    type: ActionType.UPDATE_PRODUCT_SUCCEED ,
-    payload,
-});
-
-//--------------
-export const doNextPage = (payload) => ({
-    type: ActionType.NEXT_PAGE ,
-    payload,
-});

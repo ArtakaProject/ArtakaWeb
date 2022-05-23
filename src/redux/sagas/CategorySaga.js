@@ -11,7 +11,7 @@ import {
     doDeleteCategorySucceed
 } from '../actions/Category'
 
-function* handleGetCategory(action) {
+/* function* handleGetCategory(action) {
     const {payload} = action;
     try {
         const result = yield call(apiCategory.list,payload);
@@ -57,4 +57,4 @@ export {
     handleCreateCategory,
     handleUpdateCategory,
     handleDeleteCategory
-};
+}; */

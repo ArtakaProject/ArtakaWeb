@@ -3,8 +3,7 @@ import {
 } from 'redux-saga/effects';
 import apiProduct from '../../api/api-product'
 import {
-    doGetProductRequest, doGetProductSucceed, doProductFailed,
-    doAddProductSucceed, doEditProductSucceed
+     doGetProductSucceed, doProductFailed
 } from '../actions/Product';
 
 function* handleGetProduct(action) {
@@ -17,30 +16,6 @@ function* handleGetProduct(action) {
     }
 }
 
-function* handleAddProduct(action) {
-    const { payload } = action;
-    try {
-        const result = yield call(apiProduct.addProduct, payload);
-        yield put(doAddProductSucceed(result.data[0]));
-    } catch (error) {
-        yield put(doProductFailed(error));
-    }
-}
-
-function* handleUpdateProduct(action) {
-    const { payload } = action;
-    try {
-        const result = yield call(apiProduct.editProduct, payload);
-        const data = result.data[1][0];
-        yield put(doEditProductSucceed(data));
-    } catch (error) {
-        yield put(doProductFailed(error));
-    }
-}
-
-
 export {
-    handleAddProduct,
-    handleGetProduct,
-    handleUpdateProduct
+    handleGetProduct
 }
