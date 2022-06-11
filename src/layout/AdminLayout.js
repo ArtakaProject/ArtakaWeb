@@ -1,9 +1,8 @@
 import { Fragment, useState } from "react";
 import { Menu, Popover, Transition } from "@headlessui/react";
-import { Link, Outlet} from "react-router-dom";
+import { Link, Outlet, NavLink} from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
 import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon, CogIcon} from "@heroicons/react/outline";
-import userReducer from '../redux/reducers/User'
 
 // please fetch from redux
 const user = {
@@ -75,8 +74,8 @@ const subMenu = [
 ];
 
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", href: "/artaka/not-found" },
+  { name: "Settings", href: "/artaka/not-found" },
   { name: "Sign out", href: "/artaka/signin" },
 ];
 
@@ -264,13 +263,13 @@ export default function AdminLayout(props) {
                 </div>
                 <div className="mt-3 max-w-3xl mx-auto px-2 space-y-1 sm:px-4">
                   {userNavigation.map((item) => (
-                    <Link
+                    <NavLink
                       key={item.name}
                       to={item.href}
                       className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                     >
                       {item.name}
-                    </Link>
+                    </NavLink>
                   ))}
                 </div>
               </div>
