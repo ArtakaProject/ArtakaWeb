@@ -181,7 +181,7 @@ export default function Login() {
                         aria-hidden="true"
                       />
                     </span>
-                    {loading ? <ClipLoader size={20} color={"#000000"} loading={loading}/> : "SIGN IN"}
+                    {loading ? <ClipLoader size={20} color={"#000000"} loading={loading}/> : "MASUK"}
                   </button>
                 </div>
 
