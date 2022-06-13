@@ -108,7 +108,7 @@ export default function AdminLayout(props) {
 
   const onLogout = () =>{
     dispatch(doSignoutRequest());
-    nav('/artaka/signin',{replace : true})
+    nav('/artaka/signin', {replace : true})
   }
 
 
@@ -163,7 +163,6 @@ export default function AdminLayout(props) {
                   >
                     TUTUP KASIR                  
                   </button>
-                  
                   <Link
                     to="#"
                     className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
