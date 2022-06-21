@@ -11,7 +11,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { PlusIcon } from '@heroicons/react/outline';
 //import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
-import { Skeleton } from 'react-loading-skeleton';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 function classNames(...classes) {
