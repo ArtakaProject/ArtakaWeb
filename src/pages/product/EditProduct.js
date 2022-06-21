@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { doEditProductRequest } from '../../redux/actions/Product';
+//import { doEditProductRequest } from '../../redux/actions/Product';
 import { Axios } from 'axios';
 
 export default function EditProduct() {
@@ -122,7 +122,7 @@ export default function EditProduct() {
         const prodFile = files.file;
         prodFile && payload.append('uploadFile', prodFile);
         // add product via redux-saga
-        dispatch(doEditProductRequest(payload));
+        //dispatch(doEditProductRequest(payload));
 
     }
 

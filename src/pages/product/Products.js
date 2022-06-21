@@ -8,17 +8,18 @@ import {
 import { Menu, Transition } from '@headlessui/react';
 import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-//import moment from 'moment';
-import { FilterIcon, PlusIcon } from '@heroicons/react/outline';
+import { PlusIcon } from '@heroicons/react/outline';
 //import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
+const userFromLocalStorage = JSON.parse(localStorage.getItem("@profile") || "[]")
 
 
 export default function Products() {
@@ -26,8 +27,10 @@ export default function Products() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
+    //get data from local storage
     const user = useState(userFromLocalStorage);
     let add = "/artaka/seller/product/add";
+    //const [data, setData] = useState([]);
 
     const columns = useMemo(() => [
         { Header: 'ID', accessor: 'id' },
@@ -41,7 +44,6 @@ export default function Products() {
         { Header: 'OPSI', accessor: '' }
     ], [])
 
-
     useEffect(() => {
         fetchData()
     }, []);
@@ -50,8 +52,13 @@ export default function Products() {
         const payload = {
             user_id: user[0].user_id,
             outlet_id: user[0].outlet_id,
-            category: user[0].category,
-            is_active: user[0].is_active
+            category: "Semua",  //user[0].category, //  
+            is_active: "All" //user[0].is_active // 
+
+            /* user_id: "+6287813841133",
+            outlet_id: "OTL-001",
+            category: "Semua",
+            is_active: "All" */
         };
         dispatch(doGetProductRequest(payload));
     };
@@ -82,9 +89,11 @@ export default function Products() {
 
     const { pageIndex, pageSize } = state
 
-    //const onDelete = async (id) => { };
+    const onDelete = async (id) => { };
 
-    console.log(user);
+    const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+
+    //console.log(user);
     return (
         <>
             <div className="flex w-full mb-5">
@@ -120,9 +129,112 @@ export default function Products() {
                     <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
                         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             {isLoading && (
-                                <div className="flex items-center h-screen">
+                                /* <div className="flex items-center h-screen">
                                     <CircularProgress className="mx-auto" />
-                                </div>
+                                </div> */
+                                <>
+                                    <table className="min-w-full h-auto divide-gray-200">
+                                        <thead className="bg-gray-200">
+                                            <tr>
+                                                {/* {columns.map((col) => ( */}
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                                                >
+                                                    <b>NAMA PRODUK</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                                                >
+                                                    <b>HARGA</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                                                >
+                                                    <b>STOK BARANG</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                                                >
+                                                    <b>STATUS</b>
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                                                >
+                                                    <b>OPSI</b>
+                                                </th>
+                                                
+                                                {/* ))} */}
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white divide-y divide-gray-200">
+                                            {
+                                                count.map(i => {
+                                                    return (
+                                                        <tr>
+                                                            <td>
+                                                                <div className="flex items-center">
+                                                                    <div className="flex-shrink-0 h-10 w-10 ml-2">
+                                                                        <Skeleton
+                                                                            className="h-10 w-10 rounded-full"
+                                                                            alt=""
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap">
+                                                                <Skeleton className="text-sm text-gray-900" />
+                                                                <Skeleton className="text-sm text-gray-900" />
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                                <Skeleton />
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                                <Skeleton />
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                                <Skeleton />
+                                                            </td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                                <Skeleton />
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                }
+                                                )}
+                                        </tbody>
+                                    </table>
+                                    <div className="flex flex-row min-h-screen justify-center items-center">
+                                        <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                            <button
+                                                onClick={() => previousPage()} disabled={!canPreviousPage}
+                                                className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                                            >
+                                                <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                                                <p>Previous</p>
+                                            </button>
+                                            <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                                                Page{' '}
+                                                <strong>
+                                                    {pageIndex + 1} of ?
+                                                </strong>{' '}
+                                            </span>
+                                            <button
+                                                onClick={() => nextPage()}
+                                                disabled={!canNextPage}
+                                                className=
+                                                "relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                                            >
+                                                <p>Next</p>
+                                                <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                                            </button>
+                                        </nav>
+                                    </div>
+                                </>
                             )}
                             {!isLoading && (
                                 <>
@@ -167,10 +279,8 @@ export default function Products() {
                                             {
                                                 page.map(row => {
                                                     prepareRow(row);
-                                                    //console.log(row);
                                                     return (
                                                         <tr key={row.cells[0].value}>
-                                                            {/* prod.id */}
                                                             <td>
                                                                 <div className="flex items-center">
                                                                     <div className="flex-shrink-0 h-12 w-12">
@@ -180,7 +290,7 @@ export default function Products() {
                                                                         />
                                                                     </div>
                                                                     <div className="ml-4">
-                                                                        <div className="text-sm font-medium text-black">{row.cells[2].valuee}</div>
+                                                                        <div className="text-sm font-medium text-black">{row.cells[2].value}</div>
                                                                         <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{row.cells[3].value}</div>
                                                                     </div>
                                                                 </div>
@@ -280,10 +390,6 @@ export default function Products() {
                                                                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                                                         'group flex items-center px-4 py-2 text-sm'
                                                                                                     )}
-                                                                                                /* onClick={() => {
-                                                                                                    if (window.confirm('Anda yakin menghapus produk ini ?'))
-                                                                                                        onDelete(prod.prod_id)
-                                                                                                }} */
                                                                                                 >
                                                                                                     <TrashIcon
                                                                                                         className="mr-3 h-5 w-5 text-gray-400 group-hover:text-gray-500"
@@ -321,7 +427,7 @@ export default function Products() {
                                                     {pageIndex + 1} of {pageOptions.length}
                                                 </strong>{' '}
                                             </span>
-                                            <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                                            {/* <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
                                                 <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
                                                     {
                                                         [5, 10, 100].map(pageSize => (
@@ -331,7 +437,7 @@ export default function Products() {
                                                         ))
                                                     }
                                                 </select>
-                                            </span>
+                                            </span> */}
                                             <button
                                                 onClick={() => nextPage()}
                                                 disabled={!canNextPage}

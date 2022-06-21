@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Route, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { doCategoryStarted } from '../../redux/actions/Category';
-import { doAddProductRequest, doAddProductSucceed, doGetProductRequest } from '../../redux/actions/Product';
+import { doAddProductSucceed, doGetProductRequest } from '../../redux/actions/Product';
 import { handleAddProduct } from '../../redux/sagas/ProductSaga';
 import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
 
@@ -107,7 +107,7 @@ export default function AddProduct() {
         const prodFile = files.file;
         prodFile && payload.append('uploadFile', prodFile);
         // add product via redux-saga
-        dispatch(doAddProductRequest(payload));
+        //dispatch(doAddProductRequest(payload));
 
     }
 

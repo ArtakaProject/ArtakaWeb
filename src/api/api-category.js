@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from '../config/config';
-
+/* 
 const list = async () => {
     try {
         const response = await axios.get(`${config.domain}/category/`)
@@ -58,4 +58,4 @@ export default {
     findRow,
     updateRow,
     deleteRow
-}
+} */

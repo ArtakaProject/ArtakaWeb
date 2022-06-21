@@ -3,7 +3,7 @@ import * as ActionType from '../constants/User';
 
 const INIT_STATE = {
 
-    
+    /*
     business_category: "",
     clockin: "",
     employee_id: "",
@@ -19,13 +19,14 @@ const INIT_STATE = {
     outlet_phone: "",
     position: "",
     user_id: "",
-    
+    */
 
-  //  userProfile:[],
+    userProfile:{},
     isLoading: true,
     isLoggedIn : false,
     isLogout : false,
     token : localStorage.getItem('@token'),
+    message: ''
 }
 
 const userReducer = (state = INIT_STATE, action) => {
@@ -94,10 +95,10 @@ const applyAddSignupSucceed = (state, action) => {
 
 const applyGetSigninSucceed = (state, action) => {
     const { payload } = action;
-    const { profile } = payload
+    const { profile } = payload;
     return {
         ...state,
-        
+        /*
         business_category: payload.business_category,
         clockin: payload.clockin,
         employee_id: payload.employee_id,
@@ -113,15 +114,13 @@ const applyGetSigninSucceed = (state, action) => {
         outlet_phone: payload.outlet_phone,
         position: payload.position,
         user_id: payload.user_id,
-
+        */
+       
+        userProfile : {...profile},
         isLoading: false,
         isLoggedIn : true,
         isLogout : false,
-        
-     // userProfile: {...profile},
-      //  isLoading: false,
-      //  isLoggedIn : true,
-      //  isLogout : false,
+        message : ' '
         
     }
 }
@@ -135,7 +134,7 @@ const applyGetSignoutSucceed = (state, action) => {
             employee_id: "",
             employee_name: "",
             fcm_token: "",
-            images: [...state.images, ""],
+            images: "",
             is_online_store_active: "",
             message: "",
             mini_website_url: "",
@@ -149,7 +148,7 @@ const applyGetSignoutSucceed = (state, action) => {
         isLoading: false,
         isLoggedIn : false,
         isLogout : true,
-        message : "",
+       // message : "",
     }
 }
 
