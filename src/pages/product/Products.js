@@ -19,7 +19,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
+const userFromLocalStorage = JSON.parse(localStorage.getItem("@profile") || "[]")
 
 
 export default function Products() {
@@ -52,8 +52,8 @@ export default function Products() {
         const payload = {
             user_id: user[0].user_id,
             outlet_id: user[0].outlet_id,
-            category: user[0].category, //"Semua",   
-            is_active: user[0].is_active //"All"  
+            category: "Semua",  //user[0].category, //  
+            is_active: "All" //user[0].is_active // 
 
             /* user_id: "+6287813841133",
             outlet_id: "OTL-001",
