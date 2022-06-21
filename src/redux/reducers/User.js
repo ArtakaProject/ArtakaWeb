@@ -134,7 +134,7 @@ const applyGetSignoutSucceed = (state, action) => {
             employee_id: "",
             employee_name: "",
             fcm_token: "",
-            images: [...state.images, ""],
+            images: "",
             is_online_store_active: "",
             message: "",
             mini_website_url: "",

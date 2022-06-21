@@ -4,10 +4,7 @@ import { RouteWithLayout } from './layout/common';
 import {  AdminLayout, RegisterLayout } from './layout';
 
 import {
-  // Home as HomePage,
-  // Category as CategoryPage,
   Products as ProductPage,
- // Dashboard as DashboardPage,
   Customer,
   Cashier as CashierPage,
   CashFlow,ProfitNLoss,BalanceSheet,
@@ -68,6 +65,7 @@ export default function Routes(isLoggedIn) {
         { path: 'setting-promo-point', element: isLoggedIn ? <SettingPromoPoint /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-shop', element: isLoggedIn ? <SettingShop /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-online-order', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
+        { path: 'signin', element : <Navigate to="/artaka/signin"/> },
         { path: 'not-found', element: <PageNotFound /> },
       ]
     },

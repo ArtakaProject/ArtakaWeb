@@ -29,10 +29,7 @@ function* handleSignin(action) {
         else{
             yield put(doSigninSucceed(result));
             localStorage.setItem('@token', result.fcm_token);
-            localStorage.setItem('@profile', result.user_id);
-
-            localStorage.getItem('@token');
-            localStorage.getItem('@profile');
+            localStorage.setItem('@profile', JSON.stringify(result));
         }
     
     } catch (error) {
