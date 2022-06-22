@@ -19,7 +19,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
+const userFromLocalStorage = JSON.parse(localStorage.getItem("@profile") || "[]")
 
 export default function Customer() {
   let navigate = useNavigate();

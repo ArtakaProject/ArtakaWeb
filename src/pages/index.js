@@ -5,8 +5,8 @@ export {default as EditProduct} from './product/EditProduct';
 export {default as SettingProduct} from './settingsPage/SettingProduct'
 export {default as users} from './users/Users';
 export {default as Home} from './home/Home';
-export {default as Dashboard} from './dashboard/Dashboard';
 export {default as Cashier} from './cashier/Cashier'
+export {default as Manual} from './manual/Manual'
 export {default as PageNotFound} from './home/PageNotFound';
 export {default as Customer} from './customer/Customer'
 export {default as AddCust} from './customer/AddCust'

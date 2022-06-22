@@ -21,7 +21,7 @@ const INIT_STATE = {
     user_id: "",
     */
 
-    userProfile:{},
+    userProfile:[],
     isLoading: true,
     isLoggedIn : false,
     isLogout : false,

@@ -12,7 +12,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Login() {
   let navigate = useNavigate();
-  let location = useLocation();
   let from = "/artaka/seller/cashier";
 
   const dispatch = useDispatch();
@@ -22,8 +21,7 @@ export default function Login() {
     if (isLoggedIn){
       navigate(from, { replace: true })
     }
-
-  }, [isLoggedIn])
+  }, [from, isLoggedIn, navigate])
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);

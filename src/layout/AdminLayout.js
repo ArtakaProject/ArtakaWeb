@@ -31,7 +31,7 @@ const navigation = [
 
   {
     name: "Manual",
-    href: "/artaka/not-found",
+    href: "/artaka/seller/manual",
     icon: BookOpenIcon,
     current: false,
   }, 
@@ -321,7 +321,7 @@ export default function AdminLayout(props) {
                   </Link>
 
                   <Link
-                    to="/artaka/not-found"
+                    to="/artaka/seller/manual"
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
                   >

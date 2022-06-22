@@ -19,7 +19,7 @@ export default function Bantuan() {
           Kembali
         </Link>
       </div>
-      <Link to="https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA/videos">
+      <a href="https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA/videos">
         <div className="py-3 h-24 hover:bg-gray-200 ">
           <LiveHelp className="text-purple-700" fontSize="large"/>
           <p class="text-2xl md:text-3xl font-normal leading-normal inline-block ml-5">
@@ -29,7 +29,7 @@ export default function Bantuan() {
             Panduan cara penggunaan aplikasi Artaka
           </p>
         </div>
-      </Link>
+      </a>
       <Link to="/artaka/not-found">
         <div className="py-3 h-24 hover:bg-gray-200 ">
           <Forum className="text-purple-700" fontSize="large" />
