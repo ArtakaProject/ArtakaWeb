@@ -19,8 +19,7 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem("@profile") || "[]")
-const productFromLocalStorage = JSON.parse(localStorage.getItem("@product") || "[]")
+const prodFromLocalStorage = JSON.parse(localStorage.getItem("@products") || "[]")
 
 
 export default function Products() {
@@ -29,8 +28,7 @@ export default function Products() {
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
     //get data from local storage
-    const user = useState(userFromLocalStorage);
-     const prod = useState(productFromLocalStorage);
+    const product = useState(prodFromLocalStorage);
     let add = "/artaka/seller/product/add";
     //const [data, setData] = useState([]);
 
@@ -52,10 +50,10 @@ export default function Products() {
 
     async function fetchData() {
         const payload = {
-            user_id: user[0].user_id,
-            outlet_id: user[0].outlet_id,
-            category: prod[0].category,  //user[0].category, //  
-            is_active:  prod[0].is_active //user[0].is_active // 
+            user_id: product[0].user_id,
+            outlet_id: product[0].outlet_id,
+            category:  product[0].category, //  "Semua",
+            is_active: product[0].is_active //  "All"
 
             /* user_id: "+6287813841133",
             outlet_id: "OTL-001",
@@ -95,7 +93,7 @@ export default function Products() {
 
     const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-    //console.log(user);
+    //console.log(product);
     return (
         <>
             <div className="flex w-full mb-5">

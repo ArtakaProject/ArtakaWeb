@@ -5,6 +5,7 @@ const INIT_STATE = {
     products: [],
     isLoading: false,
     status: false,
+    token: localStorage.getItem('@product'),
     error: null,
     redirect: false,
 };
@@ -24,6 +25,8 @@ const productReducer = (state = INIT_STATE, action) => {
             }
         }
         case ActionType.GET_PRODUCT_SUCCEED: {
+            const { payload } = action;
+    const { profile } = payload; 
             return {
                 ...state,
                 products: action.payload,
