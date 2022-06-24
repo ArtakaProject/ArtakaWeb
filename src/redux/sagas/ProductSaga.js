@@ -11,6 +11,7 @@ function* handleGetProduct(action) {
     try {
         const result = yield call(apiProduct.findAll, payload);
         yield put(doGetProductSucceed(result.data)); //.data
+        localStorage.setItem('@product', JSON.stringify(result));
     } catch (error) {
         yield put(doProductFailed(error));
     }

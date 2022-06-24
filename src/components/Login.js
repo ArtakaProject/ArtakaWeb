@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from "formik";
@@ -27,7 +27,7 @@ export default function Login() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  
    const toggleVisibility = () => {
     setShowPassword(showPassword ? false : true);
   };
@@ -42,7 +42,7 @@ export default function Login() {
   const formik = useFormik({
     initialValues: {
       user_id: "",
-      secret_password: "",
+      secret_password: ""
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -59,8 +59,9 @@ export default function Login() {
         user_id: convert,
         secret_password: values.secret_password
       };
-
+     
       dispatch(doSigninRequest(payload)) 
+
 
       setTimeout(() => {
         setLoading(false)
@@ -180,7 +181,7 @@ export default function Login() {
                         aria-hidden="true"
                       />
                     </span>
-                    {loading ? <ClipLoader size={20} color={"#000000"} loading={loading}/> : "SIGN IN"}
+                    {loading ? <ClipLoader size={20} color={"#000000"} loading={loading}/> : "MASUK"}
                   </button>
                 </div>
 
@@ -208,7 +209,7 @@ export default function Login() {
                   className="bg-white text-purple-700 hover:text-indigo-500 text-xs font-semibold absolute bottom-40 right-4"
                   onClick={toggleVisibility}
                 >
-                  {showPassword ? "Hide" : "Show"}
+                  {showPassword ? "Sembunyikan" : "Tampilkan"}
                 </button>
             </div>
           </div>

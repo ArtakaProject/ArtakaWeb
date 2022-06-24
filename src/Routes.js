@@ -4,10 +4,7 @@ import { RouteWithLayout } from './layout/common';
 import {  AdminLayout, RegisterLayout } from './layout';
 
 import {
-  // Home as HomePage,
-  // Category as CategoryPage,
   Products as ProductPage,
- // Dashboard as DashboardPage,
   Customer,
   Cashier as CashierPage,
   CashFlow,ProfitNLoss,BalanceSheet,
@@ -33,8 +30,6 @@ export default function Routes(isLoggedIn) {
       element: <LandingLayout/>,
       children: [
         { path: 'landing', element:<LandingPage/> },
-       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
-       // { path: '404', element: <PageNotFound /> },
       ]
     },
     {
@@ -42,7 +37,6 @@ export default function Routes(isLoggedIn) {
       element: <LoginLayout/>,
       children: [
         { path: 'signin', element: <Login/> },
-      //  { path: 'signup', element: <Navigate to="/artaka/signup"  />  },
       ]
     }, 
     {
@@ -50,7 +44,6 @@ export default function Routes(isLoggedIn) {
       element: <RegisterLayout/>,
       children: [
         { path: 'signup', element: <Register/>  },
-       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
       ]
     },
     {
@@ -58,7 +51,6 @@ export default function Routes(isLoggedIn) {
       element: <AdminLayout/>,
       children: [
         { path: 'not-found', element: isLoggedIn ? <PageNotFound/> : <Navigate to="/artaka/signin"/> },
-       // { path: 'signin', element: <Navigate to="/artaka/signin"  /> },
       ]
     },
     {
@@ -68,16 +60,12 @@ export default function Routes(isLoggedIn) {
         { path: 'cashier', element: isLoggedIn ? <CashierPage/> : <Navigate to="/artaka/signin"/>},
         { path: 'help', element: isLoggedIn ? <HelpPage/>: <Navigate to="/artaka/signin"/> },
         { path: 'customer', element: isLoggedIn ? <Customer /> : <Navigate to="/artaka/signin"/>},
-   //     { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
-   //     { path: 'edit-customer', element: isLoggedIn ? <EditCust />: <Navigate to="/artaka/signin"/> },
         { path: 'product', element: isLoggedIn ? <ProductPage />: <Navigate to="/artaka/signin"/> },
-   //     { path: 'add-product', element: isLoggedIn ? <AddProduct /> : <Navigate to="/artaka/signin"/> },
-   //     { path: 'edit-product', element: isLoggedIn ? <EditProduct /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-product', element: isLoggedIn ? <SettingProduct /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-promo-point', element: isLoggedIn ? <SettingPromoPoint /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-shop', element: isLoggedIn ? <SettingShop /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-online-order', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
-   //     { path: 'signin', element: isLoggedIn ? <Login/> : <Navigate to="/artaka/signin"/> },
+        { path: 'signin', element : <Navigate to="/artaka/signin"/> },
         { path: 'not-found', element: <PageNotFound /> },
       ]
     },

@@ -29,8 +29,8 @@ function* handleSignin(action) {
         else{
             yield put(doSigninSucceed(result));
             localStorage.setItem('@token', result.fcm_token);
+            localStorage.setItem('@profile', JSON.stringify(result));
         }
-        // localStorage.setItem('@profile', JSON.stringify(result.data.profile));
     
     } catch (error) {
         yield put(doShowAuthMessage({message : 'invalid user or password'}));
@@ -40,8 +40,9 @@ function* handleSignin(action) {
 function* handleSignout(action) {
     const {payload} = action;
     try {
-        localStorage.clear();
         yield put(doSignoutSucceed(payload));
+        localStorage.clear();
+        window.location.reload();
     } catch (error) {
         yield put(doSignupFailed(error));
     }

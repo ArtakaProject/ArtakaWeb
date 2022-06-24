@@ -14,6 +14,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { PlusIcon } from "@heroicons/react/outline";
 import moment from 'moment';
 import { useTable, useSortBy, useGlobalFilter, usePagination } from 'react-table'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -86,7 +88,8 @@ export default function Customer() {
 
   const onDelete = async (id) => { };
 
-  console.log(user);
+  const count = [1,2,3,4,5,6,7,8,9,0];
+
   return (
     <>
       <div className="flex w-full mb-5">
@@ -106,7 +109,7 @@ export default function Customer() {
             type="search"
           />
         </div>
-        <button onClick={() => navigate(add , { replace: true })}>
+        <button onClick={() => navigate(add, { replace: true })}>
           <PlusIcon className="w-6 h-6 mr-5 ml-10 mt-1" />
         </button>
       </div>
@@ -119,9 +122,123 @@ export default function Customer() {
           <div className="py-2 align-middle inline-block min-w-full  sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               {isLoading && (
-                <div className="flex items-center h-screen">
-                  <CircularProgress className="mx-auto" />
-                </div>
+                //<div className="flex items-center h-screen">
+                //<CircularProgress className="mx-auto" />
+                //</div>
+                <>
+                  <table className="min-w-full h-auto divide-gray-200">
+                    <thead className="bg-gray-200">
+                      <tr>
+                        {/* {columns.map((col) => ( */}
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          NAMA PELANGGAN
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          KONTAK
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          TANGGAL LAHIR
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          ALAMAT
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          JENIS KELAMIN
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          TANGGAL BERGABUNG
+                        </th>
+                        <th
+                          scope="col"
+                          className="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider"
+                        >
+                          AKSI
+                        </th>
+                        {/* ))} */}
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {
+                        count.map(i => {
+                          return (
+                            <tr>
+                              <td>
+                                <div className="flex items-center">
+                                  <div className="flex-shrink-0 h-10 w-10 ml-2">
+                                    <Skeleton
+                                      className="h-10 w-10 rounded-full"
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <Skeleton className="text-sm text-gray-900" />
+                                <Skeleton className="text-sm text-gray-900" />
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <Skeleton />
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <Skeleton />
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <Skeleton />
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <Skeleton />
+                              </td>
+                            </tr>
+                          )
+                        }
+                      )}
+                    </tbody>
+                  </table>
+                  <div className="flex flex-row min-h-screen justify-center items-center">
+                    <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                      <button
+                        onClick={() => previousPage()} disabled={!canPreviousPage}
+                        className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                      >
+                        <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
+                        <p>Previous</p>
+                      </button>
+                      <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
+                        Page{' '}
+                        <strong>
+                          {pageIndex + 1} of ?
+                        </strong>{' '}
+                      </span>
+                      <button
+                        onClick={() => nextPage()}
+                        disabled={!canNextPage}
+                        className=
+                        "relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700"
+                      >
+                        <p>Next</p>
+                        <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
+                      </button>
+                    </nav>
+                  </div>
+                </>
               )}
               {!isLoading && (
                 <>
@@ -200,7 +317,6 @@ export default function Customer() {
                                 <div className="text-sm text-gray-900">
                                   {row.cells[2].value}
                                 </div>
-                                <br />
                                 <div className="text-sm text-gray-900">
                                   {row.cells[3].value}
                                 </div>
@@ -328,17 +444,6 @@ export default function Customer() {
                         <strong>
                           {pageIndex + 1} of {pageOptions.length}
                         </strong>{' '}
-                      </span>
-                      <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
-                        <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
-                          {
-                            [5, 10, 100].map(pageSize => (
-                              <option key={pageSize} value={pageSize}>
-                                Show {pageSize}
-                              </option>
-                            ))
-                          }
-                        </select>
                       </span>
                       <button
                         onClick={() => nextPage()}

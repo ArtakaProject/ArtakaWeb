@@ -1,9 +1,10 @@
 import { Fragment, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Menu, Popover, Transition } from "@headlessui/react";
-import { Link, Outlet} from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { ChevronDownIcon, BellIcon } from "@heroicons/react/solid";
 import { HomeIcon, MenuIcon, XIcon, DocumentReportIcon, BookOpenIcon, ShoppingCartIcon, CashIcon, CogIcon} from "@heroicons/react/outline";
-import userReducer from '../redux/reducers/User'
+import { doSignoutRequest } from "../redux/actions/User";
 
 // please fetch from redux
 const user = {
@@ -75,8 +76,8 @@ const subMenu = [
 ];
 
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
+  { name: "Your Profile", href: "/artaka/not-found" },
+  { name: "Settings", href: "/artaka/not-found" },
   { name: "Sign out", href: "/artaka/signin" },
 ];
 
@@ -86,6 +87,9 @@ function classNames(...classes) {
 
 
 export default function AdminLayout(props) {
+  let nav = useNavigate();
+  const dispatch = useDispatch();
+  
   const [menuCollapse, setMenuCollapse] = useState(false);
   const [laporanCollapse, setLaporanCollapse] = useState(false);
   const [settingCollapse, setSettingCollapse] = useState(false);
@@ -101,6 +105,11 @@ export default function AdminLayout(props) {
   const settingClick = () => {
     settingCollapse ? setSettingCollapse(false) : setSettingCollapse(true);
   };
+
+  const onLogout = () =>{
+    dispatch(doSignoutRequest());
+    nav('/artaka/signin', {replace : true})
+  }
 
 
   return (
@@ -145,53 +154,15 @@ export default function AdminLayout(props) {
                   </Popover.Button>
                 </div>
                 <div className="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
-                  {/* Profile dropdown */}
-                  <Menu as="div" className="relative inline-block text-left">
-                    {({ open }) => (
-                      <>
-                        <div>
-                          <Menu.Button className="inline-flex justify-center w-full rounded-md px-4 py-2 bg-white text-sm font-medium text-purple-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-                            Ken Shop {/* nama toko */}
-                            <ChevronDownIcon
-                              className="-mr-1 ml-2 h-5 w-5"
-                              aria-hidden="true"
-                            />
-                          </Menu.Button>
-                        </div>
-                        <Transition
-                          show={open}
-                          as={Fragment}
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          <Menu.Items
-                            static
-                            className="origin-top-right absolute z-10 right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none"
-                          >
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
-                                {({ active }) => (
-                                  <Link
-                                    to={item.href}
-                                    className={classNames(
-                                      active ? "bg-gray-100" : "",
-                                      "block py-2 px-4 text-sm text-gray-700"
-                                    )}
-                                  >
-                                    {item.name}
-                                  </Link>
-                                )}
-                              </Menu.Item>
-                            ))}
-                          </Menu.Items>
-                        </Transition>
-                      </>
-                    )}
-                  </Menu>
+                   {/* Profile dropdown */}
+                   
+                  <button 
+                    type="submit"
+                    className="group relative w-32 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-700 hover:bg-indigo-500 hover:text-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={onLogout}
+                  >
+                    TUTUP KASIR                  
+                  </button>
                   <Link
                     to="#"
                     className="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500"
