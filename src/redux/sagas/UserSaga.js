@@ -40,9 +40,8 @@ function* handleSignin(action) {
 function* handleSignout(action) {
     const {payload} = action;
     try {
-        yield put(doSignoutSucceed(payload));
         localStorage.clear();
-        window.location.reload();
+        yield put(doSignoutSucceed(payload));
     } catch (error) {
         yield put(doSignupFailed(error));
     }

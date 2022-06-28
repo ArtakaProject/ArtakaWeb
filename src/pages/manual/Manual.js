@@ -46,6 +46,7 @@ export default function Manual() {
               <label
                 class="block tracking-wide text-gray-700 text-xs font-bold mb-0.5"
                 for="jumlah"
+                defaultValue="0"
               >
                 Jumlah
               </label>

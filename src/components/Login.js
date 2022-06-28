@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React,  {useState, useEffect} from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from "formik";
@@ -21,7 +21,7 @@ export default function Login() {
     if (isLoggedIn){
       navigate(from, { replace: true })
     }
-  }, [from, isLoggedIn, navigate])
+  }, [isLoggedIn])
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);

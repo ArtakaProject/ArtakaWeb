@@ -41,7 +41,7 @@ export default function LoginLayout(props) {
                 <div className="hidden md:flex md:ml-10">
                 <PhoneIcon className="h-9 mt-1 text-purple-700 hover:text-indigo-500"></PhoneIcon>
                   <p className="mt-1 text-black text-lg font-semibold">
-                  +6281122334455
+                  +6285346920918
                   </p>
                   <div className="ml-10 mb-3">
                     <Link
