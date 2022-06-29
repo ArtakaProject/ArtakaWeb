@@ -21,7 +21,7 @@ export default function Login() {
     if (isLoggedIn){
       navigate(from, { replace: true })
     }
-  }, [isLoggedIn])
+  }, [from, isLoggedIn, navigate])
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -32,8 +32,8 @@ export default function Login() {
   
   const validationSchema = Yup.object().shape({
     user_id: Yup.string()
-      .phone("ID",true,"Nomor Handphone Anda Tidak Sesuai")
-      .required("Masukkan Nomor Handphone Anda"),
+      .required("Masukkan Nomor Handphone Anda")
+      .phone("ID",true,"Nomor Handphone Anda Tidak Sesuai"),
     secret_password: Yup.string().required("Masukkan Password Anda"),
   });
 

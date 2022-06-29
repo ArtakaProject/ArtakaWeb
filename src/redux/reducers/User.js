@@ -21,7 +21,6 @@ const INIT_STATE = {
     isLoading: true,
     isLoggedIn : false,
     isLogout : false,
-    token : localStorage.getItem('@token'),
 }
 
 const userReducer = (state = INIT_STATE, action) => {

@@ -28,8 +28,8 @@ function* handleSignin(action) {
         }
         else{
             yield put(doSigninSucceed(result));
-            localStorage.setItem('@token', result.fcm_token);
-            localStorage.setItem('@profile', JSON.stringify(result));
+            window.localStorage.setItem('@token', result.fcm_token);
+            window.localStorage.setItem('@profile', JSON.stringify(result));         
         }
     
     } catch (error) {
@@ -40,8 +40,9 @@ function* handleSignin(action) {
 function* handleSignout(action) {
     const {payload} = action;
     try {
-        localStorage.clear();
+        window.localStorage.clear();
         yield put(doSignoutSucceed(payload));
+        window.location.reload();
     } catch (error) {
         yield put(doSignupFailed(error));
     }

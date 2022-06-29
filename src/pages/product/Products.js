@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { doGetProductRequest } from '../../redux/actions/Product';
+import { doGetProductRequest} from '../../redux/actions/Product';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
@@ -18,8 +18,9 @@ import 'react-loading-skeleton/dist/skeleton.css'
 function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
-const userFromLocalStorage = JSON.parse(localStorage.getItem("@profile") || "[]")
-const prodFromLocalStorage = JSON.parse(localStorage.getItem("@product") || "[]")
+
+//const userFromLocalStorage = JSON.parse(localStorage.getItem('@profile') || '[]')
+//const prodFromLocalStorage = JSON.parse(localStorage.getItem('@product') || '[]')
 
 
 export default function Products() {
@@ -27,9 +28,9 @@ export default function Products() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
-    //get data from local storage
-    const product = useState(prodFromLocalStorage);
-    const user = useState(userFromLocalStorage);
+    // get data from local storage
+    //  const prod = useState(prodFromLocalStorage);
+   // const user = useState(userFromLocalStorage);
     let add = "/artaka/seller/product/add";
     //const [data, setData] = useState([]);
 
@@ -50,19 +51,25 @@ export default function Products() {
     }, []);
 
     async function fetchData() {
+        console.log(JSON.parse(localStorage.getItem('@profile')));
+        console.log(JSON.parse(localStorage.getItem('@product')));
+
+     /*   let test = yield call(doGetProductSucceed())
+        console.log(test); */
+
+        let user = await JSON.parse(localStorage.getItem('@profile'));
+      //  let isiProduct = await JSON.parse(localStorage.getItem('@product'));
+        
         const payload = {
-            user_id: user[0].user_id,
-            outlet_id: user[0].outlet_id,
-          /*  category: product[0].category,
-            is_active: product[0].is_active*/
-
-            
-
-          /*  user_id: "+6287813841133",
-            outlet_id: "OTL-001", */
+            user_id: user.user_id, // +6287813841133
+            outlet_id: user.outlet_id, // OTL-001
             category: "Semua",
             is_active: "All" 
+            
+          /* category: "Semua",
+            is_active: "All" */
         };
+
         dispatch(doGetProductRequest(payload));
     };
 
