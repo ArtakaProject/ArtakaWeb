@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { doGetProductRequest } from '../../redux/actions/Product';
+import { doGetProductRequest} from '../../redux/actions/Product';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
@@ -19,7 +19,8 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
 }
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem("@profile") || "[]")
+//const userFromLocalStorage = JSON.parse(localStorage.getItem('@profile') || '[]')
+//const prodFromLocalStorage = JSON.parse(localStorage.getItem('@product') || '[]')
 
 
 export default function Products() {
@@ -27,8 +28,9 @@ export default function Products() {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.productState.products);
     const isLoading = useSelector((state) => state.productState.isLoading);
-    //get data from local storage
-    const user = useState(userFromLocalStorage);
+    // get data from local storage
+    //  const prod = useState(prodFromLocalStorage);
+   // const user = useState(userFromLocalStorage);
     let add = "/artaka/seller/product/add";
     //const [data, setData] = useState([]);
 
@@ -49,17 +51,25 @@ export default function Products() {
     }, []);
 
     async function fetchData() {
-        const payload = {
-            user_id: user[0].user_id,
-            outlet_id: user[0].outlet_id,
-            category: "Semua",  //user[0].category, //  
-            is_active: "All" //user[0].is_active // 
+        console.log(JSON.parse(localStorage.getItem('@profile')));
+        console.log(JSON.parse(localStorage.getItem('@product')));
 
-            /* user_id: "+6287813841133",
-            outlet_id: "OTL-001",
+     /*   let test = yield call(doGetProductSucceed())
+        console.log(test); */
+
+        let user = await JSON.parse(localStorage.getItem('@profile'));
+      //  let isiProduct = await JSON.parse(localStorage.getItem('@product'));
+        
+        const payload = {
+            user_id: user.user_id, // +6287813841133
+            outlet_id: user.outlet_id, // OTL-001
             category: "Semua",
+            is_active: "All" 
+            
+          /* category: "Semua",
             is_active: "All" */
         };
+
         dispatch(doGetProductRequest(payload));
     };
 
@@ -93,7 +103,7 @@ export default function Products() {
 
     const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 
-    //console.log(user);
+    //console.log(product);
     return (
         <>
             <div className="flex w-full mb-5">
@@ -457,4 +467,4 @@ export default function Products() {
             </div >
         </>
     );
-}
+                                        }

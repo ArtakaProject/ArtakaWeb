@@ -21,7 +21,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const userFromLocalStorage = JSON.parse(localStorage.getItem("user") || "[]")
+// const userFromLocalStorage = JSON.parse(localStorage.getItem('@profile') || '[]')
 
 export default function Customer() {
   let navigate = useNavigate();
@@ -29,7 +29,7 @@ export default function Customer() {
   const customer = useSelector((state) => state.customerState.customer);
   const isLoading = useSelector((state) => state.customerState.isLoading);
   //get data from local storage
-  const user = useState(userFromLocalStorage);
+ // const user = useState(userFromLocalStorage);
   let add = "/artaka/seller/customer/add";
 
   const columns = useMemo(() => [
@@ -53,9 +53,12 @@ export default function Customer() {
 
 
   async function fetchData() {
+    console.log(JSON.parse(localStorage.getItem('@profile')));
+    let user = await JSON.parse(localStorage.getItem('@profile'));
+    
     const payload = {
-      user_id: user[0].user_id,
-      outlet_id: user[0].outlet_id,
+        user_id: user.user_id,
+        outlet_id: user.outlet_id,
     };
     dispatch(doGetCustomerRequest(payload));
   }

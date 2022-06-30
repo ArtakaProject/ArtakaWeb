@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React,  {useState, useEffect} from "react";
 import { LockClosedIcon } from "@heroicons/react/solid";
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from "formik";
@@ -12,7 +12,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Login() {
   let navigate = useNavigate();
-  let location = useLocation();
   let from = "/artaka/seller/cashier";
 
   const dispatch = useDispatch();
@@ -22,8 +21,7 @@ export default function Login() {
     if (isLoggedIn){
       navigate(from, { replace: true })
     }
-
-  }, [isLoggedIn])
+  }, [from, isLoggedIn, navigate])
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -34,8 +32,8 @@ export default function Login() {
   
   const validationSchema = Yup.object().shape({
     user_id: Yup.string()
-      .phone("ID",true,"Nomor Handphone Anda Tidak Sesuai")
-      .required("Masukkan Nomor Handphone Anda"),
+      .required("Masukkan Nomor Handphone Anda")
+      .phone("ID",true,"Nomor Handphone Anda Tidak Sesuai"),
     secret_password: Yup.string().required("Masukkan Password Anda"),
   });
 
