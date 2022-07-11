@@ -10,6 +10,17 @@ const findAll = async(payload)=>{
     }
 }
 
+/* const findctgry = async(payload)=>{
+    try {
+        const result = await axios.post(`${config.domain}/products/show`,payload); //post
+        return result;    
+    } catch (error) {
+        return error;
+    }
+}
+ */
+
 export default {
-    findAll
+    findAll/* ,
+    findctgry */
 }

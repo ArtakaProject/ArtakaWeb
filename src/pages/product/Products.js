@@ -1,11 +1,12 @@
 import React, { useEffect, Fragment, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { doGetProductRequest} from '../../redux/actions/Product';
+import { doGetProductRequest } from '../../redux/actions/Product';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
 import {
     PencilAltIcon, TrashIcon, DotsVerticalIcon, PhotographIcon, SearchIcon
 } from '@heroicons/react/solid';
 import { Menu, Transition } from '@headlessui/react';
+import { Switch } from '@mui/material';
 import { useNavigate, Link } from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { PlusIcon } from '@heroicons/react/outline';
@@ -30,7 +31,7 @@ export default function Products() {
     const isLoading = useSelector((state) => state.productState.isLoading);
     // get data from local storage
     //  const prod = useState(prodFromLocalStorage);
-   // const user = useState(userFromLocalStorage);
+    // const user = useState(userFromLocalStorage);
     let add = "/artaka/seller/product/add";
     //const [data, setData] = useState([]);
 
@@ -54,20 +55,20 @@ export default function Products() {
         console.log(JSON.parse(localStorage.getItem('@profile')));
         console.log(JSON.parse(localStorage.getItem('@product')));
 
-     /*   let test = yield call(doGetProductSucceed())
-        console.log(test); */
+        /*   let test = yield call(doGetProductSucceed())
+           console.log(test); */
 
         let user = await JSON.parse(localStorage.getItem('@profile'));
-      //  let isiProduct = await JSON.parse(localStorage.getItem('@product'));
-        
+        //let isiProduct = await JSON.parse(localStorage.getItem('@product'));
+
         const payload = {
             user_id: user.user_id, // +6287813841133
             outlet_id: user.outlet_id, // OTL-001
             category: "Semua",
-            is_active: "All" 
-            
-          /* category: "Semua",
-            is_active: "All" */
+            is_active: "All"
+
+            /* category: "Semua",
+              is_active: "All" */
         };
 
         dispatch(doGetProductRequest(payload));
@@ -177,7 +178,7 @@ export default function Products() {
                                                 >
                                                     <b>OPSI</b>
                                                 </th>
-                                                
+
                                                 {/* ))} */}
                                             </tr>
                                         </thead>
@@ -294,7 +295,7 @@ export default function Products() {
                                                             <td>
                                                                 <div className="flex items-center">
                                                                     <div className="flex-shrink-0 h-12 w-12">
-                                                                        <img className="h-10 w-10 " /* rounded-full */
+                                                                        <img className="h-10 w-10 rounded-full" /*  */
                                                                             src={row.cells[1].value}
                                                                             alt=""
                                                                         />
@@ -313,10 +314,11 @@ export default function Products() {
                                                                 <div className="text-sm text-gray-700">Sisa {row.cells[6].value}</div>
                                                             </td>
                                                             <td>
-                                                                {/* <ToggleSwitch /> */}
-                                                                <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
+                                                                <Switch defaultChecked />
+
+                                                                {/* <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
                                                                     <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
-                                                                </div>
+                                                                </div> */}
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap text-center text-sm font-medium ">
                                                                 <Menu as="div" className="relative flex justify-end items-center ">
@@ -467,4 +469,4 @@ export default function Products() {
             </div >
         </>
     );
-                                        }
+}
