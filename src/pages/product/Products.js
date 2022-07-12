@@ -52,7 +52,6 @@ export default function Products() {
 
     async function fetchData() {
         console.log(JSON.parse(localStorage.getItem('@profile')));
-        console.log(JSON.parse(localStorage.getItem('@product')));
 
      /*   let test = yield call(doGetProductSucceed())
         console.log(test); */

@@ -19,7 +19,7 @@ export default function SettingOrderOnline() {
           Kembali
         </Link>
       </div>
-      <Link to="https://www.youtube.com/channel/UC_7HOM7ncze-MvYgwvxfpNA/videos">
+      <Link to="/artaka/seller/setting-online-order/courier">
         <div className="py-3 h-24 hover:bg-gray-200 ">
           <TwoWheeler className="text-purple-700" fontSize="large" />
           <p class="text-2xl md:text-3xl font-normal leading-normal inline-block ml-5">
@@ -30,7 +30,7 @@ export default function SettingOrderOnline() {
           </p>
         </div>
       </Link>
-      <Link to="/artaka/not-found">
+      <Link to="/artaka/seller/setting-online-order/online-payment">
         <div className="py-3 h-24 hover:bg-gray-200 ">
           <CreditCard className="text-purple-700" fontSize="large" />
           <p class="text-2xl md:text-3xl font-normal leading-normal inline ml-5">

@@ -16,6 +16,8 @@ import {
   HelpPage,
   SettingShop,
   SettingOrderOnline,
+  Courier,
+  OnlinePayment
 } from './pages';
 import Login from './components/Login';
 import Register from './components/Register'
@@ -96,6 +98,15 @@ export default function Routes(isLoggedIn) {
       children: [
         { path: 'add', element: isLoggedIn ? <AddCust /> : <Navigate to="/artaka/signin"/> },
         { path: 'edit', element: isLoggedIn ? <EditCust /> : <Navigate to="/artaka/signin"/> },
+        { path: 'not-found', element: <PageNotFound /> },
+      ]
+    },
+    {
+      path: '/artaka/seller/setting-online-order',
+      element:  <AdminLayout/>,
+      children: [
+        { path: 'courier', element: isLoggedIn ? <Courier /> : <Navigate to="/artaka/signin"/> },
+        { path: 'online-payment', element: isLoggedIn ? <OnlinePayment /> : <Navigate to="/artaka/signin"/> },
         { path: 'not-found', element: <PageNotFound /> },
       ]
     },
