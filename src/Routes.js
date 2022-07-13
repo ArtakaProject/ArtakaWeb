@@ -90,6 +90,11 @@ export default function Routes(isLoggedIn) {
         { path: 'not-found', element: <PageNotFound /> },
       ]
     },
+    //
+    {
+      path: '/artaka/seller/product/:category',
+      element:  <AdminLayout/>
+    },
     {
       path: '/artaka/seller/customer',
       element:  <AdminLayout/>,

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import config from '../config/config';
-/* 
+
 const list = async () => {
     try {
         const response = await axios.get(`${config.domain}/category/`)
@@ -9,7 +9,7 @@ const list = async () => {
         return await err.message
     }
 }
-
+/* 
 const createRow = async(data)=>{
     try {
         const result = await axios.post(`${config.domain}/category/`,data);
@@ -52,10 +52,11 @@ const deleteRow = async(id)=>{
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
+*/
 export default {
     list,
-    createRow,
-    findRow,
-    updateRow,
-    deleteRow
-} */
+    //createRow,
+    //findRow,
+    //updateRow,
+    //deleteRow
+} 

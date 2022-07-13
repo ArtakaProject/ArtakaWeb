@@ -23,7 +23,6 @@ function classNames(...classes) {
 //const userFromLocalStorage = JSON.parse(localStorage.getItem('@profile') || '[]')
 //const prodFromLocalStorage = JSON.parse(localStorage.getItem('@product') || '[]')
 
-
 export default function Products() {
     let navigate = useNavigate();
     const dispatch = useDispatch();
@@ -39,6 +38,7 @@ export default function Products() {
         { Header: 'ID', accessor: 'id' },
         { Header: 'GAMBAR', accessor: 'images' },
         { Header: 'NAMA PRODUK', accessor: 'name' },
+        { Header: 'KATEGORI PRODUK', accessor: 'category' },
         { Header: 'DESKRIPSI', accessor: 'description' },
         { Header: 'HARGA', accessor: 'sell_cost' },
         { Header: 'STOK BARANG (TERJUAL)', accessor: 'quantity' },
@@ -59,19 +59,32 @@ export default function Products() {
            console.log(test); */
 
         let user = await JSON.parse(localStorage.getItem('@profile'));
-        //let isiProduct = await JSON.parse(localStorage.getItem('@product'));
+        let prdct = await JSON.parse(localStorage.getItem('@product'));
 
         const payload = {
             user_id: user.user_id, // +6287813841133
             outlet_id: user.outlet_id, // OTL-001
-            category: "Semua",
+            category: prdct.category,
             is_active: "All"
 
             /* category: "Semua",
               is_active: "All" */
         };
 
-        dispatch(doGetProductRequest(payload));
+        const handleChecked = (e) => {
+            console.log(payload.category);
+            if (payload.checked) {
+                const rowf = payload.filter(
+                    (rwf) => rwf.category === payload.category
+                );
+                dispatch(doGetProductRequest(rowf));
+            } else {
+                dispatch(doGetProductRequest(payload));
+            }
+        };
+
+        handleChecked();
+        //dispatch(doGetProductRequest(payload));
     };
 
     const {
@@ -302,16 +315,16 @@ export default function Products() {
                                                                     </div>
                                                                     <div className="ml-4">
                                                                         <div className="text-sm font-medium text-black">{row.cells[2].value}</div>
-                                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{row.cells[3].value}</div>
+                                                                        <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{row.cells[4].value}</div>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td className="px-6 py-4 whitespace-nowrap">
-                                                                <div className="text-sm text-black">Rp{new Intl.NumberFormat('ID').format(row.cells[4].value)},00</div>
+                                                                <div className="text-sm text-black">Rp{new Intl.NumberFormat('ID').format(row.cells[5].value)},00</div>
                                                             </td>
                                                             <td>
-                                                                <div className="text-sm text-black">Terjual {row.cells[5].value}</div>
-                                                                <div className="text-sm text-gray-700">Sisa {row.cells[6].value}</div>
+                                                                <div className="text-sm text-black">Terjual {row.cells[6].value}</div>
+                                                                <div className="text-sm text-gray-700">Sisa {row.cells[7].value}</div>
                                                             </td>
                                                             <td>
                                                                 <Switch defaultChecked />
@@ -352,11 +365,12 @@ export default function Products() {
                                                                                                             id: row.cells[0].value,
                                                                                                             images: row.cells[1].value,
                                                                                                             name: row.cells[2].value,
-                                                                                                            description: row.cells[3].value,
-                                                                                                            sell_cost: row.cells[4].value,
-                                                                                                            quantity: row.cells[5].value,
-                                                                                                            minimum_quantity: row.cells[6].value,
-                                                                                                            is_active: row.cells[7].value
+                                                                                                            category: row.cells[3].value,
+                                                                                                            description: row.cells[4].value,
+                                                                                                            sell_cost: row.cells[5].value,
+                                                                                                            quantity: row.cells[6].value,
+                                                                                                            minimum_quantity: row.cells[7].value,
+                                                                                                            is_active: row.cells[8].value
                                                                                                         }
                                                                                                     }}
                                                                                                     className={classNames(
@@ -440,7 +454,7 @@ export default function Products() {
                                                 </strong>{' '}
                                             </span>
                                             {/* <span className="relative inline-flex items-center px-2 py-2 bg-white text-sm font-medium text-gray-700">
-                                                <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))}>
+                                                <select value={pageSize} onChange={e => setPageSize(Number(payload.category))}>
                                                     {
                                                         [5, 10, 100].map(pageSize => (
                                                             <option key={pageSize} value={pageSize}>
