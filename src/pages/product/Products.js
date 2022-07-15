@@ -43,7 +43,7 @@ export default function Products() {
         { Header: 'HARGA', accessor: 'sell_cost' },
         { Header: 'STOK BARANG (TERJUAL)', accessor: 'quantity' },
         { Header: 'STOK BARANG (SISA)', accessor: 'minimum_quantity' },
-        { Header: 'STATUS', accessor: 'is_active' },
+        { Header: 'STATUS', accessor: 'is_stock_tracked' },
         { Header: 'OPSI', accessor: '' }
     ], [])
 
@@ -327,7 +327,11 @@ export default function Products() {
                                                                 <div className="text-sm text-gray-700">Sisa {row.cells[7].value}</div>
                                                             </td>
                                                             <td>
-                                                                <Switch defaultChecked />
+                                                                if ({row.cells[8]} == "yes") {
+                                                                    <Switch defaultChecked />
+                                                                } else{
+                                                                    <Switch/>
+                                                                }
 
                                                                 {/* <div className="w-12 h-6 flex items-center bg-gray-300 rounded-full mx-3 px-1" >
                                                                     <div className="bg-white w-4 h-4 rounded-full shadow-md transform" ></div>
