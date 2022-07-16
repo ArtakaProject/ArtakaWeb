@@ -3,6 +3,7 @@ import { Route, Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 //import { doEditProductRequest } from '../../redux/actions/Product';
 import { Axios } from 'axios';
+import { Switch } from '@material-ui/core';
 
 export default function EditProduct() {
   //  let history = useHistory();
@@ -264,9 +265,7 @@ export default function EditProduct() {
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_stock_tracked" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok</label>
                                         <input type="checkbox" id="switch" class="checkbox" value={values.is_stock_tracked} />
-                                        <label class="switch toggle">
-                                            <span class="slider round"></span>
-                                        </label>
+                                        <Switch/>
 
                                     </div>
 
@@ -297,9 +296,7 @@ export default function EditProduct() {
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
                                         <input type="checkbox" id="switch" class="checkbox" value={values.is_active} />
-                                        <label class="switch toggle">
-                                            <span class="slider round"></span>
-                                        </label>
+                                        <Switch/>
                                     </div>
 
                                     <div class="col-span-6 sm:col-span-6">

@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { doCategoryStarted } from '../../redux/actions/Category';
 import { doAddProductSucceed, doGetProductRequest } from '../../redux/actions/Product';
 import { handleAddProduct } from '../../redux/sagas/ProductSaga';
-import { ToggleSwitch } from '../../components/navigation/ToggleSwitch';
+
+import { Switch } from '@material-ui/core';
 
 export default function AddProduct() {
    // let history = useHistory();
@@ -256,7 +257,7 @@ export default function AddProduct() {
 
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="is_stock_tracked" class="block text-sm font-medium text-gray-700">Penjualan Mengurangi Stok (Opsional)</label>
-                                            <ToggleSwitch />
+                                            <Switch/>
 
                                         </div>
 
@@ -286,7 +287,7 @@ export default function AddProduct() {
 
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
-                                            <ToggleSwitch />
+                                            <Switch/>
                                         </div>
 
                                         <div class="col-span-6 sm:col-span-6">
