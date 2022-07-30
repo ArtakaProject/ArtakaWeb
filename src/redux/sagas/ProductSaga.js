@@ -14,7 +14,6 @@ function* handleGetProduct(action) {
   try {
     const result = yield call(apiProduct.findAll, payload);
     yield put(doGetProductSucceed(result.data)); //.data
-
     window.localStorage.setItem('@product', JSON.stringify(result.data));
 
   } catch (error) {
@@ -22,4 +21,20 @@ function* handleGetProduct(action) {
   }
 }
 
-export { handleGetProduct };
+function* handleGetProdctCtgry(action) {
+  const { payload } = action;
+  try {
+    const result = yield call(apiProduct.findProdCtgry, payload.category);
+    yield put(doGetProductSucceed(result.data)); //.data
+    window.localStorage.setItem('@product', JSON.stringify(result.data));
+
+
+  } catch (error) {
+    yield put(doProductFailed(error));
+  }
+}
+
+export { 
+  handleGetProduct,
+  handleGetProdctCtgry 
+};

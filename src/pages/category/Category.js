@@ -14,7 +14,7 @@ function Category(props) {
     let [isEditOpen, setIsEditOpen] = useState(false);
     const [action, setAction] = useState({
         id: undefined,
-        actionType: "edit"
+        actionType: undefined
     });
 
 
@@ -44,20 +44,20 @@ function Category(props) {
     }
 
     const onEdit = (id) => {
-        setAction({
+       /*  setAction({
             id: id,
             actionType: "edit"
         });
-        setIsEditOpen(true);
+        setIsEditOpen(true); */
 
     }
 
     const onDelete = async (id) => {
 
-        //dispatch(doDeleteCategoryRequest(id));
+        /* dispatch(doDeleteCategoryRequest(id));
         props.deleteCategory(id);
         toast.success("record has been delete")
-
+ */
     }
 
     return (
@@ -71,13 +71,13 @@ function Category(props) {
                                     scope="col"
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
-                                    Id
+                                    Nomor ID
                                 </th>
                                 <th
                                     scope="col"
                                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                                 >
-                                    Category Name
+                                    Kategori Produk
                                 </th>
                                 <th scope="col" className="relative px-8 py-3 text-right">
                                     <button

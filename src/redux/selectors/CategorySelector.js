@@ -1,7 +1,7 @@
-import { createSelector } from 'reselect';
+//import { createSelector } from 'reselect';
 
 const findCategoryById = (state,props)=>{
-    const category = state.categoryState.categories.filter(v => v.cate_id ===props.action.id);
+    const category = state.categoryState.categories.filter(v => v.cate_id === props.action.id);
     return category
 }
 
