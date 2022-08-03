@@ -52,12 +52,7 @@ export default function Products() {
 
     async function fetchData() {
         console.log(JSON.parse(localStorage.getItem('@profile')));
-
-     /*   let test = yield call(doGetProductSucceed())
-        console.log(test); */
-
         let user = await JSON.parse(localStorage.getItem('@profile'));
-      //  let isiProduct = await JSON.parse(localStorage.getItem('@product'));
         
         const payload = {
             user_id: user.user_id, // +6287813841133
