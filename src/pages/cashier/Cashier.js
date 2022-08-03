@@ -30,7 +30,6 @@ export default function Cashier() {
   //   };
 
   //   dispatch(doGetProductRequest(payload));
-  }
 
   return (
     <div>
@@ -90,4 +89,7 @@ export default function Cashier() {
       </div>
     </div>
   );
-}
+  }
+
+ 
+
