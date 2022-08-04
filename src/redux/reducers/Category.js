@@ -3,7 +3,9 @@ import { createSelector } from 'reselect';
 
 const INIT_STATE = {
     categories: [],
+    ctgryDefault: "Semua",
     category: {},
+    
     isLoading: false,
     succeed: false,
     status : null,
@@ -30,7 +32,7 @@ const categoryReducer = (state = INIT_STATE, action) => {
                 ...state,
                 categories: action.payload,
                 isLoading: false,
-                error: null
+                //error: null
             }
         }
         case ActionType.GET_CATEGORY_FAILED: {

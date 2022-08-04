@@ -295,7 +295,7 @@ export default function EditProduct() {
 
                                     <div class="col-span-6 sm:col-span-3">
                                         <label for="is_active" class="block text-sm font-medium text-gray-700">Harga Grosir</label>
-                                        {/* <input type="checkbox" id="switch" class="checkbox" value={values.is_active} /> */}
+                                        <input type="checkbox" id="switch" class="checkbox" value={values.is_active} />
                                         <Switch/>
                                     </div>
 

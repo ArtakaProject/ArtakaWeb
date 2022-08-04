@@ -8,6 +8,16 @@ const findAll = async(payload)=>{
     } catch (error) {
         return error;
     }
+};
+
+//
+const findProdCtgry = async (payload) => {
+    try {
+        const result = await axios.post(`${config.domain}/products/show`, payload.category = "Semua"); //post
+        return result;
+    } catch (error) {
+        return error;
+    }
 }
 
 /* const findctgry = async(payload)=>{
@@ -21,6 +31,6 @@ const findAll = async(payload)=>{
  */
 
 export default {
-    findAll/* ,
-    findctgry */
+    findAll,
+    findProdCtgry
 }

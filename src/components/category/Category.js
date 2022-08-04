@@ -6,8 +6,7 @@ function Category(props) {
 
 
     useEffect(() => {
-        const payload = {}
-        props.getCategories(payload)
+        onGetCategory();
     }, []);
 
     const onGetCategory = () => {
