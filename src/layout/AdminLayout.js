@@ -72,7 +72,7 @@ const subMenu = [
   { name: "Pengeluaran Non Persediaan", href: "/artaka/not-found" },
   { name: "Riwayat Retur Penjualan", href: "/artaka/not-found" },
   { name: "Printer & Struk", href: "/artaka/not-found" },
-  { name: "Inbox", href: "/artaka/not-found" },
+  { name: "Inbox", href: "/artaka/seller/inbox" },
 ];
 
 const userNavigation = [
