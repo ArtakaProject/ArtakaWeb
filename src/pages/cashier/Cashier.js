@@ -117,38 +117,6 @@ export default function Dashboard() {
               login nomor handphone dan Password Artaka
             </p> */}
             <div className="flex w-full mb-5">
-              {/* <button
-                    type="button"
-                    class="p-2 ml-3 mr-3 text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"
-                >
-                    <b>Semua</b>
-                </button>
-                <button
-                    type="button"
-                    class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"
-                >
-                    <b>Masker</b>
-                </button>
-                <button
-                    type="button"
-                    class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"
-                >
-                    <b>Vitamin</b>
-                </button>
-                <button
-                    type="button"
-                    class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"
-                >
-                    <b>Obat</b>
-                </button>
-                <button
-                    type="button"
-                    class="p-2 ml-3 mr-3 text-purple bg-gray-300 hover:bg-indigo-800 hover:text-white focus:ring-4 focus:ring-purple-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mb-2 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-purple-900"
-                >
-                    <b>Hand Sanitizer</b>
-                </button> */}
-
-              {/* <div className="flex items-center justify-between"> */}
               <Link to="/artaka/seller/product/add">
                 <button class="px-5 inline py-2 text-sm font-semibold  leading-5 shadow-2xl text-purple-700 transition-colors duration-150 border border-purple-700 focus:outline-none focus:shadow-outline-blue bg-transparent hover:bg-purple-700 hover:text-black hover:border-blue-500 rounded-full">
                   Tambah Produk
@@ -165,40 +133,33 @@ export default function Dashboard() {
                 </button>
               </a>
             </div>
-
             {isLoading && (
               /* <div className="flex items-center h-screen">   <CircularProgress className="mx-auto" /> </div> */
               <>
-
                 <tbody className="bg-white divide-y divide-gray-200">
                   {count.map((i) => {
                     return (
                       <tr>
                         <td>
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10 ml-2">
-                              <Skeleton
-                                className="h-10 w-10 rounded-full"
-                                alt=""
-                              />
+                          <div class="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                            <a>
+                              <Skeleton class="p-8 rounded-t-lg" alt="" />
+                            </a>
+                            <div class="px-5 pb-5">
+                              <a>
+                                <Skeleton class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white" />
+                              </a>
+                              <div class="flex items-center mt-2.5 mb-5">
+                                <Skeleton />
+                              </div>
+                              <div class="flex justify-between items-center">
+                                <span class="text-3xl font-bold text-gray-900 dark:text-white">
+                                  <Skeleton />
+                                </span>
+                                <Skeleton />
+                              </div>
                             </div>
                           </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <Skeleton className="text-sm text-gray-900" />
-                          <Skeleton className="text-sm text-gray-900" />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <Skeleton />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <Skeleton />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <Skeleton />
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <Skeleton />
                         </td>
                       </tr>
                     );
@@ -208,94 +169,34 @@ export default function Dashboard() {
             )}
             {!isLoading && (
               <>
-                <table className="min-w-full h-auto divide-gray-200">
-                  <thead className="bg-gray-200">
-                    <tr>
-                      {/* {columns.map(col => ( */}
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider"
-                      >
-                        <b>NAMA PRODUK</b>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider"
-                      >
-                        <b>HARGA</b>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider"
-                      >
-                        <b>STOK BARANG</b>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider"
-                      >
-                        <b>STATUS</b>
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-6 py-3 text-center text-xs font-medium text-gray-900 uppercase tracking-wider"
-                      >
-                        <b>OPSI</b>
-                      </th>
-                      {/* ))} */}
+                {page.map((row) => {
+                  prepareRow(row);
+                  return (
+                    <tr key={row.cells[0].value}>
+                      <td>
+                        <div class="max-w-sm bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                          <a >
+                            <img class="p-8 rounded-t-lg" src={row.cells[1].value} alt="" />
+                          </a>
+                          <div class="px-5 pb-5">
+                            <a >
+                              <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{row.cells[2].value}</h5>
+                            </a>
+                            <div class="flex items-center mt-2.5 mb-5">
+                              {row.cells[3].value}
+                            </div>
+                            <div class="flex justify-between items-center">
+                              <span class="text-3xl font-bold text-gray-900 dark:text-white">
+                                Rp{new Intl.NumberFormat("ID").format(row.cells[5].value)},00
+                              </span>
+                              {row.cells[8].value}
+                            </div>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
-                    {page.map((row) => {
-                      prepareRow(row);
-                      return (
-                        <tr key={row.cells[0].value}>
-                          <td>
-                            <div className="flex items-center">
-                              <div className="flex-shrink-0 h-12 w-12">
-                                <img
-                                  className="h-10 w-10 shadow" /* rounded-full */
-                                  src={row.cells[1].value}
-                                  alt={row.cells[3].value}
-                                />
-                              </div>
-                              <div className="ml-4">
-                                <div className="text-sm font-medium text-black">
-                                  <strong>{row.cells[2].value}</strong>
-                                </div>
-                                <div className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                                  {row.cells[4].value}
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm text-black text-center">
-                              Rp
-                              {new Intl.NumberFormat("ID").format(
-                                row.cells[5].value
-                              )}
-                              ,00
-                            </div>
-                          </td>
-                          <td>
-                            <div className="text-sm text-black ">
-                              Terjual {row.cells[6].value}
-                            </div>
-                            <div className="text-sm text-gray-700">
-                              Sisa {row.cells[7].value}
-                            </div>
-                          </td>
-                          <td>
-                            <Switch defaultChecked />
-                            {/* {row.cells[8].value} */}
-                          </td>
-
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+                  );
+                })}
               </>
             )};
           </div>
