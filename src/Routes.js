@@ -6,7 +6,6 @@ import {  AdminLayout, RegisterLayout } from './layout';
 import {
   Products as ProductPage,
   Customer,
-  Inbox,
   Cashier as CashierPage,
   Manual as ManualPage,
   CashFlow,ProfitNLoss,BalanceSheet,
@@ -65,7 +64,7 @@ export default function Routes(isLoggedIn) {
         { path: 'manual', element: isLoggedIn ? <ManualPage/> : <Navigate to="/artaka/signin"/>},
         { path: 'help', element: isLoggedIn ? <HelpPage/>: <Navigate to="/artaka/signin"/> },
         { path: 'customer', element: isLoggedIn ? <Customer /> : <Navigate to="/artaka/signin"/>},
-        { path: 'inbox', element: isLoggedIn ? <Inbox /> : <Navigate to="/artaka/signin"/>},
+   //     { path: 'inbox', element: isLoggedIn ? <Inbox /> : <Navigate to="/artaka/signin"/>},
    //     { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
    //     { path: 'edit-customer', element: isLoggedIn ? <EditCust />: <Navigate to="/artaka/signin"/> },
         { path: 'product', element: isLoggedIn ? <ProductPage />: <Navigate to="/artaka/signin"/> },
