@@ -17,7 +17,8 @@ import {
   SettingShop,
   SettingOrderOnline,
   Courier,
-  OnlinePayment
+  OnlinePayment,
+  Inbox
 } from './pages';
 import Login from './components/Login';
 import Register from './components/Register'
