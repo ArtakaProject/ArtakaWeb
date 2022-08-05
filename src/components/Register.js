@@ -2,14 +2,6 @@ import React, { Fragment, useRef, useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import "yup-phone";
-import { LockClosedIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
-import { toast } from "react-toastify";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { doSignupRequest } from "../redux/actions/User";
-import { Password } from "@mui/icons-material";
 
 export default function Register(props) {
   const [showPassword, setShowPassword] = useState(false);

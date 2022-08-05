@@ -1,9 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DocumentTextIcon } from "@heroicons/react/outline";
 import { ViewGridIcon, SearchIcon, ViewListIcon } from "@heroicons/react/solid";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { doGetProductRequest } from "../../redux/actions/Product";
 
-export default function Dashboard() {
+export default function Cashier() {
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
+  // async function fetchData() {
+  //   console.log(JSON.parse(localStorage.getItem("@profile")));
+  //   let user = await JSON.parse(localStorage.getItem("@profile"));
+    
+  //   console.log(JSON.parse(localStorage.getItem('@product')));
+  //   let prod = await JSON.parse(localStorage.getItem('@product'));
+
+  //   const payload = {
+  //     user_id: user.user_id, // +6287813841133
+  //     outlet_id: user.outlet_id, // OTL-001
+  //     category: prod.category,
+  //     is_active: prod.is_active,
+
+  //     /* category: "Semua",
+  //       is_active: "All" */
+  //   };
+
+  //   dispatch(doGetProductRequest(payload));
+
   return (
     <div>
       <div className="py-6 justify-center inline-block min-w-full sm:px-6 lg:px-8">
@@ -62,4 +89,7 @@ export default function Dashboard() {
       </div>
     </div>
   );
-}
+  }
+
+ 
+
