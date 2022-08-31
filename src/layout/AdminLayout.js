@@ -71,7 +71,7 @@ const subMenu = [
   { name: "Pemasukan Non Kasir", href: "/artaka/not-found" },
   { name: "Pengeluaran Non Persediaan", href: "/artaka/not-found" },
   { name: "Riwayat Retur Penjualan", href: "/artaka/not-found" },
-  { name: "Printer & Struk", href: "/artaka/not-found" },
+  { name: "Printer & Struk", href: "/artaka/seller/printer" },
   { name: "Inbox", href: "/artaka/seller/inbox" },
 ];
 
@@ -332,7 +332,7 @@ export default function AdminLayout(props) {
                   </Link>
 
                   <Link
-                    to="/artaka/not-found"
+                    to="/artaka/seller/order"
                     className="hover:bg-gray-50 text-purple-900 group flex items-center px-3 py-1 text-sm font-medium rounded-md"
                     aria-current="page"
                   >
