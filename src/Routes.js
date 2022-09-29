@@ -8,7 +8,7 @@ import {
   Customer,
   Cashier as CashierPage,
   Manual as ManualPage,
-  CashFlow,ProfitNLoss,BalanceSheet,
+  Order, OrderWA, CashFlow,ProfitNLoss,BalanceSheet,
   AddCust,EditCust,
   AddProduct, EditProduct, SettingProduct,
   SettingPromoPoint,PageNotFound,
@@ -17,8 +17,8 @@ import {
   SettingShop,
   SettingOrderOnline,
   Courier,
-  OnlinePayment,
-  Inbox
+  OnlinePayment,Printer,
+  Receipt,Inbox
 } from './pages';
 import Login from './components/Login';
 import Register from './components/Register'
@@ -66,6 +66,8 @@ export default function Routes(isLoggedIn) {
         { path: 'help', element: isLoggedIn ? <HelpPage/>: <Navigate to="/artaka/signin"/> },
         { path: 'customer', element: isLoggedIn ? <Customer /> : <Navigate to="/artaka/signin"/>},
         { path: 'inbox', element: isLoggedIn ? <Inbox /> : <Navigate to="/artaka/signin"/>},
+        { path: 'order', element: isLoggedIn ? <Order /> : <Navigate to="/artaka/signin"/>},
+        { path: 'orderWA', element: isLoggedIn ? <OrderWA /> : <Navigate to="/artaka/signin"/>},
    //     { path: 'add-customer', element: isLoggedIn ? < AddCust/>: <Navigate to="/artaka/signin"/> },
    //     { path: 'edit-customer', element: isLoggedIn ? <EditCust />: <Navigate to="/artaka/signin"/> },
         { path: 'product', element: isLoggedIn ? <ProductPage />: <Navigate to="/artaka/signin"/> },
@@ -73,6 +75,9 @@ export default function Routes(isLoggedIn) {
         { path: 'setting-promo-point', element: isLoggedIn ? <SettingPromoPoint /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-shop', element: isLoggedIn ? <SettingShop /> : <Navigate to="/artaka/signin"/> },
         { path: 'setting-online-order', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
+        { path: 'setting-online-order', element: isLoggedIn ? <SettingOrderOnline /> : <Navigate to="/artaka/signin"/> },
+        { path: 'printer', element: isLoggedIn ? <Printer /> : <Navigate to="/artaka/signin"/> },
+        { path: 'receipt', element: isLoggedIn ? <Receipt /> : <Navigate to="/artaka/signin"/> },
         { path: 'signin', element : <Navigate to="/artaka/signin"/> },
         { path: 'not-found', element: <PageNotFound /> },
       ]
