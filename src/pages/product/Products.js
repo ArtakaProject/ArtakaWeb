@@ -26,7 +26,7 @@ export default function Products() {
   const products = useSelector((state) => state.productState.products);
   const isLoading = useSelector((state) => state.productState.isLoading);
 
-  const [selectedCategory, setSelectedCategory] = useState(products);
+  // const [selectedCategory, setSelectedCategory] = useState(products);
 
   // get data from local storage
   //  const prod = useState(prodFromLocalStorage);
@@ -80,8 +80,6 @@ export default function Products() {
     console.log(JSON.parse(localStorage.getItem("@profile")));
     console.log(JSON.parse(localStorage.getItem("@product")));
 
-    /*   let test = yield call(doGetProductSucceed())
-                    console.log(test); */
 
     let user = await JSON.parse(localStorage.getItem("@profile"));
     //let prdct = console.log(JSON.parse(localStorage.getItem('@product')));
