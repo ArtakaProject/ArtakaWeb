@@ -38,7 +38,7 @@ const navigation = [
 
   {
     name: "Pesanan",
-    href: "/artaka/not-found",
+    href: "/artaka/not-found", // /artaka 
     icon: ShoppingCartIcon,
     current: false,
   },
